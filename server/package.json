@@ -2,6 +2,6 @@
   "name": "sublime-volar",
   "version": "0.0.0",
   "dependencies": {
-    "@volar/server": "^0.26.10"
+    "@volar/server": "^0.26.11"
   }
 }
