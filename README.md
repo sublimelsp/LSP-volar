@@ -1,6 +1,4 @@
-# LSP-volar (experimental support)
-
-> NOTE: This plugin is not currently working. If you find a way to make the sever work, PR-s are welcome! :)
+# LSP-volar
 
 This is a helper package that automatically installs and updates the
 [Volar Language Server](https://github.com/johnsoncodehk/volar) for you.
