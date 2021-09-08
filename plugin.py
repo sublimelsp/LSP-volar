@@ -30,6 +30,8 @@ class LspVolarPlugin(NpmClientHandler):
     ):
         if not workspace_folders or not configuration:
             return
+        if configuration.init_options.get('typescript.serverPath'):
+            return # don't find the `typescript.serverPath` if it was set explicitly in LSP-volar.sublime-settings
         server_directory_path = cls._server_directory_path()
         resolve_module_script = os.path.join(server_directory_path, 'resolve_module.js')
         first_folder = workspace_folders[0].path
