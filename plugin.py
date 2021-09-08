@@ -32,6 +32,6 @@ class LspVolarPlugin(NpmClientHandler):
             return
         resolve_module_script = os.path.join(cls._server_directory_path(), 'resolve_module.js')
         first_folder = workspace_folders[0].path
-        workspace_ts_path = subprocess.check_output([cls._node_bin(), resolve_module_script, first_folder, 'typescript/lib/tsserverlibrary.js']).decode('utf-8', 'ignore')
+        workspace_ts_path = subprocess.check_output([cls._node_bin(), resolve_module_script, first_folder, 'typescript/lib/tsserverlibrary.js'], universal_newlines=True)
         bundled_ts_path = os.path.join(cls._server_directory_path(), 'node_modules', 'typescript', 'lib', 'tsserverlibrary.js')
         configuration.init_options.set('typescript.serverPath', workspace_ts_path or bundled_ts_path)
