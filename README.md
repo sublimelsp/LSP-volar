@@ -3,7 +3,10 @@
 This is a helper package that automatically installs and updates the
 [Volar Language Server](https://github.com/johnsoncodehk/volar) for you.
 
-To use this package, you must have the [LSP](https://packagecontrol.io/packages/LSP) package installed as well.
+### Installation
+
+* Install [LSP](https://packagecontrol.io/packages/LSP), [Vue Syntax Highlight](https://packagecontrol.io/packages/Vue%20Syntax%20Highlight) and `LSP-volar` from Package Control.
+* Restart Sublime.
 
 ### Configuration
 
