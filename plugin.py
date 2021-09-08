@@ -33,7 +33,7 @@ class LspVolarPlugin(NpmClientHandler):
         ts_path = ''
         resolve_module_script = os.path.join(cls._server_directory_path(), 'resolve_module.js')
         first_folder = workspace_folders[0].path
-        proc = subprocess.Popen(['node', resolve_module_script, first_folder, 'typescript/lib/tsserverlibrary.js'], stdout=subprocess.PIPE)
+        proc = subprocess.Popen([cls._node_bin(), resolve_module_script, first_folder, 'typescript/lib/tsserverlibrary.js'], stdout=subprocess.PIPE)
         if proc.stdout:
             ts_path = proc.stdout.read().decode('utf-8', 'ignore') # workspace ts path
         if not ts_path:
