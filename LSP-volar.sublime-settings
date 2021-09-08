@@ -1,10 +1,6 @@
 {
 	"command": ["${node_bin}", "${server_path}", "--stdio"],
 	"initializationOptions": {
-		"typescript": {
-			// For now users maybe need to change the serverPath manually to point to a `tsserver.js` file.
-			"serverPath": "${folder}/node_modules/typescript/lib/tsserver.js",
-		},
 		"languageFeatures": {
 			"references": true,
 			"definition": true,
