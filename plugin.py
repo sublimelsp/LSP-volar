@@ -38,6 +38,4 @@ class LspVolarPlugin(NpmClientHandler):
             ts_path = proc.stdout.read().decode('utf-8', 'ignore') # workspace ts path
         if not ts_path:
             ts_path = os.path.join(cls._server_directory_path(), 'node_modules', 'typescript', 'lib', 'tsserverlibrary.js') # bundled ts path
-        configuration.init_options.set('typescript', {
-            'serverPath': ts_path
-        })
+        configuration.init_options.set('typescript.serverPath', ts_path)
