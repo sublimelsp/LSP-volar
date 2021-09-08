@@ -1,9 +1,11 @@
 {
 	"command": ["${node_bin}", "${server_path}", "--stdio"],
 	"initializationOptions": {
+		// Specify the `typescript.serverPath` to tsserverlibrary.js.
+		// If not specified LSP-volar will use the typescript from the workspace if it exist,
+		// else the typescript bundled with LSP-volar will be used.
 		"typescript": {
-			// For now users maybe need to change the serverPath manually to point to a `tsserver.js` file.
-			"serverPath": "${folder}/node_modules/typescript/lib/tsserver.js",
+		// 	"serverPath": "/path/to/tsserverlibrary.js"
 		},
 		"languageFeatures": {
 			"references": true,
