@@ -5,7 +5,7 @@ This is a helper package that automatically installs and updates the
 
 ### Installation
 
-* Install [LSP](https://packagecontrol.io/packages/LSP), [Vue Syntax Highlight](https://packagecontrol.io/packages/Vue%20Syntax%20Highlight) and `LSP-volar` from Package Control.
+* Install [LSP](https://packagecontrol.io/packages/LSP), [Vue Syntax Highlight](https://packagecontrol.io/packages/Vue%20Syntax%20Highlight) and [LSP-volar](https://packagecontrol.io/packages/LSP-volar) from Package Control.
 * Restart Sublime.
 
 ### Configuration
