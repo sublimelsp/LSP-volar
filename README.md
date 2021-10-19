@@ -1,5 +1,8 @@
 # LSP-volar
 
+> Currently doesn't work on Windows. 
+> Subscribe to https://github.com/sublimelsp/LSP-volar/issues/38 if you want to get notified when it is fixed.
+
 This is a helper package that automatically installs and updates the
 [Volar Language Server](https://github.com/johnsoncodehk/volar) for you.
 
