@@ -60,6 +60,15 @@
 			// ST4
 			"document_selector": "text.html.vue",
 			"feature_selector": "text.html.vue",
-		}
+		},
+		{
+			"languageId": "typescript",
+			// ST3
+			"scopes": ["source.ts"],
+			"syntaxes": ["Packages/TypeScript Syntax/TypeScript.tmLanguage"],
+			// ST4
+			"document_selector": "source.ts",
+			"feature_selector": "source.ts",
+		},
 	]
 }
