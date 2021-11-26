@@ -1,6 +1,6 @@
 from LSP.plugin import ClientConfig
 from LSP.plugin import WorkspaceFolder
-from LSP.plugin.core.typing import List, Optional
+from LSP.plugin.core.typing import List, Optional, Union
 from lsp_utils import NpmClientHandler
 import os
 import sublime
@@ -19,6 +19,23 @@ class LspVolarPlugin(NpmClientHandler):
     package_name = __package__
     server_directory = 'server'
     server_binary_path = os.path.join(server_directory, 'node_modules', '@volar', 'server', 'out', 'index.js')
+
+    @classmethod
+    def on_client_configuration_ready(cls, configuration: dict) -> None:
+        is_lsp_typescript_installed = bool(sublime.find_resources("LSP-typescript.sublime-commands"))
+        take_over_mode = configuration.get("settings", {}).get("volar.takeOverMode.enabled", "auto") # type: Union[str, bool]
+
+        def dont_start_in_typescript_files():
+            languages = configuration.get("languages", [])
+            languages_without_typescript = list(filter(lambda langDict: langDict.get('languageId') != 'typescript', languages))
+            configuration['languages'] = languages_without_typescript
+
+        if (take_over_mode == "auto" and is_lsp_typescript_installed):
+            dont_start_in_typescript_files()
+        if (take_over_mode == False):
+            dont_start_in_typescript_files()
+        if (take_over_mode == True and is_lsp_typescript_installed):
+            sublime.status_message('LSP-volar: \"volar.takeOverMode.enabled\" is enabled. Disable "LSP-typescript" or "LSP-volar" to avoid duplicate results.')
 
     @classmethod
     def is_allowed_to_start(
