@@ -32,9 +32,9 @@ class LspVolarPlugin(NpmClientHandler):
 
         if take_over_mode == "auto" and is_lsp_typescript_enabled:
             dont_start_in_ts_and_js_files()
-        if take_over_mode == False:
+        if take_over_mode is False:
             dont_start_in_ts_and_js_files()
-        if take_over_mode == True and is_lsp_typescript_enabled:
+        if take_over_mode is True and is_lsp_typescript_enabled:
             sublime.status_message('LSP-volar: \"volar.takeOverMode.enabled\" is enabled. Disable "LSP-typescript" or "LSP-volar" to avoid duplicate results.')
 
     @classmethod
