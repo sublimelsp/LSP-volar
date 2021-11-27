@@ -27,7 +27,7 @@ class LspVolarPlugin(NpmClientHandler):
 
         def dont_start_in_ts_and_js_files():
             languages = configuration.get("languages", [])
-            languages_without_typescript = list(filter(lambda langDict: langDict.get('languageId') not in ['typescript', "javascript"], languages))
+            languages_without_typescript = list(filter(lambda langDict: langDict.get('languageId') not in ['typescript', "typescriptreact", "javascript", "javascriptreact"], languages))
             configuration['languages'] = languages_without_typescript
 
         if take_over_mode == "auto" and is_lsp_typescript_enabled:

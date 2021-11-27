@@ -62,13 +62,32 @@
 			"feature_selector": "text.html.vue",
 		},
 		{
+			"languageId": "typescriptreact",
+			// ST3
+			"scopes": ["source.tsx"],
+			"syntaxes": [
+				"Packages/TypeScript Syntax/TypeScriptReact.tmLanguage",
+			],
+			// ST4
+			"document_selector": "source.tsx"
+		},
+		{
 			"languageId": "typescript",
 			// ST3
 			"scopes": ["source.ts"],
 			"syntaxes": ["Packages/TypeScript Syntax/TypeScript.tmLanguage"],
 			// ST4
-			"document_selector": "source.ts",
-			"feature_selector": "source.ts",
+			"document_selector": "source.ts"
+		},
+		{
+			"languageId": "javascriptreact",
+			// ST3
+			"scopes": ["source.jsx", "source.js.react"],
+			"syntaxes": [
+				"Packages/User/JS Custom/Syntaxes/React.sublime-syntax",
+			],
+			// ST4
+			"document_selector": "source.jsx"
 		},
 		{
 			"languageId": "javascript",
@@ -79,8 +98,7 @@
 				"Packages/Babel/JavaScript (Babel).sublime-syntax",
 			],
 			// ST4
-			"document_selector": "source.js",
-			"feature_selector": "source.js",
+			"document_selector": "source.js"
 		},
 	]
 }
