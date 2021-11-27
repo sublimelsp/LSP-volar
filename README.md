@@ -53,7 +53,7 @@ From the command palette select `Preferences: LSP-volar Settings` and paste the 
 // Settings in here override those in "LSP-volar/LSP-volar.sublime-settings"
 
 {
-    "selector": "source.vue | source.ts | source.tsx | source.js | source.jsx"
+    "selector": "text.html.vue | source.ts | source.tsx | source.js | source.jsx"
 }
 ```
 
