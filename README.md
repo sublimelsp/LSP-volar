@@ -27,4 +27,4 @@ To enable take over mode, from the command palette select `Preferences: LSP-vola
 }
 ```
 
-It is advisebale to disable the LSP-typescript plugin to avoid showing duplicate results.
+It is advisable to disable the LSP-typescript package to avoid showing duplicate results.
