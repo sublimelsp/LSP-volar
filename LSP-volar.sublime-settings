@@ -70,5 +70,17 @@
 			"document_selector": "source.ts",
 			"feature_selector": "source.ts",
 		},
+		{
+			"languageId": "javascript",
+			// ST3
+			"scopes": ["source.js"],
+			"syntaxes": [
+				"Packages/JavaScript/JavaScript.sublime-syntax",
+				"Packages/Babel/JavaScript (Babel).sublime-syntax",
+			],
+			// ST4
+			"document_selector": "source.js",
+			"feature_selector": "source.js",
+		},
 	]
 }

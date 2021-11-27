@@ -25,23 +25,16 @@ class LspVolarPlugin(NpmClientHandler):
         is_lsp_typescript_enabled = sublime.load_settings("LSP-typescript.sublime-settings").get("enabled")
         take_over_mode = configuration.get("settings", {}).get("volar.takeOverMode.enabled", "auto") # type: Union[str, bool]
 
-        # Check if LSP-typescirpt is disbled in the project
-        project_data = sublime.active_window().project_data()
-        if project_data:
-            is_enabled_in_project = project_data.get('settings', {}).get("LSP", {}).get("LSP-typescript", {}).get("enabled")  # type: Optional[bool]
-            if is_enabled_in_project is not None:
-                is_lsp_typescript_enabled = is_enabled_in_project
-
-        def dont_start_in_typescript_files():
+        def dont_start_in_ts_and_js_files():
             languages = configuration.get("languages", [])
-            languages_without_typescript = list(filter(lambda langDict: langDict.get('languageId') != 'typescript', languages))
+            languages_without_typescript = list(filter(lambda langDict: langDict.get('languageId') not in ['typescript', "javascript"], languages))
             configuration['languages'] = languages_without_typescript
 
-        if (take_over_mode == "auto" and is_lsp_typescript_enabled):
-            dont_start_in_typescript_files()
-        if (take_over_mode == False):
-            dont_start_in_typescript_files()
-        if (take_over_mode == True and is_lsp_typescript_enabled):
+        if take_over_mode == "auto" and is_lsp_typescript_enabled:
+            dont_start_in_ts_and_js_files()
+        if take_over_mode == False:
+            dont_start_in_ts_and_js_files()
+        if take_over_mode == True and is_lsp_typescript_enabled:
             sublime.status_message('LSP-volar: \"volar.takeOverMode.enabled\" is enabled. Disable "LSP-typescript" or "LSP-volar" to avoid duplicate results.')
 
     @classmethod
