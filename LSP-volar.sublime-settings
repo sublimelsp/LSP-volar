@@ -48,8 +48,17 @@
 		"volar.codeLens.scriptSetupTools": false,
 		"volar.completion.autoImportComponent": true,
 		"volar.preferredAttrNameCase": "auto-kebab",
-		"volar.preferredTagNameCase": "auto",
-		"volar.takeOverMode.enabled": "auto"
+		"volar.preferredTagNameCase": "auto"
 	},
-	"selector": "text.html.vue"
+	"languages": [
+		{
+			"languageId": "vue",
+			// ST3
+			"scopes": ["text.html.vue"],
+			"syntaxes": ["Packages/Vue Syntax Highlight/Vue Component.sublime-syntax"],
+			// ST4
+			"document_selector": "text.html.vue",
+			"feature_selector": "text.html.vue",
+		}
+	]
 }
