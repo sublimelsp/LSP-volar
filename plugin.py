@@ -21,36 +21,6 @@ class LspVolarPlugin(NpmClientHandler):
     server_binary_path = os.path.join(server_directory, 'node_modules', '@volar', 'server', 'out', 'index.js')
 
     @classmethod
-    def on_client_configuration_ready(cls, configuration: dict) -> None:
-        is_lsp_typescript_enabled = sublime.load_settings("LSP-typescript.sublime-settings").get("enabled")
-        take_over_mode = configuration.get("settings", {}).get("volar.takeOverMode.enabled", "auto") # type: Union[str, bool]
-
-        # Check if LSP-typescirpt is disbled in the project
-        project_data = sublime.active_window().project_data()
-        if project_data:
-            is_enabled_in_project = project_data.get('settings', {}).get("LSP", {}).get("LSP-typescript", {}).get("enabled")  # type: Optional[bool]
-            if is_enabled_in_project is not None:
-                is_lsp_typescript_enabled = is_enabled_in_project
-
-            take_over_mode_in_project = project_data.get('settings', {}).get("LSP", {}).get("LSP-volar", {}).get("settings", {}).get("volar.takeOverMode.enabled")  # type: Optional[Union[str, bool]]
-            if take_over_mode_in_project is not None:
-                take_over_mode = take_over_mode_in_project
-
-        print('is_lsp_typescript_enabled', is_lsp_typescript_enabled)
-        print('take_over_mode', take_over_mode)
-        def dont_start_in_ts_and_js_files():
-            languages = configuration.get("languages", [])
-            languages_without_typescript = list(filter(lambda langDict: langDict.get('languageId') not in ['typescript', "typescriptreact", "javascript", "javascriptreact"], languages))
-            configuration['languages'] = languages_without_typescript
-
-        if take_over_mode == "auto" and is_lsp_typescript_enabled:
-            dont_start_in_ts_and_js_files()
-        if take_over_mode is False:
-            dont_start_in_ts_and_js_files()
-        if take_over_mode is True and is_lsp_typescript_enabled:
-            sublime.status_message('LSP-volar: \"volar.takeOverMode.enabled\" is enabled. Disable "LSP-typescript" or "LSP-volar" to avoid duplicate results.')
-
-    @classmethod
     def is_allowed_to_start(
         cls,
         window: sublime.Window,

@@ -51,54 +51,5 @@
 		"volar.preferredTagNameCase": "auto",
 		"volar.takeOverMode.enabled": "auto"
 	},
-	"languages": [
-		{
-			"languageId": "vue",
-			// ST3
-			"scopes": ["text.html.vue"],
-			"syntaxes": ["Packages/Vue Syntax Highlight/Vue Component.sublime-syntax"],
-			// ST4
-			"document_selector": "text.html.vue",
-			"feature_selector": "text.html.vue",
-		},
-		{
-			"languageId": "typescriptreact",
-			// ST3
-			"scopes": ["source.tsx"],
-			"syntaxes": [
-				"Packages/TypeScript Syntax/TypeScriptReact.tmLanguage",
-			],
-			// ST4
-			"document_selector": "source.tsx"
-		},
-		{
-			"languageId": "typescript",
-			// ST3
-			"scopes": ["source.ts"],
-			"syntaxes": ["Packages/TypeScript Syntax/TypeScript.tmLanguage"],
-			// ST4
-			"document_selector": "source.ts"
-		},
-		{
-			"languageId": "javascriptreact",
-			// ST3
-			"scopes": ["source.jsx", "source.js.react"],
-			"syntaxes": [
-				"Packages/User/JS Custom/Syntaxes/React.sublime-syntax",
-			],
-			// ST4
-			"document_selector": "source.jsx"
-		},
-		{
-			"languageId": "javascript",
-			// ST3
-			"scopes": ["source.js"],
-			"syntaxes": [
-				"Packages/JavaScript/JavaScript.sublime-syntax",
-				"Packages/Babel/JavaScript (Babel).sublime-syntax",
-			],
-			// ST4
-			"document_selector": "source.js"
-		},
-	]
+	"selector": "text.html.vue"
 }

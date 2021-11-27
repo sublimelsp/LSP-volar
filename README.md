@@ -12,19 +12,50 @@ This is a helper package that automatically installs and updates the
 
 Open configuration file using command palette with `Preferences: LSP-volar Settings` command or opening it from the Sublime menu (`Preferences > Package Settings > LSP > Servers > LSP-volar`).
 
-
 ### Take over mode
 
-Allow LSP-volar to start in `*.ts` and `*.js` files.
+Allow LSP-volar to start in `*.ts | *.tsx | *.js | *.jsx` files.
 
-To enable take over mode, from the command palette select `Preferences: LSP-volar Settings` and put the following in `LSP-volar.sublime-settings`.
+You can enable the take over mode:
+- per project
+- globally
+
+#### Per project
+
+Create a sublime project file with the following contents:
 
 ```
 {
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
 	"settings": {
-		"volar.takeOverMode.enabled": true
+		"LSP": {
+			"LSP-volar": {
+				"selector": "text.html.vue | source.ts | source.tsx | source.js | source.jsx"
+			},
+			"LSP-typescript": {
+				"enabled": false
+			}
+		}
 	}
 }
 ```
 
-It is advisable to disable the LSP-typescript package to avoid showing duplicate results.
+#### Globally
+
+From the command palette select `Preferences: LSP-volar Settings` and paste the following:
+
+```
+// Settings in here override those in "LSP-volar/LSP-volar.sublime-settings"
+
+{
+	"selector": "source.vue | source.ts | source.tsx | source.js | source.jsx"
+}
+```
+
+> NOTE: It is advisable to disable the LSP-typescript package when in take over mode to avoid showing duplicate results.
+
