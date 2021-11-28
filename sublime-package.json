@@ -20,38 +20,13 @@
                     },
                     "volar.codeLens.pugTools": {
                       "type": "boolean",
-                      "default": true,
+                      "default": false,
                       "description": "[pug ☐] code lens."
                     },
                     "volar.codeLens.scriptSetupTools": {
                       "type": "boolean",
-                      "default": true,
+                      "default": false,
                       "description": "[ref sugar ☐] code lens."
-                    },
-                    "volar.autoCompleteRefs": {
-                      "type": "boolean",
-                      "default": true,
-                      "description": "Auto-complete Ref value with `.value`."
-                    },
-                    "volar.tsPlugin": {
-                      "type": "boolean",
-                      "enum": [
-                        null,
-                        true,
-                        false
-                      ],
-                      "enumDescriptions": [
-                        "Don't care (Don't reload VSCode)",
-                        "Enable TS Plugin",
-                        "Disable TS Plugin"
-                      ],
-                      "default": null,
-                      "description": "Enable Vue TS Server Plugin.\nSince TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases, this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), then you need to enable this setting."
-                    },
-                    "volar.tsPluginStatus": {
-                      "type": "boolean",
-                      "default": true,
-                      "description": "Display TS Server Plugin status bar item."
                     },
                     "volar.preferredTagNameCase": {
                       "type": "string",
@@ -87,20 +62,10 @@
                       "default": "auto-kebab",
                       "description": "Preferred attr name case."
                     },
-                    "volar.preview.port": {
-                      "type": "number",
-                      "default": 3333,
-                      "description": "Default port for component preview server."
-                    },
-                    "volar.preview.backgroundColor": {
-                      "type": "string",
-                      "default": "#fff",
-                      "description": "Component preview background color."
-                    },
-                    "volar.preview.transparentGrid": {
+                    "volar.completion.autoImportComponent": {
                       "type": "boolean",
                       "default": true,
-                      "description": "Component preview background style."
+                      "description": "Enabled auto-import for component with tag completion."
                     }
                   }
                 }

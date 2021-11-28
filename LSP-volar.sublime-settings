@@ -41,6 +41,14 @@
 			}
 		}
 	},
+	"settings": {
+		"volar.codeLens.references": true,
+		"volar.codeLens.pugTools": false,
+		"volar.codeLens.scriptSetupTools": false,
+		"volar.completion.autoImportComponent": true,
+		"volar.preferredAttrNameCase": "auto-kebab",
+		"volar.preferredTagNameCase": "auto"
+	},
 	"languages": [
 		{
 			"languageId": "vue",
