@@ -16,7 +16,7 @@ Open configuration file using command palette with `Preferences: LSP-volar Setti
 
 Allow LSP-volar to start in `*.ts | *.tsx | *.js | *.jsx` files.
 
-#### Per project configuration
+#### Per project:
 
 Create a sublime project file with the following contents:
 
@@ -41,7 +41,7 @@ Create a sublime project file with the following contents:
 }
 ```
 
-#### Global configuration
+#### Globally:
 
 From the command palette select `Preferences: LSP-volar Settings` and paste the following:
 
