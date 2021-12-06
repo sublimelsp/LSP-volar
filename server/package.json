@@ -2,7 +2,7 @@
   "name": "sublime-volar",
   "version": "0.0.0",
   "dependencies": {
-    "@volar/server": "^0.29.6",
+    "@volar/server": "^0.29.8",
     "typescript": "^4.5.2"
   }
 }
