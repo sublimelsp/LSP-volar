@@ -9,25 +9,36 @@
 		}
 	},
 	"settings": {
-		"volar.vueserver.maxOldSpaceSize": null,
-		"volar.codeLens.references": true,
-		"volar.codeLens.pugTools": false,
-		"volar.codeLens.scriptSetupTools": false,
-		"volar.autoWrapParentheses": true,
+		// Auto-complete Ref value with `.value`.
 		"volar.autoCompleteRefs": false,
+		// Auto-wrap `()` to As Expression in interpolations for fix issue #520.
+		"volar.autoWrapParentheses": true,
+		// [pug ☐] code lens.
+		"volar.codeLens.pugTools": false,
+		// [references] code lens.
+		"volar.codeLens.references": true,
+		// [ref sugar ☐] code lens.
+		"volar.codeLens.scriptSetupTools": false,
+		// Enabled auto-import for component with tag completion.
 		"volar.completion.autoImportComponent": true,
-		"volar.completion.preferredAttrNameCase": "kebab",
-		"volar.completion.preferredTagNameCase": "both"
+		// Preferred attr name case.
+		// possible values: auto-kebab, auto-camel, kebab, camel
+		"volar.completion.preferredAttrNameCase": "auto-kebab",
+		// Preferred tag name case.
+		// possible values: auto, both, kebab, pascal
+		"volar.completion.preferredTagNameCase": "auto",
+		// Set --max-old-space-size option on server process. If you have problem on frequently
+		// "Request textDocument/** failed." error, try setting higher memory(MB) on it.
+		"volar.vueserver.maxOldSpaceSize": null,
 	},
+	// ST4
+	"selector": "text.html.vue",
+	// ST3
 	"languages": [
 		{
 			"languageId": "vue",
-			// ST3
 			"scopes": ["text.html.vue"],
 			"syntaxes": ["Packages/Vue Syntax Highlight/Vue Component.sublime-syntax"],
-			// ST4
-			"document_selector": "text.html.vue",
-			"feature_selector": "text.html.vue",
 		}
 	]
 }
