@@ -36,6 +36,13 @@ class LspVolarPlugin(NpmClientHandler):
         resolve_module_script = os.path.join(server_directory_path, 'resolve_module.js')
         first_folder = workspace_folders[0].path
         command =  [cls._node_bin(), resolve_module_script, first_folder, 'typescript/lib/tsserverlibrary.js']
-        workspace_ts_path = subprocess.check_output(command, universal_newlines=True)
+        startupinfo = subprocess.STARTUPINFO()
+        # Prevent cmd.exe popup on Windows.
+        if os.name == "nt":
+            startupinfo.vShowWindow = subprocess.SW_HIDE
+            startupinfo.dwFlags |= (
+                subprocess.STARTF_USESTDHANDLES | subprocess.STARTF_USESHOWWINDOW
+            )
+        workspace_ts_path = subprocess.check_output(command, universal_newlines=True, startupinfo=startupinfo)
         bundled_ts_path = os.path.join(server_directory_path, 'node_modules', 'typescript', 'lib', 'tsserverlibrary.js')
         configuration.init_options.set('typescript.serverPath', workspace_ts_path or bundled_ts_path)
