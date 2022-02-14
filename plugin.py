@@ -36,9 +36,10 @@ class LspVolarPlugin(NpmClientHandler):
         resolve_module_script = os.path.join(server_directory_path, 'resolve_module.js')
         first_folder = workspace_folders[0].path
         command =  [cls._node_bin(), resolve_module_script, first_folder, 'typescript/lib/tsserverlibrary.js']
-        startupinfo = subprocess.STARTUPINFO()
+        startupinfo = None
         # Prevent cmd.exe popup on Windows.
         if os.name == "nt":
+            startupinfo = subprocess.STARTUPINFO()
             startupinfo.vShowWindow = subprocess.SW_HIDE
             startupinfo.dwFlags |= (
                 subprocess.STARTF_USESTDHANDLES | subprocess.STARTF_USESHOWWINDOW
