@@ -38,11 +38,10 @@ class LspVolarPlugin(NpmClientHandler):
         command =  [cls._node_bin(), resolve_module_script, first_folder, 'typescript/lib/tsserverlibrary.js']
         startupinfo = None
         # Prevent cmd.exe popup on Windows.
-        if os.name == "nt":
+        if sublime.platform() == "windows":
             startupinfo = subprocess.STARTUPINFO()
-            startupinfo.vShowWindow = subprocess.SW_HIDE
             startupinfo.dwFlags |= (
-                subprocess.STARTF_USESTDHANDLES | subprocess.STARTF_USESHOWWINDOW
+                subprocess.SW_HIDE | subprocess.STARTF_USESHOWWINDOW
             )
         workspace_ts_path = subprocess.check_output(command, universal_newlines=True, startupinfo=startupinfo)
         bundled_ts_path = os.path.join(server_directory_path, 'node_modules', 'typescript', 'lib', 'tsserverlibrary.js')
