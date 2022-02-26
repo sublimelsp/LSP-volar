@@ -18,7 +18,7 @@ def plugin_unloaded():
 class LspVolarPlugin(NpmClientHandler):
     package_name = __package__
     server_directory = 'server'
-    server_binary_path = os.path.join(server_directory, 'node_modules', '@volar', 'server', 'out', 'index.js')
+    server_binary_path = os.path.join(server_directory, 'node_modules', '@volar', 'server', 'bin', 'volar-server.js')
 
     @classmethod
     def is_allowed_to_start(
