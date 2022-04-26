@@ -45,9 +45,11 @@
 		"volar.codeLens.references": true,
 		"volar.codeLens.pugTools": false,
 		"volar.codeLens.scriptSetupTools": false,
+		"volar.autoWrapParentheses": true,
+		"volar.autoCompleteRefs": false,
 		"volar.completion.autoImportComponent": true,
-		"volar.preferredAttrNameCase": "auto-kebab",
-		"volar.preferredTagNameCase": "auto"
+		"volar.completion.preferredAttrNameCase": "auto-kebab",
+		"volar.completion.preferredTagNameCase": "auto"
 	},
 	"languages": [
 		{

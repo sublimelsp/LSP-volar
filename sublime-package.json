@@ -28,7 +28,17 @@
                       "default": false,
                       "description": "[ref sugar ☐] code lens."
                     },
-                    "volar.preferredTagNameCase": {
+                    "volar.autoWrapParentheses": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "Auto-wrap `()` to As Expression in interpolations for fix issue #520."
+                    },
+                    "volar.autoCompleteRefs": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Auto-complete Ref value with `.value`."
+                    },
+                    "volar.completion.preferredTagNameCase": {
                       "type": "string",
                       "enum": [
                         "auto",
@@ -45,19 +55,19 @@
                       "default": "auto",
                       "description": "Preferred tag name case."
                     },
-                    "volar.preferredAttrNameCase": {
+                    "volar.completion.preferredAttrNameCase": {
                       "type": "string",
                       "enum": [
                         "auto-kebab",
-                        "auto-pascal",
+                        "auto-camel",
                         "kebab",
-                        "pascal"
+                        "camel"
                       ],
                       "enumDescriptions": [
-                        "Auto Detect from Content (Preference kebab-case)",
-                        "Auto Detect from Content (Preference pascalCase)",
-                        "kebab-case",
-                        "pascalCase"
+                        "Auto Detect from Content (Preferred :kebab-case=\"...\")",
+                        "Auto Detect from Content (Preferred :camelCase=\"...\")",
+                        ":kebab-case=\"...\"",
+                        ":camelCase=\"...\""
                       ],
                       "default": "auto-kebab",
                       "description": "Preferred attr name case."
