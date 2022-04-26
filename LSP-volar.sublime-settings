@@ -10,6 +10,7 @@
 		"languageFeatures": {
 			"references": true,
 			"definition": true,
+			"implementation": true,
 			"typeDefinition": true,
 			"callHierarchy": false,
 			"hover": true,
