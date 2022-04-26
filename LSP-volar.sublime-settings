@@ -13,6 +13,7 @@
 			"implementation": true,
 			"typeDefinition": true,
 			"callHierarchy": false,
+			"inlayHints": false,
 			"hover": true,
 			"rename": true,
 			"renameFileRefactoring": false,
