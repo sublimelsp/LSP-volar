@@ -6,48 +6,17 @@
 		// else the typescript bundled with LSP-volar will be used.
 		"typescript": {
 		// 	"serverPath": "/path/to/tsserverlibrary.js"
-		},
-		"languageFeatures": {
-			"references": true,
-			"definition": true,
-			"typeDefinition": true,
-			"callHierarchy": false,
-			"hover": true,
-			"rename": true,
-			"renameFileRefactoring": false,
-			"signatureHelp": true,
-			"codeAction": true,
-			"completion": {
-				"defaultTagNameCase": "both",
-				"defaultAttrNameCase": "kebab",
-				"getDocumentNameCasesRequest": false,
-				"getDocumentSelectionRequest": false,
-			},
-			"documentHighlight": true,
-			"documentLink": false,
-			"codeLens": false,
-			"semanticTokens": false,
-			"schemaRequestService": false,
-			"diagnostics": true
-		},
-		"documentFeatures": {
-			"selectionRange": true,
-			"foldingRange": true,
-			"linkedEditingRange": false,
-			"documentSymbol": true,
-			"documentColor": true,
-			"documentFormatting": {
-				"defaultPrintWidth": 90
-			}
 		}
 	},
 	"settings": {
 		"volar.codeLens.references": true,
 		"volar.codeLens.pugTools": false,
 		"volar.codeLens.scriptSetupTools": false,
+		"volar.autoWrapParentheses": true,
+		"volar.autoCompleteRefs": false,
 		"volar.completion.autoImportComponent": true,
-		"volar.preferredAttrNameCase": "auto-kebab",
-		"volar.preferredTagNameCase": "auto"
+		"volar.completion.preferredAttrNameCase": "kebab",
+		"volar.completion.preferredTagNameCase": "both"
 	},
 	"languages": [
 		{
