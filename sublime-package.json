@@ -41,35 +41,29 @@
                     "volar.completion.preferredTagNameCase": {
                       "type": "string",
                       "enum": [
-                        "auto",
                         "both",
                         "kebab",
                         "pascal"
                       ],
                       "enumDescriptions": [
-                        "Auto Detect from Content",
                         "<kebab-case> and <PascalCase>",
                         "<kebab-case>",
                         "<PascalCase>"
                       ],
-                      "default": "auto",
+                      "default": "both",
                       "description": "Preferred tag name case."
                     },
                     "volar.completion.preferredAttrNameCase": {
                       "type": "string",
                       "enum": [
-                        "auto-kebab",
-                        "auto-camel",
                         "kebab",
                         "camel"
                       ],
                       "enumDescriptions": [
-                        "Auto Detect from Content (Preferred :kebab-case=\"...\")",
-                        "Auto Detect from Content (Preferred :camelCase=\"...\")",
                         ":kebab-case=\"...\"",
                         ":camelCase=\"...\""
                       ],
-                      "default": "auto-kebab",
+                      "default": "kebab",
                       "description": "Preferred attr name case."
                     },
                     "volar.completion.autoImportComponent": {
