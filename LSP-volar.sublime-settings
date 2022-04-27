@@ -9,6 +9,7 @@
 		}
 	},
 	"settings": {
+		"volar.vueserver.useSecondServer": false,
 		"volar.codeLens.references": true,
 		"volar.codeLens.pugTools": false,
 		"volar.codeLens.scriptSetupTools": false,
