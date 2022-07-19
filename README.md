@@ -1,7 +1,6 @@
 # LSP-volar
 
-This is a helper package that automatically installs and updates the
-[Volar Language Server](https://github.com/johnsoncodehk/volar) for you.
+This is a helper package that automatically installs and updates the [Volar Language Server](https://github.com/johnsoncodehk/volar) for you.
 
 ### Installation
 
@@ -10,7 +9,11 @@ This is a helper package that automatically installs and updates the
 
 ### Configuration
 
-Open configuration file using command palette with `Preferences: LSP-volar Settings` command or opening it from the Sublime menu (`Preferences > Package Settings > LSP > Servers > LSP-volar`).
+Open the configuration file using Command Palette with `Preferences: LSP-volar Settings` command or opening it from the Sublime menu (`Preferences > Package Settings > LSP > Servers > LSP-volar`).
+
+### Vue 2 support
+
+Please see [Volar's Installation](https://github.com/johnsoncodehk/volar/blob/master/docs/installation.md) for setup instructions.
 
 ### Enable for non-Vue files
 
@@ -43,7 +46,7 @@ Create a sublime project file with the following contents:
 
 #### Globally:
 
-From the command palette select `Preferences: LSP-volar Settings` and paste the following:
+From the Command Palette select `Preferences: LSP-volar Settings` and paste the following:
 
 ```
 // Settings in here override those in "LSP-volar/LSP-volar.sublime-settings"
@@ -53,5 +56,5 @@ From the command palette select `Preferences: LSP-volar Settings` and paste the 
 }
 ```
 
-> NOTE: When enabling LSP-volar for non-Vue files, it is advisable to disable the LSP-typescript package to avoid showing duplicate results.
+> NOTE: When enabling LSP-volar for non-Vue files, it is advisable to disable the `LSP-typescript` package to avoid showing duplicate results.
 
