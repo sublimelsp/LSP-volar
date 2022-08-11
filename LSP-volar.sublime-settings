@@ -30,6 +30,24 @@
 		// Set --max-old-space-size option on server process. If you have problem on frequently
 		// "Request textDocument/** failed." error, try setting higher memory(MB) on it.
 		"volar.vueserver.maxOldSpaceSize": null,
+
+		// javascript inlay hint
+		"javascript.inlayHints.enumMemberValues.enabled": false,
+		"javascript.inlayHints.functionLikeReturnTypes.enabled": false,
+		"javascript.inlayHints.parameterNames.enabled": "none",
+		"javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+		"javascript.inlayHints.parameterTypes.enabled": false,
+		"javascript.inlayHints.propertyDeclarationTypes.enabled": false,
+		"javascript.inlayHints.variableTypes.enabled": false,
+
+		// typescript inlay hint
+		"typescript.inlayHints.enumMemberValues.enabled": false,
+		"typescript.inlayHints.functionLikeReturnTypes.enabled": false,
+		"typescript.inlayHints.parameterNames.enabled": "none",
+		"typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+		"typescript.inlayHints.parameterTypes.enabled": false,
+		"typescript.inlayHints.propertyDeclarationTypes.enabled": false,
+		"typescript.inlayHints.variableTypes.enabled": false,
 	},
 	// ST4
 	"selector": "text.html.vue",
