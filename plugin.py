@@ -9,12 +9,10 @@ import subprocess
 
 def plugin_loaded():
     LspVolarPlugin.setup()
-    LspVolarSecondServer.setup()
 
 
 def plugin_unloaded():
     LspVolarPlugin.cleanup()
-    LspVolarSecondServer.cleanup()
 
 
 class LspVolarPlugin(NpmClientHandler):
