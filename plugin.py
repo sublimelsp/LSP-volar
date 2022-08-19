@@ -48,8 +48,24 @@ class LspVolarPlugin(NpmClientHandler):
         configuration.init_options.set('documentFeatures', document_features)
         if configuration.init_options.get('typescript.serverPath'):
             return  # don't find the `typescript.serverPath` if it was set explicitly in LSP-volar.sublime-settings
-        typescript_path = find_typescript_path(LspVolarPlugin, workspace_folders[0].path)
+        typescript_path = cls.find_typescript_path(workspace_folders[0].path)
         configuration.init_options.set('typescript.serverPath', typescript_path)
+
+    @classmethod
+    def find_typescript_path(cls, current_folder: str) -> str:
+        server_directory_path = cls._server_directory_path()
+        resolve_module_script = os.path.join(server_directory_path, 'resolve_module.js')
+        find_ts_server_command =  [cls._node_bin(), resolve_module_script, current_folder]
+        startupinfo = None
+        # Prevent cmd.exe popup on Windows.
+        if sublime.platform() == "windows":
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= (
+                subprocess.SW_HIDE | subprocess.STARTF_USESHOWWINDOW
+            )
+        workspace_ts_path = subprocess.check_output(find_ts_server_command, universal_newlines=True, startupinfo=startupinfo)
+        bundled_ts_path = os.path.join(server_directory_path, 'node_modules', 'typescript', 'lib', 'tsserverlibrary.js')
+        return workspace_ts_path or bundled_ts_path
 
 
 class LspVolarSecondServer(LspVolarPlugin):
@@ -74,24 +90,8 @@ class LspVolarSecondServer(LspVolarPlugin):
         configuration.init_options.set('documentFeatures', document_features)
         if configuration.init_options.get('typescript.serverPath'):
             return  # don't find the `typescript.serverPath` if it was set explicitly in LSP-volar.sublime-settings
-        typescript_path = find_typescript_path(LspVolarSecondServer, workspace_folders[0].path)
+        typescript_path = cls.find_typescript_path(workspace_folders[0].path)
         configuration.init_options.set('typescript.serverPath', typescript_path)
-
-
-def find_typescript_path(plugin, current_folder: str) -> str:
-    server_directory_path = plugin._server_directory_path()
-    resolve_module_script = os.path.join(server_directory_path, 'resolve_module.js')
-    find_ts_server_command =  [plugin._node_bin(), resolve_module_script, current_folder]
-    startupinfo = None
-    # Prevent cmd.exe popup on Windows.
-    if sublime.platform() == "windows":
-        startupinfo = subprocess.STARTUPINFO()
-        startupinfo.dwFlags |= (
-            subprocess.SW_HIDE | subprocess.STARTF_USESHOWWINDOW
-        )
-    workspace_ts_path = subprocess.check_output(find_ts_server_command, universal_newlines=True, startupinfo=startupinfo)
-    bundled_ts_path = os.path.join(server_directory_path, 'node_modules', 'typescript', 'lib', 'tsserverlibrary.js')
-    return workspace_ts_path or bundled_ts_path
 
 
 def get_default_tag_name_case(configuration: ClientConfig) -> str:
