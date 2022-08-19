@@ -17,18 +17,6 @@ def plugin_unloaded():
     LspVolarSecondServer.cleanup()
 
 
-document_features = {
-    "selectionRange": True,
-    "foldingRange": True,
-    "linkedEditingRange": False,
-    "documentSymbol": True,
-    "documentColor": True,
-    "documentFormatting": {
-        "defaultPrintWidth": 90
-    }
-}
-
-
 class LspVolarPlugin(NpmClientHandler):
     package_name = __package__
     server_directory = 'server'
@@ -45,7 +33,7 @@ class LspVolarPlugin(NpmClientHandler):
         if not workspace_folders or not configuration:
             return
         configuration.init_options.set('languageFeatures', get_language_features(configuration, is_main_server=True))
-        configuration.init_options.set('documentFeatures', document_features)
+        configuration.init_options.set('documentFeatures', None)
         if configuration.init_options.get('typescript.serverPath'):
             return  # don't find the `typescript.serverPath` if it was set explicitly in LSP-volar.sublime-settings
         typescript_path = cls.find_typescript_path(workspace_folders[0].path)
@@ -71,7 +59,7 @@ class LspVolarPlugin(NpmClientHandler):
 class LspVolarSecondServer(LspVolarPlugin):
     @classmethod
     def get_displayed_name(cls) -> str:
-        return 'LSP-volar(second server)'
+        return 'LSP-volar(Second Server)'
 
     @classmethod
     def is_allowed_to_start(
@@ -87,7 +75,40 @@ class LspVolarSecondServer(LspVolarPlugin):
         if not use_second_server:
             return "Not enabled"
         configuration.init_options.set('languageFeatures', get_language_features(configuration, is_main_server=False))
-        configuration.init_options.set('documentFeatures', document_features)
+        configuration.init_options.set('documentFeatures', None)
+        if configuration.init_options.get('typescript.serverPath'):
+            return  # don't find the `typescript.serverPath` if it was set explicitly in LSP-volar.sublime-settings
+        typescript_path = cls.find_typescript_path(workspace_folders[0].path)
+        configuration.init_options.set('typescript.serverPath', typescript_path)
+
+
+class LspVolarDocumentFeaturesServer(LspVolarPlugin):
+    @classmethod
+    def get_displayed_name(cls) -> str:
+        return 'LSP-volar(HTML Server)'
+
+    @classmethod
+    def is_allowed_to_start(
+        cls,
+        window: sublime.Window,
+        initiating_view: Optional[sublime.View] = None,
+        workspace_folders: Optional[List[WorkspaceFolder]] = None,
+        configuration: Optional[ClientConfig] = None
+    ):
+        if not workspace_folders or not configuration:
+            return
+
+        configuration.init_options.set('languageFeatures', None)
+        configuration.init_options.set('documentFeatures', {
+            "selectionRange": True,
+            "foldingRange": True,
+            "linkedEditingRange": False,
+            "documentSymbol": True,
+            "documentColor": True,
+            "documentFormatting": {
+                "defaultPrintWidth": 90
+            }
+        })
         if configuration.init_options.get('typescript.serverPath'):
             return  # don't find the `typescript.serverPath` if it was set explicitly in LSP-volar.sublime-settings
         typescript_path = cls.find_typescript_path(workspace_folders[0].path)
