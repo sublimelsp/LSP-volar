@@ -36,7 +36,7 @@ class LspVolarPlugin(NpmClientHandler):
             "implementation": True,
             "typeDefinition": True,
             "callHierarchy": False,
-            "inlayHints": False,
+            "inlayHints": True,
             "hover": True,
             "rename": True,
             "renameFileRefactoring": False,
