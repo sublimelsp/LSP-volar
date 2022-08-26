@@ -9,7 +9,6 @@
 		}
 	},
 	"settings": {
-		"volar.vueserver.useSecondServer": false,
 		// Auto-complete Ref value with `.value`.
 		"volar.autoCompleteRefs": false,
 		// Auto-wrap `()` to As Expression in interpolations for fix issue #520.

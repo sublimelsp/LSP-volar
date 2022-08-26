@@ -30,8 +30,17 @@ class LspVolarPlugin(NpmClientHandler):
     ):
         if not workspace_folders or not configuration:
             return
-        configuration.init_options.set('languageFeatures', get_language_features(configuration, is_main_server=True))
-        configuration.init_options.set('documentFeatures', None)
+        configuration.init_options.set('languageFeatures', get_language_features(configuration))
+        configuration.init_options.set('documentFeatures', {
+            "selectionRange": True,
+            "foldingRange": True,
+            "linkedEditingRange": False,
+            "documentSymbol": True,
+            "documentColor": True,
+            "documentFormatting": {
+                "defaultPrintWidth": 90
+            }
+        })
         if configuration.init_options.get('typescript.serverPath'):
             return  # don't find the `typescript.serverPath` if it was set explicitly in LSP-volar.sublime-settings
         typescript_path = cls.find_typescript_path(workspace_folders[0].path)
@@ -54,65 +63,6 @@ class LspVolarPlugin(NpmClientHandler):
         return workspace_ts_path or bundled_ts_path
 
 
-class LspVolarSecondServer(LspVolarPlugin):
-    @classmethod
-    def get_displayed_name(cls) -> str:
-        return 'LSP-volar(Second Server)'
-
-    @classmethod
-    def is_allowed_to_start(
-        cls,
-        window: sublime.Window,
-        initiating_view: Optional[sublime.View] = None,
-        workspace_folders: Optional[List[WorkspaceFolder]] = None,
-        configuration: Optional[ClientConfig] = None
-    ):
-        if not workspace_folders or not configuration:
-            return
-        use_second_server = configuration.settings.get('volar.vueserver.useSecondServer')
-        if not use_second_server:
-            return "Not enabled"
-        configuration.init_options.set('languageFeatures', get_language_features(configuration, is_main_server=False))
-        configuration.init_options.set('documentFeatures', None)
-        if configuration.init_options.get('typescript.serverPath'):
-            return  # don't find the `typescript.serverPath` if it was set explicitly in LSP-volar.sublime-settings
-        typescript_path = cls.find_typescript_path(workspace_folders[0].path)
-        configuration.init_options.set('typescript.serverPath', typescript_path)
-
-
-class LspVolarDocumentFeaturesServer(LspVolarPlugin):
-    @classmethod
-    def get_displayed_name(cls) -> str:
-        return 'LSP-volar(HTML Server)'
-
-    @classmethod
-    def is_allowed_to_start(
-        cls,
-        window: sublime.Window,
-        initiating_view: Optional[sublime.View] = None,
-        workspace_folders: Optional[List[WorkspaceFolder]] = None,
-        configuration: Optional[ClientConfig] = None
-    ):
-        if not workspace_folders or not configuration:
-            return
-
-        configuration.init_options.set('languageFeatures', None)
-        configuration.init_options.set('documentFeatures', {
-            "selectionRange": True,
-            "foldingRange": True,
-            "linkedEditingRange": False,
-            "documentSymbol": True,
-            "documentColor": True,
-            "documentFormatting": {
-                "defaultPrintWidth": 90
-            }
-        })
-        if configuration.init_options.get('typescript.serverPath'):
-            return  # don't find the `typescript.serverPath` if it was set explicitly in LSP-volar.sublime-settings
-        typescript_path = cls.find_typescript_path(workspace_folders[0].path)
-        configuration.init_options.set('typescript.serverPath', typescript_path)
-
-
 def get_default_tag_name_case(configuration: ClientConfig) -> str:
     preferred_tag_name_case = configuration.settings.get('volar.completion.preferredTagNameCase')
     if preferred_tag_name_case == 'kebab':
@@ -129,9 +79,8 @@ def get_default_attr_name_case(configuration: ClientConfig) -> str:
     return 'kebabCase'
 
 
-def get_language_features(configuration: ClientConfig, is_main_server: bool) -> dict:
-    use_second_server = configuration.settings.get('volar.vueserver.useSecondServer')
-    main_language_features = {
+def get_language_features(configuration: ClientConfig) -> dict:
+    language_features = {
         "references": True,
         "implementation": True,
         "definition": True,
@@ -149,9 +98,7 @@ def get_language_features(configuration: ClientConfig, is_main_server: bool) -> 
             "getDocumentNameCasesRequest": False,
             "getDocumentSelectionRequest": False,
         },
-        "schemaRequestService": False
-    }
-    second_language_features = {
+        "schemaRequestService": False,
         "documentHighlight": True,
         "documentLink": True,
         "codeLens": {"showReferencesNotification": True},
@@ -160,9 +107,4 @@ def get_language_features(configuration: ClientConfig, is_main_server: bool) -> 
         "diagnostics": True,
         "schemaRequestService": False
     }
-    if is_main_server:
-        all_language_features = {}
-        all_language_features.update(main_language_features)
-        all_language_features.update(second_language_features)
-        return main_language_features if use_second_server else all_language_features
-    return second_language_features
+    return language_features

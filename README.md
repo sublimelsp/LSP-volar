@@ -6,7 +6,6 @@ This is a helper package that automatically installs and updates the [Volar Lang
   - [Installation](#installation)
   - [Configuration](#configuration)
   - [Take over mode 🤝](#enable-for-non-vue-files)
-  - [Multiple servers ⚡](#enable-multiple-servers)
   - [Inlay hints](#inlay-hints)
   - [Vue 2 support](#vue-2-support)
 
@@ -61,22 +60,6 @@ From the Command Palette select `Preferences: LSP-volar Settings` and paste the 
 ```
 
 > NOTE: When enabling LSP-volar for non-Vue files, it is advisable to disable the `LSP-typescript` package to avoid showing duplicate results.
-
-### Enable multiple servers
-
-Use second server to progress heavy diagnostic works, the main server workhorse computing intellisense, operations such as auto-complete can respond faster.
-
-From the Command Palette select `Preferences: LSP-volar Settings` and paste the following:
-
-```js
-{
-    "settings": {
-        "volar.vueserver.useSecondServer": true
-    }
-}
-```
-
-> NOTE: This will lead to more memory usage.
 
 ### Inlay hints
 
