@@ -9,8 +9,6 @@
 		}
 	},
 	"settings": {
-		// Defines how the host (editor) should sync document changes to the language server.
-		"volar.vueserver.textDocumentSync": "incremental",
 		// Auto-complete Ref value with `.value`.
 		"volar.autoCompleteRefs": false,
 		// Auto-wrap `()` to As Expression in interpolations for fix issue #520.
@@ -32,6 +30,8 @@
 		// Set --max-old-space-size option on server process. If you have problem on frequently
 		// "Request textDocument/** failed." error, try setting higher memory(MB) on it.
 		"volar.vueserver.maxOldSpaceSize": null,
+		// Defines how the host (editor) should sync document changes to the language server.
+		"volar.vueserver.textDocumentSync": "incremental",
 
 		// javascript inlay hint
 		"javascript.inlayHints.enumMemberValues.enabled": false,
