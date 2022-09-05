@@ -252,23 +252,22 @@
                   ],
                   "markdownDescription": "Run app in browser or uni-app"
                 },
-                "experimentalImplicitWrapComponentOptionsWithDefineComponent": {
+                "experimentalComponentOptionsWrapper": {
+                  "type": "array",
+                  "default": [
+                    "(await import('vue')).defineComponent(",
+                    ")"
+                  ],
+                  "markdownDescription": "How to wrap option of `export default { ... }`? Default: `[\"(await import('vue')).default.extend(\", \")\"]` for target < 2.7, `[\"(await import('vue')).defineComponent(\", \")\"]` for target >= 2.7."
+                },
+                "experimentalComponentOptionsWrapperEnable": {
                   "enum": [
                     true,
                     false,
                     "onlyJs"
                   ],
                   "default": "onlyJs",
-                  "markdownDescription": "Implicit wrap object literal component options export with `defineComponent()`."
-                },
-                "experimentalImplicitWrapComponentOptionsWithVue2Extend": {
-                  "enum": [
-                    true,
-                    false,
-                    "onlyJs"
-                  ],
-                  "default": false,
-                  "markdownDescription": "Implicit wrap object literal component options export with `Vue.extend()`."
+                  "markdownDescription": "Enable `experimentalComponentOptionsWrapper`?"
                 },
                 "experimentalDowngradePropsAndEmitsToSetupReturnOnScriptSetup": {
                   "enum": [
