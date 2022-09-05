@@ -10,6 +10,24 @@
           "definitions": {
             "PluginConfig": {
               "properties": {
+                "initializationOptions": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "typescript": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "serverPath": {
+                          "type": "string",
+                          "description": "Path to tsserverlibrary.js / tsserver.js / typescript.js."
+                        },
+                        "localizedPath": {
+                          "type": "string",
+                          "description": "Path to lib/xxx/diagnosticMessages.generated.json"
+                        }
+                      }
+                    }
+                  }
+                },
                 "settings": {
                   "additionalProperties": false,
                   "properties": {
