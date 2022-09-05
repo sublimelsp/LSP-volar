@@ -1,5 +1,6 @@
 from LSP.plugin import ClientConfig
 from LSP.plugin import WorkspaceFolder
+from LSP.plugin.core.protocol import TextDocumentSyncKindIncremental, TextDocumentSyncKindFull, TextDocumentSyncKindNone
 from LSP.plugin.core.typing import List, Optional
 from lsp_utils import NpmClientHandler
 import os
@@ -30,6 +31,7 @@ class LspVolarPlugin(NpmClientHandler):
     ):
         if not workspace_folders or not configuration:
             return
+        configuration.init_options.set('textDocumentSync', get_text_document_sync(configuration))
         configuration.init_options.set('languageFeatures', get_language_features(configuration))
         configuration.init_options.set('documentFeatures', {
             "selectionRange": True,
@@ -77,6 +79,15 @@ def get_default_attr_name_case(configuration: ClientConfig) -> str:
     if preferred_attr_name_case == 'camel':
         return 'camelCase'
     return 'kebabCase'
+
+
+def get_text_document_sync(configuration: ClientConfig) -> int:
+    text_document_sync = configuration.settings.get('volar.vueserver.textDocumentSync')
+    if text_document_sync == 'full':
+        return TextDocumentSyncKindFull
+    if text_document_sync == 'none':
+        return TextDocumentSyncKindNone
+    return TextDocumentSyncKindIncremental
 
 
 def get_language_features(configuration: ClientConfig) -> dict:
