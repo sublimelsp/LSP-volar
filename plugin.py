@@ -89,6 +89,8 @@ def get_text_document_sync(configuration: ClientConfig) -> int:
         return TextDocumentSyncKindNone
     return TextDocumentSyncKindIncremental
 
+def get_ignored_trigger_characters(configuration: ClientConfig) -> str:
+    return configuration.settings.get('volar.ignoreTriggerCharacters') or ""
 
 def get_language_features(configuration: ClientConfig) -> dict:
     language_features = {
@@ -108,6 +110,7 @@ def get_language_features(configuration: ClientConfig) -> dict:
             "defaultAttrNameCase": get_default_attr_name_case(configuration),
             "getDocumentNameCasesRequest": False,
             "getDocumentSelectionRequest": False,
+            "ignoreTriggerCharacters": get_ignored_trigger_characters(configuration)
         },
         "schemaRequestService": False,
         "documentHighlight": True,
