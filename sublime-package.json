@@ -10,9 +10,32 @@
           "definitions": {
             "PluginConfig": {
               "properties": {
+                "initializationOptions": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "typescript": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "serverPath": {
+                          "type": "string",
+                          "description": "Path to tsserverlibrary.js / tsserver.js / typescript.js."
+                        },
+                        "localizedPath": {
+                          "type": "string",
+                          "description": "Path to lib/xxx/diagnosticMessages.generated.json"
+                        }
+                      }
+                    }
+                  }
+                },
                 "settings": {
                   "additionalProperties": false,
                   "properties": {
+                    "volar.ignoreTriggerCharacters": {
+                      "type": "string",
+                      "default": "",
+                      "description": "Do not trigger the auto-complete popup on these characters."
+                    },
                     "volar.autoCompleteRefs": {
                       "default": false,
                       "description": "Auto-complete Ref value with `.value`.",
@@ -76,6 +99,21 @@
                         "<PascalCase>"
                       ],
                       "type": "string"
+                    },
+                    "volar.vueserver.textDocumentSync": {
+                      "type": "string",
+                      "default": "incremental",
+                      "enum": [
+                        "incremental",
+                        "full",
+                        "none"
+                      ],
+                      "enumDescriptions": [
+                        "Documents are synced by sending the full content on open. After that only incremental updates to the document are send.",
+                        "Documents are synced by always sending the full content of the document.",
+                        "Documents should not be synced at all."
+                      ],
+                      "description": "Defines how the host (editor) should sync document changes to the language server. SFC incremental parser only working when config \"incremental\"."
                     },
                     "volar.vueserver.maxOldSpaceSize": {
                       "default": null,
@@ -252,23 +290,22 @@
                   ],
                   "markdownDescription": "Run app in browser or uni-app"
                 },
-                "experimentalImplicitWrapComponentOptionsWithDefineComponent": {
+                "experimentalComponentOptionsWrapper": {
+                  "type": "array",
+                  "default": [
+                    "(await import('vue')).defineComponent(",
+                    ")"
+                  ],
+                  "markdownDescription": "How to wrap option of `export default { ... }`? Default: `[\"(await import('vue')).default.extend(\", \")\"]` for target < 2.7, `[\"(await import('vue')).defineComponent(\", \")\"]` for target >= 2.7."
+                },
+                "experimentalComponentOptionsWrapperEnable": {
                   "enum": [
                     true,
                     false,
                     "onlyJs"
                   ],
                   "default": "onlyJs",
-                  "markdownDescription": "Implicit wrap object literal component options export with `defineComponent()`."
-                },
-                "experimentalImplicitWrapComponentOptionsWithVue2Extend": {
-                  "enum": [
-                    true,
-                    false,
-                    "onlyJs"
-                  ],
-                  "default": false,
-                  "markdownDescription": "Implicit wrap object literal component options export with `Vue.extend()`."
+                  "markdownDescription": "Enable `experimentalComponentOptionsWrapper`?"
                 },
                 "experimentalDowngradePropsAndEmitsToSetupReturnOnScriptSetup": {
                   "enum": [
