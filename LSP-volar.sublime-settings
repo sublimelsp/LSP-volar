@@ -27,6 +27,7 @@
 		// Preferred tag name case.
 		// possible values: auto, both, kebab, pascal
 		"volar.completion.preferredTagNameCase": "auto",
+		// Whether to have initial indent.
 		"volar.format.initialIndent": {
 			"css": false,
 			"html": true,
