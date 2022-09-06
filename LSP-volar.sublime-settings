@@ -27,6 +27,18 @@
 		// Preferred tag name case.
 		// possible values: auto, both, kebab, pascal
 		"volar.completion.preferredTagNameCase": "auto",
+		// Whether to have initial indent.
+		"volar.format.initialIndent": {
+			"css": false,
+			"html": true,
+			"javascript": false,
+			"javascriptreact": false,
+			"json": false,
+			"jsonc": false,
+			"scss": false,
+			"typescript": false,
+			"typescriptreact": false,
+		},
 		// Set --max-old-space-size option on server process. If you have problem on frequently
 		// "Request textDocument/** failed." error, try setting higher memory(MB) on it.
 		"volar.vueserver.maxOldSpaceSize": null,

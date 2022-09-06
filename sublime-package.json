@@ -100,6 +100,51 @@
                       ],
                       "type": "string"
                     },
+                    "volar.format.initialIndent": {
+                      "type": "object",
+                      "description": "Whether to have initial indent.",
+                      "default": {
+                        "html": true
+                      },
+                      "properties": {
+                        "html": {
+                          "type": "boolean",
+                          "default": true
+                        },
+                        "typescript": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "javascript": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "typescriptreact": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "javascriptreact": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "css": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "scss": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "json": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "jsonc": {
+                          "type": "boolean",
+                          "default": false
+                        }
+                      }
+                    },
                     "volar.vueserver.textDocumentSync": {
                       "type": "string",
                       "default": "incremental",
