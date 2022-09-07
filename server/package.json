@@ -1,6 +1,5 @@
 {
   "name": "sublime-volar",
-  "version": "0.0.0",
   "dependencies": {
     "@volar/vue-language-server": "^0.40.10",
     "typescript": "^4.7.4"
