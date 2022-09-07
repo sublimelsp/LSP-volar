@@ -72,5 +72,8 @@
 			"scopes": ["text.html.vue"],
 			"syntaxes": ["Packages/Vue Syntax Highlight/Vue Component.sublime-syntax"],
 		}
-	]
+	],
+	"disabled_capabilities": {
+		"codeLensProvider": true
+	}
 }
