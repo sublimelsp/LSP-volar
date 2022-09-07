@@ -21,6 +21,8 @@
 		"volar.codeLens.scriptSetupTools": false,
 		// Enabled auto-import for component with tag completion.
 		"volar.completion.autoImportComponent": true,
+		// Do not trigger the auto-complete popup on these characters.
+		"volar.completion.ignoreTriggerCharacters": "",
 		// Preferred attr name case.
 		// possible values: auto-kebab, auto-camel, kebab, camel
 		"volar.completion.preferredAttrNameCase": "auto-kebab",

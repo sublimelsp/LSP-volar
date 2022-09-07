@@ -90,7 +90,7 @@ def get_text_document_sync(configuration: ClientConfig) -> int:
     return TextDocumentSyncKindIncremental
 
 def get_ignored_trigger_characters(configuration: ClientConfig) -> str:
-    return configuration.settings.get('volar.ignoreTriggerCharacters') or ""
+    return configuration.settings.get('volar.completion.ignoreTriggerCharacters') or ""
 
 def get_language_features(configuration: ClientConfig) -> dict:
     language_features = {
