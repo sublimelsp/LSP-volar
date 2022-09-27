@@ -1,11 +1,12 @@
 from LSP.plugin import ClientConfig
 from LSP.plugin import WorkspaceFolder
 from LSP.plugin.core.protocol import TextDocumentSyncKind
-from LSP.plugin.core.typing import List, Optional, sys
+from LSP.plugin.core.typing import List, Optional
 from lsp_utils import NpmClientHandler
 import os
 import sublime
 import subprocess
+import sys
 
 
 def plugin_loaded():
