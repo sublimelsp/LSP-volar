@@ -1,11 +1,12 @@
 from LSP.plugin import ClientConfig
 from LSP.plugin import WorkspaceFolder
-from LSP.plugin.core.protocol import TextDocumentSyncKindIncremental, TextDocumentSyncKindFull, TextDocumentSyncKindNone
+from LSP.plugin.core.protocol import TextDocumentSyncKind
 from LSP.plugin.core.typing import List, Optional
 from lsp_utils import NpmClientHandler
 import os
 import sublime
 import subprocess
+import sys
 
 
 def plugin_loaded():
@@ -52,10 +53,10 @@ class LspVolarPlugin(NpmClientHandler):
     def find_typescript_path(cls, current_folder: str) -> str:
         server_directory_path = cls._server_directory_path()
         resolve_module_script = os.path.join(server_directory_path, 'resolve_module.js')
-        find_ts_server_command =  [cls._node_bin(), resolve_module_script, current_folder]
+        find_ts_server_command = [cls._node_bin(), resolve_module_script, current_folder]
         startupinfo = None
         # Prevent cmd.exe popup on Windows.
-        if sublime.platform() == "windows":
+        if sys.platform == "win32":
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= (
                 subprocess.SW_HIDE | subprocess.STARTF_USESHOWWINDOW
@@ -81,16 +82,18 @@ def get_default_attr_name_case(configuration: ClientConfig) -> str:
     return 'kebabCase'
 
 
-def get_text_document_sync(configuration: ClientConfig) -> int:
+def get_text_document_sync(configuration: ClientConfig) -> TextDocumentSyncKind:
     text_document_sync = configuration.settings.get('volar.vueserver.textDocumentSync')
     if text_document_sync == 'full':
-        return TextDocumentSyncKindFull
+        return TextDocumentSyncKind.Full
     if text_document_sync == 'none':
-        return TextDocumentSyncKindNone
-    return TextDocumentSyncKindIncremental
+        return TextDocumentSyncKind.None_
+    return TextDocumentSyncKind.Incremental
+
 
 def get_ignored_trigger_characters(configuration: ClientConfig) -> str:
     return configuration.settings.get('volar.completion.ignoreTriggerCharacters') or ""
+
 
 def get_language_features(configuration: ClientConfig) -> dict:
     language_features = {
