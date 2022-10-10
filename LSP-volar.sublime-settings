@@ -1,12 +1,12 @@
 {
-	"command": ["${node_bin}", "${server_path}", "--stdio"],
 	"initializationOptions": {
-		// Specify the `typescript.serverPath` to tsserverlibrary.js.
+		// Defines which auto-complete popup trigger characters that Volar defines are allowed.
+		// By default all Volar trigger characters are disabled as ST does a better job.
+		"ignoreTriggerCharacters": [],
+		// Specify the `typescript.tsdk` to tsserverlibrary.js.
 		// If not specified LSP-volar will use the typescript from the workspace if it exist,
 		// else the typescript bundled with LSP-volar will be used.
-		"typescript": {
-		// 	"serverPath": "/path/to/tsserverlibrary.js"
-		}
+		// "typescript.tsdk": "/path/to/tsserverlibrary.js"
 	},
 	"settings": {
 		// Auto-complete Ref value with `.value`.
@@ -21,14 +21,14 @@
 		"volar.codeLens.scriptSetupTools": false,
 		// Enabled auto-import for component with tag completion.
 		"volar.completion.autoImportComponent": true,
-		// Do not trigger the auto-complete popup on these characters.
-		"volar.completion.ignoreTriggerCharacters": "",
 		// Preferred attr name case.
-		// possible values: auto-kebab, auto-camel, kebab, camel
+		// possible values: "auto-kebab", "auto-camel", "kebab", "camel"
 		"volar.completion.preferredAttrNameCase": "auto-kebab",
 		// Preferred tag name case.
-		// possible values: auto, both, kebab, pascal
-		"volar.completion.preferredTagNameCase": "auto",
+		// possible values: "auto-kebab", "auto-pascal", "kebab", "pascal"
+		"volar.completion.preferredTagNameCase": "auto-pascal",
+		// Delay time for diagnostics.
+		"volar.diagnostics.delay": 200,
 		// Whether to have initial indent.
 		"volar.format.initialIndent": {
 			"css": false,
@@ -41,30 +41,34 @@
 			"typescript": false,
 			"typescriptreact": false,
 		},
+
+		// Enabled update imports on file move.
+		"volar.updateImportsOnFileMove.enabled": true,
 		// Set --max-old-space-size option on server process. If you have problem on frequently
 		// "Request textDocument/** failed." error, try setting higher memory(MB) on it.
 		"volar.vueserver.maxOldSpaceSize": null,
-		// Defines how the host (editor) should sync document changes to the language server.
-		"volar.vueserver.textDocumentSync": "incremental",
 
 		// javascript inlay hint
 		"javascript.inlayHints.enumMemberValues.enabled": false,
 		"javascript.inlayHints.functionLikeReturnTypes.enabled": false,
 		"javascript.inlayHints.parameterNames.enabled": "none",
-		"javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+		"javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true,
 		"javascript.inlayHints.parameterTypes.enabled": false,
 		"javascript.inlayHints.propertyDeclarationTypes.enabled": false,
 		"javascript.inlayHints.variableTypes.enabled": false,
+		"javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName.enabled": true,
 
 		// typescript inlay hint
 		"typescript.inlayHints.enumMemberValues.enabled": false,
 		"typescript.inlayHints.functionLikeReturnTypes.enabled": false,
 		"typescript.inlayHints.parameterNames.enabled": "none",
-		"typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+		"typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true,
 		"typescript.inlayHints.parameterTypes.enabled": false,
 		"typescript.inlayHints.propertyDeclarationTypes.enabled": false,
 		"typescript.inlayHints.variableTypes.enabled": false,
+		"typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName.enabled": true,
 	},
+	"command": ["${node_bin}", "${server_path}", "--stdio"],
 	// ST4
 	"selector": "text.html.vue",
 	// ST3

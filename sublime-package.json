@@ -16,17 +16,22 @@
                     "typescript": {
                       "additionalProperties": false,
                       "properties": {
-                        "serverPath": {
+                        "tsdk": {
                           "type": "string",
-                          "description": "Path to tsserverlibrary.js / tsserver.js / typescript.js."
+                          "description": "Path to tsserver's lib directory."
                         },
-                        "localizedPath": {
-                          "type": "string",
-                          "description": "Path to lib/xxx/diagnosticMessages.generated.json"
-                        }
                       }
-                    }
-                  }
+                    },
+                    "ignoreTriggerCharacters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1
+                      },
+                      "default": [],
+                      "description": "Defines which auto-complete popup trigger characters that Volar defines are allowed.\nBy default all Volar trigger characters are disabled as ST does a better job."
+                    },
+                  },
                 },
                 "settings": {
                   "additionalProperties": false,
@@ -61,11 +66,6 @@
                       "description": "Enabled auto-import for component with tag completion.",
                       "type": "boolean"
                     },
-                    "volar.completion.ignoreTriggerCharacters": {
-                      "type": "string",
-                      "default": "",
-                      "description": "Do not trigger the auto-complete popup on these characters."
-                    },
                     "volar.completion.preferredAttrNameCase": {
                       "default": "auto-kebab",
                       "description": "Preferred attr name case.",
@@ -84,81 +84,80 @@
                       "type": "string"
                     },
                     "volar.completion.preferredTagNameCase": {
-                      "default": "auto",
+                      "default": "auto-pascal",
                       "description": "Preferred tag name case.",
                       "enum": [
-                        "auto",
-                        "both",
+                        "auto-kebab",
+                        "auto-pascal",
                         "kebab",
                         "pascal"
                       ],
                       "enumDescriptions": [
-                        "Auto Detect from Content",
-                        "<kebab-case> and <PascalCase>",
+                        "Auto Detect from Content (Preferred <kebab-case>)",
+                        "Auto Detect from Content (Preferred <PascalCase>)",
                         "<kebab-case>",
                         "<PascalCase>"
                       ],
                       "type": "string"
                     },
+                    "volar.diagnostics.delay": {
+                      "default": 200,
+                      "description": "Delay time for diagnostics.",
+                      "type": "number"
+                    },
                     "volar.format.initialIndent": {
-                      "type": "object",
-                      "description": "Whether to have initial indent.",
                       "default": {
                         "html": true
                       },
+                      "description": "Whether to have initial indent.",
                       "properties": {
-                        "html": {
-                          "type": "boolean",
-                          "default": true
+                        "css": {
+                          "default": false,
+                          "type": "boolean"
                         },
-                        "typescript": {
-                          "type": "boolean",
-                          "default": false
+                        "html": {
+                          "default": true,
+                          "type": "boolean"
                         },
                         "javascript": {
-                          "type": "boolean",
-                          "default": false
-                        },
-                        "typescriptreact": {
-                          "type": "boolean",
-                          "default": false
+                          "default": false,
+                          "type": "boolean"
                         },
                         "javascriptreact": {
-                          "type": "boolean",
-                          "default": false
-                        },
-                        "css": {
-                          "type": "boolean",
-                          "default": false
-                        },
-                        "scss": {
-                          "type": "boolean",
-                          "default": false
+                          "default": false,
+                          "type": "boolean"
                         },
                         "json": {
-                          "type": "boolean",
-                          "default": false
+                          "default": false,
+                          "type": "boolean"
                         },
                         "jsonc": {
-                          "type": "boolean",
-                          "default": false
+                          "default": false,
+                          "type": "boolean"
+                        },
+                        "less": {
+                          "default": false,
+                          "type": "boolean"
+                        },
+                        "scss": {
+                          "default": false,
+                          "type": "boolean"
+                        },
+                        "typescript": {
+                          "default": false,
+                          "type": "boolean"
+                        },
+                        "typescriptreact": {
+                          "default": false,
+                          "type": "boolean"
                         }
-                      }
+                      },
+                      "type": "object"
                     },
-                    "volar.vueserver.textDocumentSync": {
-                      "type": "string",
-                      "default": "incremental",
-                      "enum": [
-                        "incremental",
-                        "full",
-                        "none"
-                      ],
-                      "enumDescriptions": [
-                        "Documents are synced by sending the full content on open. After that only incremental updates to the document are send.",
-                        "Documents are synced by always sending the full content of the document.",
-                        "Documents should not be synced at all."
-                      ],
-                      "description": "Defines how the host (editor) should sync document changes to the language server. SFC incremental parser only working when config \"incremental\"."
+                    "volar.updateImportsOnFileMove.enabled": {
+                      "default": true,
+                      "description": "Enabled update imports on file move.",
+                      "type": "boolean"
                     },
                     "volar.vueserver.maxOldSpaceSize": {
                       "default": null,
@@ -198,7 +197,7 @@
                     },
                     "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": {
                       "type": "boolean",
-                      "default": false,
+                      "default": true,
                       "markdownDescription": ""
                     },
                     "typescript.inlayHints.propertyDeclarationTypes.enabled": {
@@ -210,6 +209,10 @@
                       "type": "boolean",
                       "default": false,
                       "markdownDescription": "Enable/disable inlay hints for implicit variable types: \n\n ```typescript\n const foo /* :number */ = Date.now();\n ``` \n Require TypeScript 4.4+."
+                    },
+                    "typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName.enabled": {
+                      "type": "boolean",
+                      "default": true,
                     },
                     "javascript.inlayHints.enumMemberValues.enabled": {
                       "type": "boolean",
@@ -241,7 +244,7 @@
                     },
                     "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": {
                       "type": "boolean",
-                      "default": false,
+                      "default": true,
                       "markdownDescription": ""
                     },
                     "javascript.inlayHints.propertyDeclarationTypes.enabled": {
@@ -253,6 +256,10 @@
                       "type": "boolean",
                       "default": false,
                       "markdownDescription": "Enable/disable inlay hints for implicit variable types: \n\n ```typescript\n const foo /* :number */ = Date.now();\n ``` \n Require TypeScript 4.4+."
+                    },
+                    "javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName.enabled": {
+                      "type": "boolean",
+                      "default": true,
                     }
                   }
                 }
