@@ -42,8 +42,6 @@
 			"typescriptreact": false,
 		},
 
-		// Enabled update imports on file move.
-		"volar.updateImportsOnFileMove.enabled": true,
 		// Set --max-old-space-size option on server process. If you have problem on frequently
 		// "Request textDocument/** failed." error, try setting higher memory(MB) on it.
 		"volar.vueserver.maxOldSpaceSize": null,
