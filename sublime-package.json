@@ -394,6 +394,27 @@
                   "type": "boolean",
                   "default": false,
                   "markdownDescription": "https://github.com/vuejs/rfcs/discussions/436"
+                },
+                "experimentalModelPropName": {
+                  "type": "object",
+                  "default": {
+                    "": {
+                      "input": {
+                        "type": "radio"
+                      }
+                    },
+                    "checked": {
+                      "input": {
+                        "type": "checkbox"
+                      }
+                    },
+                    "value": {
+                      "input": true,
+                      "textarea": true,
+                      "select": true
+                    }
+                  },
+                  "markdownDescription": "https://github.com/vuejs/rfcs/discussions/1969"
                 }
               }
             }
