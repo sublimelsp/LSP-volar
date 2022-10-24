@@ -67,6 +67,29 @@
 		"typescript.inlayHints.propertyDeclarationTypes.enabled": false,
 		"typescript.inlayHints.variableTypes.enabled": false,
 		"typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName.enabled": true,
+
+		// Emmet plugin settings (autocompletion within template blocks).
+
+		// An array of languages where Emmet abbreviations should not be expanded.
+		"emmet.excludeLanguages": ["markdown"],
+		// Preferences used to modify behavior of some actions and resolvers of Emmet.
+		"emmet.preferences": {},
+		// Shows possible Emmet abbreviations as suggestions. Not applicable in stylesheets or when
+		// emmet.showExpandedAbbreviation is set to `"never"`.
+		"emmet.showAbbreviationSuggestions": true,
+		// Shows expanded Emmet abbreviations as suggestions.
+		// The option `"inMarkupAndStylesheetFilesOnly"` applies to html, haml, jade, slim, xml,
+		// xsl, css, scss, sass, less and stylus.
+		// The option `"always"` applies to all parts of the file regardless of markup/css.
+		// possible values: "never", "always", "inMarkupAndStylesheetFilesOnly"
+		"emmet.showExpandedAbbreviation": "always",
+		// If `true`, then Emmet suggestions will show up as snippets allowing you to order them as
+		// per `#editor.snippetSuggestions#` setting.
+		"emmet.showSuggestionsAsSnippets": false,
+		// Define profile for specified syntax or use your own profile with specific rules.
+		"emmet.syntaxProfiles": {},
+		// Variables to be used in Emmet snippets.
+		"emmet.variables": {},
 	},
 	"command": ["${node_bin}", "${server_path}", "--stdio"],
 	// ST4
