@@ -19,8 +19,8 @@
 		"volar.codeLens.references": true,
 		// [ref sugar ☐] code lens.
 		"volar.codeLens.scriptSetupTools": false,
-		// Enabled auto-import for component with tag completion.
-		"volar.completion.autoImportComponent": true,
+		// Normalize import name for auto import. ("myCompVue" -> "MyComp")
+		"volar.completion.normalizeComponentAutoImportName": true,
 		// Preferred attr name case.
 		// possible values: "auto-kebab", "auto-camel", "kebab", "camel"
 		"volar.completion.preferredAttrNameCase": "auto-kebab",
@@ -42,6 +42,8 @@
 			"typescriptreact": false,
 		},
 
+		// List any additional file extensions that should be processed as Vue files.
+		"volar.vueserver.additionalExtensions": [],
 		// Set --max-old-space-size option on server process. If you have problem on frequently
 		// "Request textDocument/** failed." error, try setting higher memory(MB) on it.
 		"volar.vueserver.maxOldSpaceSize": null,

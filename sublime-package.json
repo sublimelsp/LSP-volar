@@ -61,10 +61,10 @@
                       "description": "[ref sugar \u2610] code lens.",
                       "type": "boolean"
                     },
-                    "volar.completion.autoImportComponent": {
+                    "volar.completion.normalizeComponentAutoImportName": {
+                      "type": "boolean",
                       "default": true,
-                      "description": "Enabled auto-import for component with tag completion.",
-                      "type": "boolean"
+                      "description": "Normalize import name for auto import. (\"myCompVue\" -> \"MyComp\")"
                     },
                     "volar.completion.preferredAttrNameCase": {
                       "default": "auto-kebab",
@@ -153,6 +153,14 @@
                         }
                       },
                       "type": "object"
+                    },
+                    "volar.vueserver.additionalExtensions": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "default": [],
+                      "description": "List any additional file extensions that should be processed as Vue files."
                     },
                     "volar.vueserver.maxOldSpaceSize": {
                       "default": null,
@@ -320,6 +328,11 @@
                   ],
                   "markdownDescription": "Target version of Vue."
                 },
+                "extensions": {
+                  "type": "array",
+                  "default": [ ".vue" ],
+                  "markdownDescription": "Valid file extensions that should be considered as regular Vue SFC. Please note that you should not use this option separately for additional file extensions IDE support, see https://github.com/johnsoncodehk/volar/tree/master/extensions/vscode-vue-language-features/README.md#custom-file-extensions."
+                },
                 "jsxTemplates": {
                   "type": "boolean",
                   "default": false,
@@ -394,6 +407,11 @@
                   "type": "boolean",
                   "default": false,
                   "markdownDescription": "https://github.com/vuejs/rfcs/discussions/436"
+                },
+                "experimentalUseElementAccessInTemplate": {
+                  "type": "boolean",
+                  "default": false,
+                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/997"
                 },
                 "experimentalModelPropName": {
                   "type": "object",
