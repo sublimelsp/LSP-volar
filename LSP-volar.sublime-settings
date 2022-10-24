@@ -47,6 +47,9 @@
 		// Set --max-old-space-size option on server process. If you have problem on frequently
 		// "Request textDocument/** failed." error, try setting higher memory(MB) on it.
 		"volar.vueserver.maxOldSpaceSize": null,
+		// Ignore project references settings of tsconfig in language server for resolve issue
+		// https://github.com/johnsoncodehk/volar/issues/1344.
+		"volar.vueserver.noProjectReferences": false,
 
 		// javascript inlay hint
 		"javascript.inlayHints.enumMemberValues.enabled": false,

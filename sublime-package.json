@@ -353,6 +353,11 @@
                       },
                       "type": "object"
                     },
+                    "volar.vueserver.noProjectReferences": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Ignore project references settings of tsconfig in language server for resolve issue https://github.com/johnsoncodehk/volar/issues/1344."
+                    },
                     "volar.vueserver.additionalExtensions": {
                       "type": "array",
                       "items": {
