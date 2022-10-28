@@ -1,5 +1,7 @@
 {
 	"initializationOptions": {
+		// List any additional file extensions that should be processed as Vue files.
+		"additionalExtensions": [],
 		// Defines which auto-complete popup trigger characters that Volar defines are allowed.
 		// By default all Volar trigger characters are disabled as ST does a better job.
 		"ignoreTriggerCharacters": [],
@@ -7,6 +9,12 @@
 		// If not specified LSP-volar will use the typescript from the workspace if it exist,
 		// else the typescript bundled with LSP-volar will be used.
 		// "typescript.tsdk": "/path/to/tsserverlibrary.js"
+		// Set --max-old-space-size option on server process. If you have problem on frequently
+		// "Request textDocument/** failed." error, try setting higher memory(MB) on it.
+		"maxOldSpaceSize": null,
+		// Ignore project references settings of tsconfig in language server for resolve issue
+		// https://github.com/johnsoncodehk/volar/issues/1344.
+		"noProjectReferences": false,
 	},
 	"settings": {
 		// Auto-complete Ref value with `.value`.
@@ -41,15 +49,6 @@
 			"typescript": false,
 			"typescriptreact": false,
 		},
-
-		// List any additional file extensions that should be processed as Vue files.
-		"volar.vueserver.additionalExtensions": [],
-		// Set --max-old-space-size option on server process. If you have problem on frequently
-		// "Request textDocument/** failed." error, try setting higher memory(MB) on it.
-		"volar.vueserver.maxOldSpaceSize": null,
-		// Ignore project references settings of tsconfig in language server for resolve issue
-		// https://github.com/johnsoncodehk/volar/issues/1344.
-		"volar.vueserver.noProjectReferences": false,
 
 		// javascript inlay hint
 		"javascript.inlayHints.enumMemberValues.enabled": false,
