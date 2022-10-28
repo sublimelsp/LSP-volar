@@ -13,24 +13,249 @@
                 "initializationOptions": {
                   "additionalProperties": false,
                   "properties": {
+                    "additionalExtensions": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "default": [],
+                      "description": "List any additional file extensions that should be processed as Vue files."
+                    },
+                    "maxOldSpaceSize": {
+                      "default": null,
+                      "description": "Set --max-old-space-size option on server process. If you have problem on frequently \"Request textDocument/** failed.\" error, try setting higher memory(MB) on it.",
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "noProjectReferences": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Ignore project references settings of tsconfig in language server for resolve issue https://github.com/johnsoncodehk/volar/issues/1344params.textDocument, ."
+                    },
                     "typescript": {
                       "additionalProperties": false,
                       "properties": {
-                        "serverPath": {
+                        "tsdk": {
                           "type": "string",
-                          "description": "Path to tsserverlibrary.js / tsserver.js / typescript.js."
+                          "description": "Path to tsserver's lib directory."
                         },
-                        "localizedPath": {
-                          "type": "string",
-                          "description": "Path to lib/xxx/diagnosticMessages.generated.json"
-                        }
                       }
-                    }
-                  }
+                    },
+                    "ignoreTriggerCharacters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1
+                      },
+                      "default": [],
+                      "description": "Defines which auto-complete popup trigger characters that Volar defines are allowed.\nBy default all Volar trigger characters are disabled as ST does a better job."
+                    },
+                  },
                 },
                 "settings": {
                   "additionalProperties": false,
                   "properties": {
+                    "emmet.excludeLanguages": {
+                      "default": [
+                        "markdown"
+                      ],
+                      "items": {
+                        "type": "string"
+                      },
+                      "markdownDescription": "An array of languages where Emmet abbreviations should not be expanded.",
+                      "type": "array"
+                    },
+                    "emmet.preferences": {
+                      "default": {},
+                      "markdownDescription": "Preferences used to modify behavior of some actions and resolvers of Emmet.",
+                      "properties": {
+                        "bem.elementSeparator": {
+                          "default": "__",
+                          "markdownDescription": "Element separator used for classes when using the BEM filter.",
+                          "type": "string"
+                        },
+                        "bem.modifierSeparator": {
+                          "default": "_",
+                          "markdownDescription": "Modifier separator used for classes when using the BEM filter.",
+                          "type": "string"
+                        },
+                        "css.color.short": {
+                          "default": true,
+                          "markdownDescription": "If `true`, color values like `#f` will be expanded to `#fff` instead of `#ffffff`.",
+                          "type": "boolean"
+                        },
+                        "css.floatUnit": {
+                          "default": "em",
+                          "markdownDescription": "Default unit for float values.",
+                          "type": "string"
+                        },
+                        "css.fuzzySearchMinScore": {
+                          "default": 0.3,
+                          "markdownDescription": "The minimum score (from 0 to 1) that fuzzy-matched abbreviation should achieve. Lower values may produce many false-positive matches, higher values may reduce possible matches.",
+                          "type": "number"
+                        },
+                        "css.intUnit": {
+                          "default": "px",
+                          "markdownDescription": "Default unit for integer values.",
+                          "type": "string"
+                        },
+                        "css.mozProperties": {
+                          "default": null,
+                          "markdownDescription": "Comma separated CSS properties that get the 'moz' vendor prefix when used in Emmet abbreviation that starts with `-`. Set to empty string to always avoid the 'moz' prefix.",
+                          "type": "string"
+                        },
+                        "css.msProperties": {
+                          "default": null,
+                          "markdownDescription": "Comma separated CSS properties that get the 'ms' vendor prefix when used in Emmet abbreviation that starts with `-`. Set to empty string to always avoid the 'ms' prefix.",
+                          "type": "string"
+                        },
+                        "css.oProperties": {
+                          "default": null,
+                          "markdownDescription": "Comma separated CSS properties that get the 'o' vendor prefix when used in Emmet abbreviation that starts with `-`. Set to empty string to always avoid the 'o' prefix.",
+                          "type": "string"
+                        },
+                        "css.propertyEnd": {
+                          "default": ";",
+                          "markdownDescription": "Symbol to be placed at the end of CSS property when expanding CSS abbreviations.",
+                          "type": "string"
+                        },
+                        "css.valueSeparator": {
+                          "default": ": ",
+                          "markdownDescription": "Symbol to be placed at the between CSS property and value when expanding CSS abbreviations.",
+                          "type": "string"
+                        },
+                        "css.webkitProperties": {
+                          "default": null,
+                          "markdownDescription": "Comma separated CSS properties that get the 'webkit' vendor prefix when used in Emmet abbreviation that starts with `-`. Set to empty string to always avoid the 'webkit' prefix.",
+                          "type": "string"
+                        },
+                        "filter.commentAfter": {
+                          "default": "\n<!-- /[#ID][.CLASS] -->",
+                          "markdownDescription": "A definition of comment that should be placed after matched element when comment filter is applied.",
+                          "type": "string"
+                        },
+                        "filter.commentBefore": {
+                          "default": "",
+                          "markdownDescription": "A definition of comment that should be placed before matched element when comment filter is applied.",
+                          "type": "string"
+                        },
+                        "filter.commentTrigger": {
+                          "default": [
+                            "id",
+                            "class"
+                          ],
+                          "markdownDescription": "A comma-separated list of attribute names that should exist in the abbreviation for the comment filter to be applied.",
+                          "type": "array"
+                        },
+                        "format.forceIndentationForTags": {
+                          "default": [
+                            "body"
+                          ],
+                          "markdownDescription": "An array of tag names that should always get inner indentation.",
+                          "type": "array"
+                        },
+                        "format.noIndentTags": {
+                          "default": [
+                            "html"
+                          ],
+                          "markdownDescription": "An array of tag names that should never get inner indentation.",
+                          "type": "array"
+                        },
+                        "output.inlineBreak": {
+                          "default": 0,
+                          "markdownDescription": "The number of sibling inline elements needed for line breaks to be placed between those elements. If `0`, inline elements are always expanded onto a single line.",
+                          "type": "number"
+                        },
+                        "output.reverseAttributes": {
+                          "default": false,
+                          "markdownDescription": "If `true`, reverses attribute merging directions when resolving snippets.",
+                          "type": "boolean"
+                        },
+                        "output.selfClosingStyle": {
+                          "default": "html",
+                          "enum": [
+                            "html",
+                            "xhtml",
+                            "xml"
+                          ],
+                          "markdownDescription": "Style of self-closing tags: html (`<br>`), xml (`<br/>`) or xhtml (`<br />`).",
+                          "type": "string"
+                        },
+                        "profile.allowCompactBoolean": {
+                          "default": false,
+                          "markdownDescription": "If `true`, compact notation of boolean attributes are produced.",
+                          "type": "boolean"
+                        },
+                        "sass.propertyEnd": {
+                          "default": "",
+                          "markdownDescription": "Symbol to be placed at the end of CSS property when expanding CSS abbreviations in Sass files.",
+                          "type": "string"
+                        },
+                        "sass.valueSeparator": {
+                          "default": ": ",
+                          "markdownDescription": "Symbol to be placed at the between CSS property and value when expanding CSS abbreviations in Sass files.",
+                          "type": "string"
+                        },
+                        "stylus.propertyEnd": {
+                          "default": "",
+                          "markdownDescription": "Symbol to be placed at the end of CSS property when expanding CSS abbreviations in Stylus files.",
+                          "type": "string"
+                        },
+                        "stylus.valueSeparator": {
+                          "default": " ",
+                          "markdownDescription": "Symbol to be placed at the between CSS property and value when expanding CSS abbreviations in Stylus files.",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "emmet.showAbbreviationSuggestions": {
+                      "default": true,
+                      "markdownDescription": "Shows possible Emmet abbreviations as suggestions. Not applicable in stylesheets or when emmet.showExpandedAbbreviation is set to `\"never\"`.",
+                      "type": "boolean"
+                    },
+                    "emmet.showExpandedAbbreviation": {
+                      "default": "always",
+                      "enum": [
+                        "never",
+                        "always",
+                        "inMarkupAndStylesheetFilesOnly"
+                      ],
+                      "markdownDescription": "Shows expanded Emmet abbreviations as suggestions.\nThe option `\"inMarkupAndStylesheetFilesOnly\"` applies to html, haml, jade, slim, xml, xsl, css, scss, sass, less and stylus.\nThe option `\"always\"` applies to all parts of the file regardless of markup/css.",
+                      "type": [
+                        "string"
+                      ]
+                    },
+                    "emmet.showSuggestionsAsSnippets": {
+                      "default": false,
+                      "markdownDescription": "If `true`, then Emmet suggestions will show up as snippets allowing you to order them as per `#editor.snippetSuggestions#` setting.",
+                      "type": "boolean"
+                    },
+                    "emmet.syntaxProfiles": {
+                      "default": {},
+                      "markdownDescription": "Define profile for specified syntax or use your own profile with specific rules.",
+                      "type": "object"
+                    },
+                    "emmet.variables": {
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "default": {},
+                      "markdownDescription": "Variables to be used in Emmet snippets.",
+                      "properties": {
+                        "charset": {
+                          "default": "UTF-8",
+                          "type": "string"
+                        },
+                        "lang": {
+                          "default": "en",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
                     "volar.autoCompleteRefs": {
                       "default": false,
                       "description": "Auto-complete Ref value with `.value`.",
@@ -56,15 +281,10 @@
                       "description": "[ref sugar \u2610] code lens.",
                       "type": "boolean"
                     },
-                    "volar.completion.autoImportComponent": {
+                    "volar.completion.normalizeComponentAutoImportName": {
+                      "type": "boolean",
                       "default": true,
-                      "description": "Enabled auto-import for component with tag completion.",
-                      "type": "boolean"
-                    },
-                    "volar.completion.ignoreTriggerCharacters": {
-                      "type": "string",
-                      "default": "",
-                      "description": "Do not trigger the auto-complete popup on these characters."
+                      "description": "Normalize import name for auto import. (\"myCompVue\" -> \"MyComp\")"
                     },
                     "volar.completion.preferredAttrNameCase": {
                       "default": "auto-kebab",
@@ -84,89 +304,75 @@
                       "type": "string"
                     },
                     "volar.completion.preferredTagNameCase": {
-                      "default": "auto",
+                      "default": "auto-pascal",
                       "description": "Preferred tag name case.",
                       "enum": [
-                        "auto",
-                        "both",
+                        "auto-kebab",
+                        "auto-pascal",
                         "kebab",
                         "pascal"
                       ],
                       "enumDescriptions": [
-                        "Auto Detect from Content",
-                        "<kebab-case> and <PascalCase>",
+                        "Auto Detect from Content (Preferred <kebab-case>)",
+                        "Auto Detect from Content (Preferred <PascalCase>)",
                         "<kebab-case>",
                         "<PascalCase>"
                       ],
                       "type": "string"
                     },
+                    "volar.diagnostics.delay": {
+                      "default": 200,
+                      "description": "Delay time for diagnostics.",
+                      "type": "number"
+                    },
                     "volar.format.initialIndent": {
-                      "type": "object",
-                      "description": "Whether to have initial indent.",
                       "default": {
                         "html": true
                       },
+                      "description": "Whether to have initial indent.",
                       "properties": {
-                        "html": {
-                          "type": "boolean",
-                          "default": true
+                        "css": {
+                          "default": false,
+                          "type": "boolean"
                         },
-                        "typescript": {
-                          "type": "boolean",
-                          "default": false
+                        "html": {
+                          "default": true,
+                          "type": "boolean"
                         },
                         "javascript": {
-                          "type": "boolean",
-                          "default": false
-                        },
-                        "typescriptreact": {
-                          "type": "boolean",
-                          "default": false
+                          "default": false,
+                          "type": "boolean"
                         },
                         "javascriptreact": {
-                          "type": "boolean",
-                          "default": false
-                        },
-                        "css": {
-                          "type": "boolean",
-                          "default": false
-                        },
-                        "scss": {
-                          "type": "boolean",
-                          "default": false
+                          "default": false,
+                          "type": "boolean"
                         },
                         "json": {
-                          "type": "boolean",
-                          "default": false
+                          "default": false,
+                          "type": "boolean"
                         },
                         "jsonc": {
-                          "type": "boolean",
-                          "default": false
+                          "default": false,
+                          "type": "boolean"
+                        },
+                        "less": {
+                          "default": false,
+                          "type": "boolean"
+                        },
+                        "scss": {
+                          "default": false,
+                          "type": "boolean"
+                        },
+                        "typescript": {
+                          "default": false,
+                          "type": "boolean"
+                        },
+                        "typescriptreact": {
+                          "default": false,
+                          "type": "boolean"
                         }
-                      }
-                    },
-                    "volar.vueserver.textDocumentSync": {
-                      "type": "string",
-                      "default": "incremental",
-                      "enum": [
-                        "incremental",
-                        "full",
-                        "none"
-                      ],
-                      "enumDescriptions": [
-                        "Documents are synced by sending the full content on open. After that only incremental updates to the document are send.",
-                        "Documents are synced by always sending the full content of the document.",
-                        "Documents should not be synced at all."
-                      ],
-                      "description": "Defines how the host (editor) should sync document changes to the language server. SFC incremental parser only working when config \"incremental\"."
-                    },
-                    "volar.vueserver.maxOldSpaceSize": {
-                      "default": null,
-                      "description": "Set --max-old-space-size option on server process. If you have problem on frequently \"Request textDocument/** failed.\" error, try setting higher memory(MB) on it.",
-                      "type": [
-                        "number",
-                        "null"
-                      ]
+                      },
+                      "type": "object"
                     },
                     "typescript.inlayHints.enumMemberValues.enabled": {
                       "type": "boolean",
@@ -198,7 +404,7 @@
                     },
                     "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": {
                       "type": "boolean",
-                      "default": false,
+                      "default": true,
                       "markdownDescription": ""
                     },
                     "typescript.inlayHints.propertyDeclarationTypes.enabled": {
@@ -210,6 +416,10 @@
                       "type": "boolean",
                       "default": false,
                       "markdownDescription": "Enable/disable inlay hints for implicit variable types: \n\n ```typescript\n const foo /* :number */ = Date.now();\n ``` \n Require TypeScript 4.4+."
+                    },
+                    "typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName.enabled": {
+                      "type": "boolean",
+                      "default": true,
                     },
                     "javascript.inlayHints.enumMemberValues.enabled": {
                       "type": "boolean",
@@ -241,7 +451,7 @@
                     },
                     "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": {
                       "type": "boolean",
-                      "default": false,
+                      "default": true,
                       "markdownDescription": ""
                     },
                     "javascript.inlayHints.propertyDeclarationTypes.enabled": {
@@ -253,6 +463,10 @@
                       "type": "boolean",
                       "default": false,
                       "markdownDescription": "Enable/disable inlay hints for implicit variable types: \n\n ```typescript\n const foo /* :number */ = Date.now();\n ``` \n Require TypeScript 4.4+."
+                    },
+                    "javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName.enabled": {
+                      "type": "boolean",
+                      "default": true,
                     }
                   }
                 }
@@ -302,6 +516,7 @@
           "properties": {
             "vueCompilerOptions": {
               "type": "object",
+              "additionalProperties": false,
               "properties": {
                 "target": {
                   "type": "number",
@@ -317,10 +532,59 @@
                   ],
                   "markdownDescription": "Target version of Vue."
                 },
+                "extensions": {
+                  "type": "array",
+                  "default": [ ".vue" ],
+                  "markdownDescription": "Valid file extensions that should be considered as regular Vue SFC. Please note that you should not use this option separately for additional file extensions IDE support, see https://github.com/johnsoncodehk/volar/tree/master/extensions/vscode-vue-language-features/README.md#custom-file-extensions."
+                },
+                "jsxTemplates": {
+                  "type": "boolean",
+                  "default": false,
+                  "markdownDescription": "Whether to compile template to JSX. (Generics component type checking only working with JSX)"
+                },
                 "strictTemplates": {
                   "type": "boolean",
                   "default": false,
                   "markdownDescription": "Strict props, component type-checking in templates."
+                },
+                "skipTemplateCodegen": {
+                  "type": "boolean",
+                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/577"
+                },
+                "dataAttributes": {
+                  "type": "array",
+                  "default": [
+                    "data-*"
+                  ],
+                  "markdownDescription": "A glob matcher array that should always avoid recognized as HTML Attributes and Component props."
+                },
+                "htmlAttributes": {
+                  "type": "array",
+                  "default": [
+                    "aria-*"
+                  ],
+                  "markdownDescription": "A glob matcher array that should always be recognizing as HTML Attributes rather than Component props. Attribute name will never convert to camelize case."
+                },
+                "plugins": {
+                  "type": "array",
+                  "default": [],
+                  "markdownDescription": "Plugins to be used in the SFC compiler."
+                },
+                "optionsWrapper": {
+                  "type": "array",
+                  "default": [
+                    "(await import('vue')).defineComponent(",
+                    ")"
+                  ],
+                  "markdownDescription": "How to wrap option of `export default { ... }`? Default: `[\"(await import('vue')).default.extend(\", \")\"]` for target < 2.7, `[\"(await import('vue')).defineComponent(\", \")\"]` for target >= 2.7."
+                },
+                "narrowingTypesInInlineHandlers": {
+                  "type": "boolean",
+                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1249"
+                },
+                "bypassDefineComponentToExposePropsAndEmitsForJsScriptSetupComponents": {
+                  "type": "boolean",
+                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1192"
                 },
                 "experimentalRuntimeMode": {
                   "type": "string",
@@ -335,51 +599,6 @@
                   ],
                   "markdownDescription": "Run app in browser or uni-app"
                 },
-                "experimentalComponentOptionsWrapper": {
-                  "type": "array",
-                  "default": [
-                    "(await import('vue')).defineComponent(",
-                    ")"
-                  ],
-                  "markdownDescription": "How to wrap option of `export default { ... }`? Default: `[\"(await import('vue')).default.extend(\", \")\"]` for target < 2.7, `[\"(await import('vue')).defineComponent(\", \")\"]` for target >= 2.7."
-                },
-                "experimentalComponentOptionsWrapperEnable": {
-                  "enum": [
-                    true,
-                    false,
-                    "onlyJs"
-                  ],
-                  "default": "onlyJs",
-                  "markdownDescription": "Enable `experimentalComponentOptionsWrapper`?"
-                },
-                "experimentalDowngradePropsAndEmitsToSetupReturnOnScriptSetup": {
-                  "enum": [
-                    true,
-                    false,
-                    "onlyJs"
-                  ],
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1192"
-                },
-                "experimentalTemplateCompilerOptions": {
-                  "type": "object",
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/576"
-                },
-                "experimentalTemplateCompilerOptionsRequirePath": {
-                  "type": "string",
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/698"
-                },
-                "experimentalDisableTemplateSupport": {
-                  "type": "boolean",
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/577"
-                },
-                "experimentalAllowTypeNarrowingInInlineHandlers": {
-                  "type": "boolean",
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1249"
-                },
-                "experimentalUseScriptLeadingCommentInTemplate": {
-                  "type": "boolean",
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1369"
-                },
                 "experimentalResolveStyleCssClasses": {
                   "enum": [
                     "scoped",
@@ -387,6 +606,37 @@
                     "never"
                   ],
                   "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1038, https://github.com/johnsoncodehk/volar/issues/1121"
+                },
+                "experimentalRfc436": {
+                  "type": "boolean",
+                  "default": false,
+                  "markdownDescription": "https://github.com/vuejs/rfcs/discussions/436"
+                },
+                "experimentalUseElementAccessInTemplate": {
+                  "type": "boolean",
+                  "default": false,
+                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/997"
+                },
+                "experimentalModelPropName": {
+                  "type": "object",
+                  "default": {
+                    "": {
+                      "input": {
+                        "type": "radio"
+                      }
+                    },
+                    "checked": {
+                      "input": {
+                        "type": "checkbox"
+                      }
+                    },
+                    "value": {
+                      "input": true,
+                      "textarea": true,
+                      "select": true
+                    }
+                  },
+                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1969"
                 }
               }
             }

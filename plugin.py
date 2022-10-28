@@ -1,12 +1,11 @@
+from .types import VueFindReferencesParams
 from LSP.plugin import ClientConfig
 from LSP.plugin import WorkspaceFolder
-from LSP.plugin.core.protocol import TextDocumentSyncKind
 from LSP.plugin.core.typing import List, Optional
-from lsp_utils import NpmClientHandler
+from LSP.plugin.locationpicker import LocationPicker
+from lsp_utils import NpmClientHandler, notification_handler
 import os
 import sublime
-import subprocess
-import sys
 
 
 def plugin_loaded():
@@ -29,99 +28,46 @@ class LspVolarPlugin(NpmClientHandler):
         initiating_view: Optional[sublime.View] = None,
         workspace_folders: Optional[List[WorkspaceFolder]] = None,
         configuration: Optional[ClientConfig] = None
-    ):
+    ) -> Optional[str]:
         if not workspace_folders or not configuration:
-            return
-        configuration.init_options.set('textDocumentSync', get_text_document_sync(configuration))
-        configuration.init_options.set('languageFeatures', get_language_features(configuration))
-        configuration.init_options.set('documentFeatures', {
-            "selectionRange": True,
-            "foldingRange": True,
-            "linkedEditingRange": False,
-            "documentSymbol": True,
-            "documentColor": True,
-            "documentFormatting": {
-                "defaultPrintWidth": 90
-            }
-        })
-        if configuration.init_options.get('typescript.serverPath'):
-            return  # don't find the `typescript.serverPath` if it was set explicitly in LSP-volar.sublime-settings
-        typescript_path = cls.find_typescript_path(workspace_folders[0].path)
-        configuration.init_options.set('typescript.serverPath', typescript_path)
+            return 'Can not run without a workspace folder'
+        if configuration.init_options.get('typescript.tsdk'):
+            return  # don't find the `typescript.tsdk` if it was set explicitly in LSP-volar.sublime-settings
+        typescript_lib_path = cls.find_typescript_lib_path(workspace_folders[0].path)
+        if not typescript_lib_path:
+            return 'Could not resolve location of TypeScript package'
+        configuration.init_options.set('typescript.tsdk', typescript_lib_path)
 
     @classmethod
-    def find_typescript_path(cls, current_folder: str) -> str:
+    def find_typescript_lib_path(cls, workspace_folder: str) -> Optional[str]:
+        module_paths = [
+            'node_modules/typescript/lib/tsserverlibrary.js',
+            '.vscode/pnpify/typescript/lib/tsserverlibrary.js',
+            '.yarn/sdks/typescript/lib/tsserverlibrary.js'
+        ]
+        for module_path in module_paths:
+            candidate = os.path.join(workspace_folder, module_path)
+            if os.path.isfile(candidate):
+                return os.path.dirname(candidate)
         server_directory_path = cls._server_directory_path()
-        resolve_module_script = os.path.join(server_directory_path, 'resolve_module.js')
-        find_ts_server_command = [cls._node_bin(), resolve_module_script, current_folder]
-        startupinfo = None
-        # Prevent cmd.exe popup on Windows.
-        if sys.platform == "win32":
-            startupinfo = subprocess.STARTUPINFO()
-            startupinfo.dwFlags |= (
-                subprocess.SW_HIDE | subprocess.STARTF_USESHOWWINDOW
-            )
-        workspace_ts_path = subprocess.check_output(find_ts_server_command, universal_newlines=True, startupinfo=startupinfo)
-        bundled_ts_path = os.path.join(server_directory_path, 'node_modules', 'typescript', 'lib', 'tsserverlibrary.js')
-        return workspace_ts_path or bundled_ts_path
+        return os.path.join(server_directory_path, 'node_modules', 'typescript', 'lib')
 
-
-def get_default_tag_name_case(configuration: ClientConfig) -> str:
-    preferred_tag_name_case = configuration.settings.get('volar.completion.preferredTagNameCase')
-    if preferred_tag_name_case == 'kebab':
-        return 'kebabCase'
-    elif preferred_tag_name_case == 'pascal':
-        return 'pascalCase'
-    return 'both'
-
-
-def get_default_attr_name_case(configuration: ClientConfig) -> str:
-    preferred_attr_name_case = configuration.settings.get('volar.completion.preferredAttrNameCase')
-    if preferred_attr_name_case == 'camel':
-        return 'camelCase'
-    return 'kebabCase'
-
-
-def get_text_document_sync(configuration: ClientConfig) -> TextDocumentSyncKind:
-    text_document_sync = configuration.settings.get('volar.vueserver.textDocumentSync')
-    if text_document_sync == 'full':
-        return TextDocumentSyncKind.Full
-    if text_document_sync == 'none':
-        return TextDocumentSyncKind.None_
-    return TextDocumentSyncKind.Incremental
-
-
-def get_ignored_trigger_characters(configuration: ClientConfig) -> str:
-    return configuration.settings.get('volar.completion.ignoreTriggerCharacters') or ""
-
-
-def get_language_features(configuration: ClientConfig) -> dict:
-    language_features = {
-        "references": True,
-        "implementation": True,
-        "definition": True,
-        "typeDefinition": True,
-        "callHierarchy": False,
-        "hover": True,
-        "rename": True,
-        "renameFileRefactoring": False,
-        "signatureHelp": True,
-        "codeAction": True,
-        "workspaceSymbol": True,
-        "completion": {
-            "defaultTagNameCase": get_default_tag_name_case(configuration),
-            "defaultAttrNameCase": get_default_attr_name_case(configuration),
-            "getDocumentNameCasesRequest": False,
-            "getDocumentSelectionRequest": False,
-            "ignoreTriggerCharacters": get_ignored_trigger_characters(configuration)
-        },
-        "schemaRequestService": False,
-        "documentHighlight": True,
-        "documentLink": True,
-        "codeLens": {"showReferencesNotification": True},
-        "semanticTokens": True,
-        "inlayHints": True,
-        "diagnostics": True,
-        "schemaRequestService": False
-    }
-    return language_features
+    @notification_handler('vue.findReferences')
+    def onVueFindReferences(self, params: VueFindReferencesParams) -> None:
+        session = self.weaksession()
+        if not session:
+            return
+        view = sublime.active_window().active_view()
+        if not view:
+            return
+        references = params['references']
+        if len(references) == 1:
+            args = {
+                'location': references[0],
+                'session_name': session.config.name,
+            }
+            view.run_command('lsp_open_location', args)
+        elif references:
+            LocationPicker(view, session, params['references'], side_by_side=False)
+        else:
+            sublime.status_message('No references found')
