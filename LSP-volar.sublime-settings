@@ -2,9 +2,12 @@
 	"initializationOptions": {
 		// List any additional file extensions that should be processed as Vue files.
 		"additionalExtensions": [],
+		// Disable file watcher in language server for better performance.
+		"disableFileWatcher": false,
 		// Defines which auto-complete popup trigger characters that Volar defines are allowed.
 		// By default all Volar trigger characters are disabled as ST does a better job.
 		"ignoreTriggerCharacters": [],
+		"json.customBlockSchemaUrls": {},
 		// Specify the `typescript.tsdk` to tsserverlibrary.js.
 		// If not specified LSP-volar will use the typescript from the workspace if it exist,
 		// else the typescript bundled with LSP-volar will be used.
@@ -15,6 +18,9 @@
 		// Ignore project references settings of tsconfig in language server for resolve issue
 		// https://github.com/johnsoncodehk/volar/issues/1344.
 		"noProjectReferences": false,
+		"respectClientCapabilities": true,
+		// Reverse priority for tsconfig pickup.
+		"reverseConfigFilePriority": false,
 	},
 	"settings": {
 		// Auto-complete Ref value with `.value`.
