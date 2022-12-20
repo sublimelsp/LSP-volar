@@ -26,6 +26,16 @@
                       "default": false,
                       "description": "Disable file watcher in language server for better performance."
                     },
+                    "configFilePath": {
+                      "type": "string",
+                      "default": "./volar.config.js",
+                      "description": "Path to volar.config.js."
+                    },
+                    "maxFileSize": {
+                      "type": "number",
+                      "default": 20971520,
+                      "description": "Maximum file size for Vue Server to load. (default: 20MB)"
+                    },
                     "json.customBlockSchemaUrls": {
                       "type": "object"
                     },
