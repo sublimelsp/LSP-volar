@@ -4,6 +4,10 @@
 		"additionalExtensions": [],
 		// Disable file watcher in language server for better performance.
 		"disableFileWatcher": false,
+		// Path to volar.config.js.
+		"configFilePath": "./volar.config.js",
+		// Maximum file size for Vue Server to load. (default: 20MB)
+		"maxFileSize": 20971520,
 		// Defines which auto-complete popup trigger characters that Volar defines are allowed.
 		// By default all Volar trigger characters are disabled as ST does a better job.
 		"ignoreTriggerCharacters": [],
