@@ -54,6 +54,7 @@
 			"javascript": false,
 			"javascriptreact": false,
 			"json": false,
+			"json5": false,
 			"jsonc": false,
 			"scss": false,
 			"typescript": false,

@@ -378,6 +378,10 @@
                           "default": false,
                           "type": "boolean"
                         },
+                        "json5": {
+                          "type": "boolean",
+                          "default": false
+                        },
                         "jsonc": {
                           "default": false,
                           "type": "boolean"
@@ -545,6 +549,57 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
+                "experimentalCompatMode": {
+                    "deprecated": true
+                },
+                "experimentalTemplateCompilerOptions": {
+                    "deprecated": true
+                },
+                "experimentalTemplateCompilerOptionsRequirePath": {
+                    "deprecated": true
+                },
+                "experimentalDisableTemplateSupport": {
+                    "deprecated": true
+                },
+                "experimentalResolveNonScopedCssClasses": {
+                    "deprecated": true
+                },
+                "experimentalShamefullySupportOptionsApi": {
+                    "deprecated": true
+                },
+                "experimentalAllowTypeNarrowingInInlineHandlers": {
+                    "deprecated": true
+                },
+                "experimentalImplicitWrapComponentOptionsWithDefineComponent": {
+                    "deprecated": true
+                },
+                "experimentalDowngradePropsAndEmitsToSetupReturnOnScriptSetup": {
+                    "deprecated": true
+                },
+                "experimentalRuntimeMode": {
+                    "deprecated": true
+                },
+                "experimentalUseScriptLeadingCommentInTemplate": {
+                    "deprecated": true
+                },
+                "experimentalSuppressUnknownJsxPropertyErrors": {
+                    "deprecated": true
+                },
+                "experimentalSuppressInvalidJsxElementTypeErrors": {
+                    "deprecated": true
+                },
+                "experimentalImplicitWrapComponentOptionsWithVue2Extend": {
+                    "deprecated": true
+                },
+                "experimentalComponentOptionsWrapper": {
+                    "deprecated": true
+                },
+                "experimentalComponentOptionsWrapperEnable": {
+                    "deprecated": true
+                },
+                "bypassDefineComponentToExposePropsAndEmitsForJsScriptSetupComponents": {
+                    "deprecated": true
+                },
                 "target": {
                   "type": "number",
                   "default": 3,
@@ -561,7 +616,9 @@
                 },
                 "extensions": {
                   "type": "array",
-                  "default": [ ".vue" ],
+                  "default": [
+                    ".vue"
+                  ],
                   "markdownDescription": "Valid file extensions that should be considered as regular Vue SFC. Please note that you should not use this option separately for additional file extensions IDE support, see https://github.com/johnsoncodehk/volar/tree/master/extensions/vscode-vue-language-features/README.md#custom-file-extensions."
                 },
                 "jsxTemplates": {
@@ -589,9 +646,7 @@
                 },
                 "dataAttributes": {
                   "type": "array",
-                  "default": [
-                    "data-*"
-                  ],
+                  "default": [],
                   "markdownDescription": "A glob matcher array that should always avoid recognized as HTML Attributes and Component props."
                 },
                 "htmlAttributes": {
@@ -606,6 +661,10 @@
                   "default": [],
                   "markdownDescription": "Plugins to be used in the SFC compiler."
                 },
+                "hooks": {
+                  "type": "array",
+                  "markdownDescription": "https://github.com/johnsoncodehk/volar/pull/2217"
+                },
                 "optionsWrapper": {
                   "type": "array",
                   "default": [
@@ -617,10 +676,6 @@
                 "narrowingTypesInInlineHandlers": {
                   "type": "boolean",
                   "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1249"
-                },
-                "bypassDefineComponentToExposePropsAndEmitsForJsScriptSetupComponents": {
-                  "type": "boolean",
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1192"
                 },
                 "experimentalResolveStyleCssClasses": {
                   "enum": [
@@ -660,7 +715,11 @@
                     }
                   },
                   "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1969"
-                }
+                },
+                "experimentalAdditionalLanguageModules": {
+                  "type": "array",
+                  "markdownDescription": "https://github.com/johnsoncodehk/volar/pull/2267"
+                },
               }
             }
           }
