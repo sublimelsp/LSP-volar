@@ -81,7 +81,7 @@
 		"typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName.enabled": true,
 
 		// javascript completions
-		"javascript.suggest.autoImports": true,
+		"javascript.suggest.autoImports": false,  // Disabled by default due to UI freezes that large completion responses cause.
 		"javascript.suggest.classMemberSnippets.enabled": true,
 		"javascript.suggest.completeFunctionCalls": false,
 		"javascript.suggest.includeAutomaticOptionalChainCompletions": true,
@@ -91,7 +91,7 @@
 		"javascript.suggest.objectLiteralMethodSnippets.enabled": true,
 
 		// typescript completions
-		"typescript.suggest.autoImports": true,
+		"typescript.suggest.autoImports": false,  // Disabled by default due to UI freezes that large completion responses cause.
 		"typescript.suggest.classMemberSnippets.enabled": true,
 		"typescript.suggest.completeFunctionCalls": false,
 		"typescript.suggest.includeAutomaticOptionalChainCompletions": true,
