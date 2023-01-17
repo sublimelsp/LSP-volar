@@ -38,7 +38,7 @@
 		// [ref sugar ☐] code lens.
 		"volar.codeLens.scriptSetupTools": false,
 		// Normalize import name for auto import. ("myCompVue" -> "MyComp")
-		"volar.completion.normalizeComponentAutoImportName": true,
+		"volar.completion.normalizeComponentImportName": true,
 		// Preferred attr name case.
 		// possible values: "auto-kebab", "auto-camel", "kebab", "camel"
 		"volar.completion.preferredAttrNameCase": "auto-kebab",

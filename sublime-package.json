@@ -308,7 +308,7 @@
                       "description": "[ref sugar \u2610] code lens.",
                       "type": "boolean"
                     },
-                    "volar.completion.normalizeComponentAutoImportName": {
+                    "volar.completion.normalizeComponentImportName": {
                       "type": "boolean",
                       "default": true,
                       "description": "Normalize import name for auto import. (\"myCompVue\" -> \"MyComp\")"
@@ -894,6 +894,15 @@
                     ")"
                   ],
                   "markdownDescription": "How to wrap option of `export default { ... }`? Default: `[\"(await import('vue')).default.extend(\", \")\"]` for target < 2.7, `[\"(await import('vue')).defineComponent(\", \")\"]` for target >= 2.7."
+                },
+                "macros": {
+                  "type": "object",
+                  "default": {
+                    "defineProps": [ "defineProps" ],
+                    "defineEmits": [ "defineEmits" ],
+                    "defineExpose": [ "defineExpose" ],
+                    "withDefaults": [ "withDefaults" ]
+                  }
                 },
                 "narrowingTypesInInlineHandlers": {
                   "type": "boolean",
