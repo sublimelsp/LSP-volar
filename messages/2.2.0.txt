@@ -1,0 +1,8 @@
+# Breaking change
+
+ - External imports are longer be suggested in completions ("javascript.suggest.autoImports" and "typescript.suggest.autoImports"
+settings are disabled by default).
+
+That's due to Sublime Text not handling a large number of completions (8MB of payload some cases) too well and causing UI freezes.
+
+If you rely on that feature then you can override those settings manually.
