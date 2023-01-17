@@ -401,6 +401,117 @@
                       },
                       "type": "object"
                     },
+                    "typescript.preferences.autoImportFileExcludePatterns": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "markdownDescription": "Specify glob patterns of files to exclude from auto imports. Requires using TypeScript 4.8 or newer in the workspace.",
+                      "type": "array"
+                    },
+                    "typescript.preferences.importModuleSpecifier": {
+                      "default": "shortest",
+                      "description": "Preferred path style for auto imports.",
+                      "enum": [
+                        "shortest",
+                        "relative",
+                        "non-relative",
+                        "project-relative"
+                      ],
+                      "markdownEnumDescriptions": [
+                        "Prefers a non-relative import only if one is available that has fewer path segments than a relative import.",
+                        "Prefers a relative path to the imported file location.",
+                        "Prefers a non-relative import based on the `baseUrl` or `paths` configured in your `jsconfig.json` / `tsconfig.json`.",
+                        "Prefers a non-relative import only if the relative import path would leave the package or project directory."
+                      ],
+                      "type": "string"
+                    },
+                    "typescript.preferences.importModuleSpecifierEnding": {
+                      "default": "auto",
+                      "description": "Preferred path ending for auto imports.",
+                      "enum": [
+                        "auto",
+                        "minimal",
+                        "index",
+                        "js"
+                      ],
+                      "markdownEnumDescriptions": [
+                        "Use project settings to select a default.",
+                        "Shorten `./component/index.js` to `./component`.",
+                        "Shorten `./component/index.js` to `./component/index`.",
+                        "Do not shorten path endings; include the `.js` extension."
+                      ],
+                      "type": "string"
+                    },
+                    "typescript.preferences.jsxAttributeCompletionStyle": {
+                      "default": "auto",
+                      "description": "Preferred style for JSX attribute completions.",
+                      "enum": [
+                        "auto",
+                        "braces",
+                        "none"
+                      ],
+                      "markdownEnumDescriptions": [
+                        "Insert `={}` or `=\"\"` after attribute names based on the prop type. See `javascript.preferences.quoteStyle` to control the type of quotes used for string attributes.",
+                        "Insert `={}` after attribute names.",
+                        "Only insert attribute names."
+                      ],
+                      "type": "string"
+                    },
+                    "typescript.preferences.quoteStyle": {
+                      "default": "auto",
+                      "enum": [
+                        "auto",
+                        "single",
+                        "double"
+                      ],
+                      "markdownDescription": "Preferred quote style to use for Quick Fixes.",
+                      "markdownEnumDescriptions": [
+                        "Infer quote type from existing code",
+                        "Always use single quotes: `'`",
+                        "Always use double quotes: `\"`"
+                      ],
+                      "type": "string"
+                    },
+                    "typescript.suggest.autoImports": {
+                      "default": true,
+                      "description": "Enable/disable auto import suggestions.",
+                      "type": "boolean"
+                    },
+                    "typescript.suggest.classMemberSnippets.enabled": {
+                      "default": true,
+                      "description": "Enable/disable snippet completions for class members.",
+                      "type": "boolean"
+                    },
+                    "typescript.suggest.completeFunctionCalls": {
+                      "default": false,
+                      "description": "Complete functions with their parameter signature.",
+                      "type": "boolean"
+                    },
+                    "typescript.suggest.includeAutomaticOptionalChainCompletions": {
+                      "default": true,
+                      "description": "Enable/disable showing completions on potentially undefined values that insert an optional chain call. Requires strict null checks to be enabled.",
+                      "type": "boolean"
+                    },
+                    "typescript.suggest.includeCompletionsForImportStatements": {
+                      "default": true,
+                      "description": "Enable/disable auto-import-style completions on partially-typed import statements.",
+                      "type": "boolean"
+                    },
+                    "typescript.suggest.includeCompletionsWithSnippetText": {
+                      "default": true,
+                      "description": "Enable/disable snippet completions from TS Server.",
+                      "type": "boolean"
+                    },
+                    "typescript.suggest.jsdoc.generateReturns": {
+                      "default": true,
+                      "markdownDescription": "Enable/disable generating `@returns` annotations for JSDoc templates.",
+                      "type": "boolean"
+                    },
+                    "typescript.suggest.objectLiteralMethodSnippets.enabled": {
+                      "default": true,
+                      "description": "Enable/disable snippet completions for methods in object literals. Requires using TypeScript 4.7+ in the workspace.",
+                      "type": "boolean"
+                    },
                     "typescript.inlayHints.enumMemberValues.enabled": {
                       "type": "boolean",
                       "default": false,
@@ -447,6 +558,117 @@
                     "typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName.enabled": {
                       "type": "boolean",
                       "default": true,
+                    },
+                    "javascript.preferences.autoImportFileExcludePatterns": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "markdownDescription": "Specify glob patterns of files to exclude from auto imports. Requires using TypeScript 4.8 or newer in the workspace.",
+                      "type": "array"
+                    },
+                    "javascript.preferences.importModuleSpecifier": {
+                      "default": "shortest",
+                      "description": "Preferred path style for auto imports.",
+                      "enum": [
+                        "shortest",
+                        "relative",
+                        "non-relative",
+                        "project-relative"
+                      ],
+                      "markdownEnumDescriptions": [
+                        "Prefers a non-relative import only if one is available that has fewer path segments than a relative import.",
+                        "Prefers a relative path to the imported file location.",
+                        "Prefers a non-relative import based on the `baseUrl` or `paths` configured in your `jsconfig.json` / `tsconfig.json`.",
+                        "Prefers a non-relative import only if the relative import path would leave the package or project directory."
+                      ],
+                      "type": "string"
+                    },
+                    "javascript.preferences.importModuleSpecifierEnding": {
+                      "default": "auto",
+                      "description": "Preferred path ending for auto imports.",
+                      "enum": [
+                        "auto",
+                        "minimal",
+                        "index",
+                        "js"
+                      ],
+                      "markdownEnumDescriptions": [
+                        "Use project settings to select a default.",
+                        "Shorten `./component/index.js` to `./component`.",
+                        "Shorten `./component/index.js` to `./component/index`.",
+                        "Do not shorten path endings; include the `.js` extension."
+                      ],
+                      "type": "string"
+                    },
+                    "javascript.preferences.jsxAttributeCompletionStyle": {
+                      "default": "auto",
+                      "description": "Preferred style for JSX attribute completions.",
+                      "enum": [
+                        "auto",
+                        "braces",
+                        "none"
+                      ],
+                      "markdownEnumDescriptions": [
+                        "Insert `={}` or `=\"\"` after attribute names based on the prop type. See `javascript.preferences.quoteStyle` to control the type of quotes used for string attributes.",
+                        "Insert `={}` after attribute names.",
+                        "Only insert attribute names."
+                      ],
+                      "type": "string"
+                    },
+                    "javascript.preferences.quoteStyle": {
+                      "default": "auto",
+                      "enum": [
+                        "auto",
+                        "single",
+                        "double"
+                      ],
+                      "markdownDescription": "Preferred quote style to use for Quick Fixes.",
+                      "markdownEnumDescriptions": [
+                        "Infer quote type from existing code",
+                        "Always use single quotes: `'`",
+                        "Always use double quotes: `\"`"
+                      ],
+                      "type": "string"
+                    },
+                    "javascript.suggest.autoImports": {
+                      "default": true,
+                      "description": "Enable/disable auto import suggestions.",
+                      "type": "boolean"
+                    },
+                    "javascript.suggest.classMemberSnippets.enabled": {
+                      "default": true,
+                      "description": "Enable/disable snippet completions for class members.",
+                      "type": "boolean"
+                    },
+                    "javascript.suggest.completeFunctionCalls": {
+                      "default": false,
+                      "description": "Complete functions with their parameter signature.",
+                      "type": "boolean"
+                    },
+                    "javascript.suggest.includeAutomaticOptionalChainCompletions": {
+                      "default": true,
+                      "description": "Enable/disable showing completions on potentially undefined values that insert an optional chain call. Requires strict null checks to be enabled.",
+                      "type": "boolean"
+                    },
+                    "javascript.suggest.includeCompletionsForImportStatements": {
+                      "default": true,
+                      "description": "Enable/disable auto-import-style completions on partially-typed import statements.",
+                      "type": "boolean"
+                    },
+                    "javascript.suggest.includeCompletionsWithSnippetText": {
+                      "default": true,
+                      "description": "Enable/disable snippet completions from TS Server.",
+                      "type": "boolean"
+                    },
+                    "javascript.suggest.jsdoc.generateReturns": {
+                      "default": true,
+                      "markdownDescription": "Enable/disable generating `@returns` annotations for JSDoc templates.",
+                      "type": "boolean"
+                    },
+                    "javascript.suggest.objectLiteralMethodSnippets.enabled": {
+                      "default": true,
+                      "description": "Enable/disable snippet completions for methods in object literals. Requires using TypeScript 4.7+ in the workspace.",
+                      "type": "boolean"
                     },
                     "javascript.inlayHints.enumMemberValues.enabled": {
                       "type": "boolean",

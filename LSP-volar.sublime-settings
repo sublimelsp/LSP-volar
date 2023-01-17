@@ -80,6 +80,41 @@
 		"typescript.inlayHints.variableTypes.enabled": false,
 		"typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName.enabled": true,
 
+		// javascript completions
+		"javascript.suggest.autoImports": false,  // Disabled by default due to UI freezes that large completion responses cause.
+		"javascript.suggest.classMemberSnippets.enabled": true,
+		"javascript.suggest.completeFunctionCalls": false,
+		"javascript.suggest.includeAutomaticOptionalChainCompletions": true,
+		"javascript.suggest.includeCompletionsForImportStatements": true,
+		"javascript.suggest.includeCompletionsWithSnippetText": true,
+		"javascript.suggest.jsdoc.generateReturns": true,
+		"javascript.suggest.objectLiteralMethodSnippets.enabled": true,
+
+		// typescript completions
+		"typescript.suggest.autoImports": false,  // Disabled by default due to UI freezes that large completion responses cause.
+		"typescript.suggest.classMemberSnippets.enabled": true,
+		"typescript.suggest.completeFunctionCalls": false,
+		"typescript.suggest.includeAutomaticOptionalChainCompletions": true,
+		"typescript.suggest.includeCompletionsForImportStatements": true,
+		"typescript.suggest.includeCompletionsWithSnippetText": true,
+		"typescript.suggest.jsdoc.generateReturns": true,
+		"typescript.suggest.objectLiteralMethodSnippets.enabled": true,
+
+		// Other javascript options
+		"javascript.preferences.quoteStyle": "auto",
+		"javascript.preferences.importModuleSpecifier": "shortest",
+		"javascript.preferences.importModuleSpecifierEnding": "auto",
+		"javascript.preferences.jsxAttributeCompletionStyle": "auto",
+		"javascript.preferences.autoImportFileExcludePatterns": [],
+
+		// Other typescript options
+		"typescript.preferences.quoteStyle": "auto",
+		"typescript.preferences.importModuleSpecifier": "shortest",
+		"typescript.preferences.importModuleSpecifierEnding": "auto",
+		"typescript.preferences.jsxAttributeCompletionStyle": "auto",
+		"typescript.preferences.autoImportFileExcludePatterns": [],
+
+
 		// Emmet plugin settings (autocompletion within template blocks).
 
 		// An array of languages where Emmet abbreviations should not be expanded.
