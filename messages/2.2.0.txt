@@ -5,4 +5,4 @@
 
 That's due to Sublime Text not handling a large number of completions (8MB of payload some cases) too well and causing UI freezes.
 
-If you rely on that feature then you can override those settings manually.
+If you rely on that feature then you can override those settings manually from "Preferences: LSP-volar Settings" in Command Palette.
