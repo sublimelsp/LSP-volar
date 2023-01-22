@@ -60,13 +60,15 @@ class LspVolarPlugin(NpmClientHandler):
         view = sublime.active_window().active_view()
         if not view:
             return
+        window = view.window()
         references = params['references']
         if len(references) == 1:
             args = {
                 'location': references[0],
                 'session_name': session.config.name,
             }
-            view.run_command('lsp_open_location', args)
+            if window:
+                window.run_command('lsp_open_location', args)
         elif references:
             LocationPicker(view, session, params['references'], side_by_side=False)
         else:
