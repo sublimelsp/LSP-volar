@@ -1,4 +1,4 @@
-from .types import VueFindReferencesParams
+from .plugin_types import VueFindReferencesParams
 from LSP.plugin import ClientConfig
 from LSP.plugin import WorkspaceFolder
 from LSP.plugin.core.typing import List, Optional
