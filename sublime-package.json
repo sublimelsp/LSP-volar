@@ -26,6 +26,24 @@
                       "default": "./volar.config.js",
                       "description": "Path to volar.config.js."
                     },
+                    "diagnosticModel": {
+                      "type": "string",
+                      "default": "push",
+                      "enum": [
+                        "push",
+                        "pull"
+                      ],
+                      "enumDescriptions": [
+                        "Diagnostic push by language server.",
+                        "Diagnostic pull by language client."
+                      ],
+                      "description": "Diagnostic update model."
+                    },
+                    "fullCompletionList": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Enable this option if you want to get complete CompletionList in language client. (Disable for better performance)"
+                    },
                     "maxFileSize": {
                       "type": "number",
                       "default": 20971520,
@@ -591,22 +609,7 @@
                       "description": "Show references to MDN in hover.",
                       "type": "boolean"
                     },
-                    "vue.features.updateImportsOnFileMove.enable": {
-                      "type": "boolean",
-                      "default": false,
-                      "description": "Enabled update imports on file move."
-                    },
-                    "vue.features.codeActions.enable": {
-                      "type": "boolean",
-                      "default": true,
-                      "description": "Enabled code actions."
-                    },
-                    "vue.features.codeLens.enable": {
-                      "type": "boolean",
-                      "default": true,
-                      "description": "Enabled code lens."
-                    },
-                    "vue.features.complete.tagNameCasing": {
+                    "vue.complete.casing.tags": {
                       "type": "string",
                       "enum": [
                         "autoKebab",
@@ -623,7 +626,7 @@
                       "default": "autoPascal",
                       "description": "Preferred tag name case."
                     },
-                    "vue.features.complete.propNameCasing": {
+                    "vue.complete.casing.props": {
                       "type": "string",
                       "enum": [
                         "autoKebab",
@@ -645,30 +648,35 @@
                       "default": true,
                       "description": "Normalize import name for auto import. (\"myCompVue\" -> \"MyComp\")"
                     },
-                    "vue.features.autoInsert.parentheses": {
-                      "type": "boolean",
-                      "default": true,
-                      "description": "Auto-wrap `()` to As Expression in interpolations for fix issue #520."
-                    },
-                    "vue.features.autoInsert.dotValue": {
-                      "type": "boolean",
-                      "default": false,
-                      "description": "Auto-complete Ref value with `.value`."
-                    },
-                    "vue.features.autoInsert.bracketSpacing": {
-                      "type": "boolean",
-                      "default": true,
-                      "description": "Auto add space between double curly brackets: {{|}} -> {{ | }}"
-                    },
-                    "vue.features.inlayHints.missingProps": {
+                    // "vue.features.autoInsert.parentheses": {
+                    //   "type": "boolean",
+                    //   "default": true,
+                    //   "description": "Auto-wrap `()` to As Expression in interpolations for fix issue #520."
+                    // },
+                    // "vue.features.autoInsert.dotValue": {
+                    //   "type": "boolean",
+                    //   "default": false,
+                    //   "description": "Auto-complete Ref value with `.value`."
+                    // },
+                    // "vue.features.autoInsert.bracketSpacing": {
+                    //   "type": "boolean",
+                    //   "default": true,
+                    //   "description": "Auto add space between double curly brackets: {{|}} -> {{ | }}"
+                    // },
+                    "vue.inlayHints.missingProps": {
                       "type": "boolean",
                       "default": false,
                       "description": "Show inlay hints for missing required props."
                     },
-                    "vue.features.inlayHints.inlineHandlerLeading": {
+                    "vue.inlayHints.inlineHandlerLeading": {
                       "type": "boolean",
                       "default": false,
                       "description": "Show inlay hints for event argument in inline handlers."
+                    },
+                    "vue.inlayHints.optionsWrapper": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "Show inlay hints for component options wrapper for type support."
                     },
                     "volar.diagnostics.delay": {
                       "default": 200,
@@ -676,57 +684,65 @@
                       "type": "number"
                     },
                     "volar.format.initialIndent": {
+                      "type": "object",
+                      "description": "Whether to have initial indent.",
                       "default": {
                         "html": true
                       },
-                      "description": "Whether to have initial indent.",
                       "properties": {
-                        "css": {
-                          "default": false,
-                          "type": "boolean"
-                        },
                         "html": {
-                          "default": true,
-                          "type": "boolean"
+                          "type": "boolean",
+                          "default": true
+                        },
+                        "typescript": {
+                          "type": "boolean",
+                          "default": false
                         },
                         "javascript": {
-                          "default": false,
-                          "type": "boolean"
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "typescriptreact": {
+                          "type": "boolean",
+                          "default": false
                         },
                         "javascriptreact": {
-                          "default": false,
-                          "type": "boolean"
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "css": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "scss": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "less": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "sass": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "jade": {
+                          "type": "boolean",
+                          "default": false
                         },
                         "json": {
-                          "default": false,
-                          "type": "boolean"
-                        },
-                        "json5": {
                           "type": "boolean",
                           "default": false
                         },
                         "jsonc": {
-                          "default": false,
-                          "type": "boolean"
+                          "type": "boolean",
+                          "default": false
                         },
-                        "less": {
-                          "default": false,
-                          "type": "boolean"
-                        },
-                        "scss": {
-                          "default": false,
-                          "type": "boolean"
-                        },
-                        "typescript": {
-                          "default": false,
-                          "type": "boolean"
-                        },
-                        "typescriptreact": {
-                          "default": false,
-                          "type": "boolean"
+                        "json5": {
+                          "type": "boolean",
+                          "default": false
                         }
-                      },
-                      "type": "object"
+                      }
                     },
                     "typescript.preferences.autoImportFileExcludePatterns": {
                       "items": {
@@ -1166,10 +1182,14 @@
                   ],
                   "markdownDescription": "Valid file extensions that should be considered as regular Vue SFC. Please note that you should not use this option separately for additional file extensions IDE support, see https://github.com/johnsoncodehk/volar/tree/master/extensions/vscode-vue-language-features/README.md#custom-file-extensions."
                 },
-                "jsxTemplates": {
+                "lib": {
+                  "default": "",
+                  "markdownDescription": "Specify module name for import regular types. (If empty, will use `@vue/runtime-dom` for target < 2.7, `vue` for target >= 2.7)"
+                },
+                "jsxSlots": {
                   "type": "boolean",
                   "default": false,
-                  "markdownDescription": "Whether to compile template to JSX. (Generics component type checking only working with JSX)"
+                  "markdownDescription": "Generate slots type for `JSX.ElementChildrenAttribute`."
                 },
                 "strictTemplates": {
                   "type": "boolean",
@@ -1178,16 +1198,11 @@
                 },
                 "skipTemplateCodegen": {
                   "type": "boolean",
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/577"
+                  "markdownDescription": "https://github.com/vuejs/language-tools/issues/577"
                 },
                 "nativeTags": {
-                  "type": "array",
-                  "default": [
-                    "div",
-                    "img",
-                    "..."
-                  ],
-                  "markdownDescription": "List of valid intrinsic elements."
+                  "deprecated": true,
+                  "description": "Deprecated since v1.5.1."
                 },
                 "dataAttributes": {
                   "type": "array",
@@ -1208,7 +1223,7 @@
                 },
                 "hooks": {
                   "type": "array",
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/pull/2217"
+                  "markdownDescription": "https://github.com/vuejs/language-tools/pull/2217"
                 },
                 "optionsWrapper": {
                   "type": "array",
@@ -1237,7 +1252,7 @@
                     "always",
                     "never"
                   ],
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1038, https://github.com/johnsoncodehk/volar/issues/1121"
+                  "markdownDescription": "https://github.com/vuejs/language-tools/issues/1038, https://github.com/vuejs/language-tools/issues/1121"
                 },
                 "experimentalRfc436": {
                   "type": "boolean",
@@ -1247,7 +1262,7 @@
                 "experimentalUseElementAccessInTemplate": {
                   "type": "boolean",
                   "default": false,
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/997"
+                  "markdownDescription": "https://github.com/vuejs/language-tools/issues/997"
                 },
                 "experimentalModelPropName": {
                   "type": "object",
@@ -1268,11 +1283,11 @@
                       "select": true
                     }
                   },
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1969"
+                  "markdownDescription": "https://github.com/vuejs/language-tools/issues/1969"
                 },
                 "experimentalAdditionalLanguageModules": {
                   "type": "array",
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/pull/2267"
+                  "markdownDescription": "https://github.com/vuejs/language-tools/pull/2267"
                 },
               }
             }

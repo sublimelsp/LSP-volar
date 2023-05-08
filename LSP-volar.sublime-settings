@@ -4,6 +4,11 @@
 		"additionalExtensions": [],
 		// Path to volar.config.js.
 		"configFilePath": "./volar.config.js",
+		// Diagnostic update model.
+		"diagnosticModel": "pull",
+		// Enable this option if you want to get complete CompletionList in language client.
+		// (Disable for better performance)
+		"fullCompletionList": false,
 		// Maximum file size for Vue Server to load. (default: 20MB)
 		"maxFileSize": 20971520,
 		// Defines which auto-complete popup trigger characters that Volar defines are allowed.
@@ -18,33 +23,40 @@
 		// "typescript.tsdk": "/path/to/tsserverlibrary.js",
 	},
 	"settings": {
-		// Enabled update imports on file move.
-		"vue.features.updateImportsOnFileMove.enable": false,
-		// Enabled code actions.
-		"vue.features.codeActions.enable": true,
-		// Enabled code lens.
-		"vue.features.codeLens.enable": true,
 		// Preferred tag name case.
-		// possible values: "autoKebab", "autoPascal", "kebab", "pascal"
-		"vue.features.complete.tagNameCasing": "autoPascal",
+		// possible values:
+		// - "autoKebab": Auto Detect from Content (Fallback to <kebab-case> if detect failed)
+		// - "autoPascal": Auto Detect from Content  (Fallback to <PascalCase> if detect failed)
+		// - "kebab" - <kebab-case>
+		// - "pascal" - <PascalCase>
+		"vue.complete.casing.tags": "autoPascal",
 		// Preferred attr name case.
-		// possible values: "autoKebab", "autoPascal", "kebab", "pascal"
-		"vue.features.complete.propNameCasing": "autoKebab",
+		// possible values:
+		//  - "autoKebab": Auto Detect from Content (Fallback to :kebab-case="..." if detect failed)
+		//  - "autoPascal": Auto Detect from Content (Fallback to :camelCase="..." if detect failed)
+		//  - "kebab": :kebab-case="..."
+		//  - "pascal": :camelCase="..."
+		"vue.complete.casing.props": "autoKebab",
 		// Normalize import name for auto import. ("myCompVue" -> "MyComp")
 		"vue.features.complete.normalizeComponentImportName": true,
 		// Show inlay hints for missing required props.
-		"vue.features.inlayHints.missingProps": false,
+		"vue.inlayHints.missingProps": false,
 		// Show inlay hints for event argument in inline handlers.
-		"vue.features.inlayHints.inlineHandlerLeading": false,
+		"vue.inlayHints.inlineHandlerLeading": false,
+		// Show inlay hints for component options wrapper for type support.
+		"vue.inlayHints.optionsWrapper": true,
 		// Whether to have initial indent.
 		"volar.format.initialIndent": {
 			"css": false,
 			"html": true,
+			"jade": false,
 			"javascript": false,
 			"javascriptreact": false,
 			"json": false,
 			"json5": false,
 			"jsonc": false,
+			"less": false,
+			"sass": false,
 			"scss": false,
 			"typescript": false,
 			"typescriptreact": false,
