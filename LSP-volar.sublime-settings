@@ -7,8 +7,8 @@
 		// Diagnostic update model.
 		"diagnosticModel": "pull",
 		// Enable this option if you want to get complete CompletionList in language client.
-		// (Disable for potentially better performance)
-		"fullCompletionList": true,
+		// (Disable for better performance)
+		"fullCompletionList": false,
 		// Maximum file size for Vue Server to load. (default: 20MB)
 		"maxFileSize": 20971520,
 		// Defines which auto-complete popup trigger characters that Volar defines are allowed.
