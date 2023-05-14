@@ -41,8 +41,8 @@
                     },
                     "fullCompletionList": {
                       "type": "boolean",
-                      "default": false,
-                      "description": "Enable this option if you want to get complete CompletionList in language client. (Disable for better performance)"
+                      "default": true,
+                      "description": "Enable this option if you want to get complete CompletionList in language client. (Disable for potentially better performance)"
                     },
                     "maxFileSize": {
                       "type": "number",
