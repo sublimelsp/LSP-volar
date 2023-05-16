@@ -27,11 +27,11 @@
                       "description": "Path to volar.config.js."
                     },
                     "diagnosticModel": {
-                      "type": "string",
-                      "default": "push",
+                      "type": "integer",
+                      "default": 2,
                       "enum": [
-                        "push",
-                        "pull"
+                        1,
+                        2
                       ],
                       "enumDescriptions": [
                         "Diagnostic push by language server.",

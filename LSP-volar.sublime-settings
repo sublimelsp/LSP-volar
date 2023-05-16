@@ -4,8 +4,8 @@
 		"additionalExtensions": [],
 		// Path to volar.config.js.
 		"configFilePath": "./volar.config.js",
-		// Diagnostic update model.
-		"diagnosticModel": "pull",
+		// Diagnostic update model. (1 - Push, 2 - Pull)
+		"diagnosticModel": 2,
 		// Enable this option if you want to get complete CompletionList in language client.
 		// (Disable for better performance)
 		"fullCompletionList": false,
