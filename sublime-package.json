@@ -21,15 +21,28 @@
                       "default": [],
                       "description": "List any additional file extensions that should be processed as Vue files."
                     },
-                    "disableFileWatcher": {
-                      "type": "boolean",
-                      "default": false,
-                      "description": "Disable file watcher in language server for better performance."
-                    },
                     "configFilePath": {
                       "type": "string",
                       "default": "./volar.config.js",
                       "description": "Path to volar.config.js."
+                    },
+                    "diagnosticModel": {
+                      "type": "integer",
+                      "default": 2,
+                      "enum": [
+                        1,
+                        2
+                      ],
+                      "enumDescriptions": [
+                        "Diagnostic push by language server.",
+                        "Diagnostic pull by language client."
+                      ],
+                      "description": "Diagnostic update model."
+                    },
+                    "fullCompletionList": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Enable this option if you want to get complete CompletionList in language client. (Disable for better performance)"
                     },
                     "maxFileSize": {
                       "type": "number",
@@ -39,36 +52,14 @@
                     "json.customBlockSchemaUrls": {
                       "type": "object"
                     },
-                    "maxOldSpaceSize": {
-                      "default": null,
-                      "description": "Set --max-old-space-size option on server process. If you have problem on frequently \"Request textDocument/** failed.\" error, try setting higher memory(MB) on it.",
-                      "type": [
-                        "number",
-                        "null"
-                      ]
-                    },
-                    "noProjectReferences": {
-                      "type": "boolean",
-                      "default": false,
-                      "description": "Ignore project references settings of tsconfig in language server for resolve issue https://github.com/johnsoncodehk/volar/issues/1344params.textDocument, ."
-                    },
-                    "respectClientCapabilities": {
-                      "type": "boolean",
-                      "default": true
-                    },
                     "reverseConfigFilePriority": {
                       "type": "boolean",
                       "default": false,
                       "description": "Reverse priority for tsconfig pickup."
                     },
-                    "typescript": {
-                      "additionalProperties": false,
-                      "properties": {
-                        "tsdk": {
-                          "type": "string",
-                          "description": "Path to tsserver's lib directory."
-                        },
-                      }
+                    "typescript.tsdk": {
+                      "type": "string",
+                      "description": "Path to tsserver's lib directory."
                     },
                     "ignoreTriggerCharacters": {
                       "type": "array",
@@ -283,69 +274,409 @@
                       },
                       "type": "object"
                     },
-                    "volar.autoCompleteRefs": {
-                      "default": false,
-                      "description": "Auto-complete Ref value with `.value`.",
-                      "type": "boolean"
-                    },
-                    "volar.autoWrapParentheses": {
+                    "css.completion.completePropertyWithSemicolon": {
                       "default": true,
-                      "description": "Auto-wrap `()` to As Expression in interpolations for fix issue #520.",
+                      "description": "Insert semicolon at end of line when completing CSS properties.",
                       "type": "boolean"
                     },
-                    "volar.codeLens.pugTools": {
-                      "default": false,
-                      "description": "[pug \u2610] code lens.",
-                      "type": "boolean"
-                    },
-                    "volar.codeLens.references": {
+                    "css.completion.triggerPropertyValueCompletion": {
                       "default": true,
-                      "description": "[references] code lens.",
+                      "description": "By default, VS Code triggers property value completion after selecting a CSS property. Use this setting to disable this behavior.",
                       "type": "boolean"
                     },
-                    "volar.codeLens.scriptSetupTools": {
-                      "default": false,
-                      "description": "[ref sugar \u2610] code lens.",
-                      "type": "boolean"
+                    "css.customData": {
+                      "type": "array",
+                      "markdownDescription": "A list of relative file paths pointing to JSON files following the [custom data format](https://github.com/microsoft/vscode-css-languageservice/blob/master/docs/customData.md).\n\nLoads custom data to enhance its CSS support for the custom CSS properties, at directives, pseudo classes and pseudo elements you specify in the JSON files.\n\nThe file paths are relative to workspace and only workspace folder settings are considered.",
+                      "default": [],
+                      "items": {
+                        "type": "string"
+                      },
                     },
-                    "volar.completion.normalizeComponentImportName": {
-                      "type": "boolean",
-                      "default": true,
-                      "description": "Normalize import name for auto import. (\"myCompVue\" -> \"MyComp\")"
-                    },
-                    "volar.completion.preferredAttrNameCase": {
-                      "default": "auto-kebab",
-                      "description": "Preferred attr name case.",
+                    "css.format.braceStyle": {
+                      "default": "collapse",
                       "enum": [
-                        "auto-kebab",
-                        "auto-camel",
-                        "kebab",
-                        "camel"
+                        "collapse",
+                        "expand"
+                      ],
+                      "markdownDescription": "Put braces on the same line as rules (`collapse`) or put braces on own line (`expand`).",
+                      "type": "string"
+                    },
+                    "css.format.enable": {
+                      "default": true,
+                      "description": "Enable/disable default CSS formatter.",
+                      "type": "boolean"
+                    },
+                    "css.format.maxPreserveNewLines": {
+                      "default": null,
+                      "markdownDescription": "Maximum number of line breaks to be preserved in one chunk, when `#css.format.preserveNewLines#` is enabled.",
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "css.format.newlineBetweenRules": {
+                      "default": true,
+                      "markdownDescription": "Separate rulesets by a blank line.",
+                      "type": "boolean"
+                    },
+                    "css.format.newlineBetweenSelectors": {
+                      "default": true,
+                      "markdownDescription": "Separate selectors with a new line.",
+                      "type": "boolean"
+                    },
+                    "css.format.preserveNewLines": {
+                      "default": true,
+                      "markdownDescription": "Whether existing line breaks before elements should be preserved.",
+                      "type": "boolean"
+                    },
+                    "css.format.spaceAroundSelectorSeparator": {
+                      "default": false,
+                      "markdownDescription": "Ensure a space character around selector separators '>', '+', '~' (e.g. `a > b`).",
+                      "type": "boolean"
+                    },
+                    "css.hover.documentation": {
+                      "default": true,
+                      "description": "Show tag and attribute documentation in CSS hovers.",
+                      "type": "boolean"
+                    },
+                    "css.hover.references": {
+                      "default": true,
+                      "description": "Show references to MDN in CSS hovers.",
+                      "type": "boolean"
+                    },
+                    "less.completion.completePropertyWithSemicolon": {
+                      "default": true,
+                      "description": "Insert semicolon at end of line when completing CSS properties.",
+                      "type": "boolean"
+                    },
+                    "less.completion.triggerPropertyValueCompletion": {
+                      "default": true,
+                      "description": "By default, VS Code triggers property value completion after selecting a CSS property. Use this setting to disable this behavior.",
+                      "type": "boolean"
+                    },
+                    "less.format.braceStyle": {
+                      "default": "collapse",
+                      "enum": [
+                        "collapse",
+                        "expand"
+                      ],
+                      "markdownDescription": "Put braces on the same line as rules (`collapse`) or put braces on own line (`expand`).",
+                      "type": "string"
+                    },
+                    "less.format.enable": {
+                      "default": true,
+                      "description": "Enable/disable default LESS formatter.",
+                      "type": "boolean"
+                    },
+                    "less.format.maxPreserveNewLines": {
+                      "default": null,
+                      "markdownDescription": "Maximum number of line breaks to be preserved in one chunk, when `#less.format.preserveNewLines#` is enabled.",
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "less.format.newlineBetweenRules": {
+                      "default": true,
+                      "markdownDescription": "Separate rulesets by a blank line.",
+                      "type": "boolean"
+                    },
+                    "less.format.newlineBetweenSelectors": {
+                      "default": true,
+                      "markdownDescription": "Separate selectors with a new line.",
+                      "type": "boolean"
+                    },
+                    "less.format.preserveNewLines": {
+                      "default": true,
+                      "markdownDescription": "Whether existing line breaks before elements should be preserved.",
+                      "type": "boolean"
+                    },
+                    "less.format.spaceAroundSelectorSeparator": {
+                      "default": false,
+                      "markdownDescription": "Ensure a space character around selector separators '>', '+', '~' (e.g. `a > b`).",
+                      "type": "boolean"
+                    },
+                    "less.hover.documentation": {
+                      "default": true,
+                      "description": "Show tag and attribute documentation in LESS hovers.",
+                      "type": "boolean"
+                    },
+                    "less.hover.references": {
+                      "default": true,
+                      "description": "Show references to MDN in LESS hovers.",
+                      "type": "boolean"
+                    },
+                    "scss.completion.completePropertyWithSemicolon": {
+                      "default": true,
+                      "description": "Insert semicolon at end of line when completing CSS properties.",
+                      "type": "boolean"
+                    },
+                    "scss.completion.triggerPropertyValueCompletion": {
+                      "default": true,
+                      "description": "By default, VS Code triggers property value completion after selecting a CSS property. Use this setting to disable this behavior.",
+                      "type": "boolean"
+                    },
+                    "scss.format.braceStyle": {
+                      "default": "collapse",
+                      "enum": [
+                        "collapse",
+                        "expand"
+                      ],
+                      "markdownDescription": "Put braces on the same line as rules (`collapse`) or put braces on own line (`expand`).",
+                      "type": "string"
+                    },
+                    "scss.format.enable": {
+                      "default": true,
+                      "description": "Enable/disable default SCSS formatter.",
+                      "type": "boolean"
+                    },
+                    "scss.format.maxPreserveNewLines": {
+                      "default": null,
+                      "markdownDescription": "Maximum number of line breaks to be preserved in one chunk, when `#scss.format.preserveNewLines#` is enabled.",
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "scss.format.newlineBetweenRules": {
+                      "default": true,
+                      "markdownDescription": "Separate rulesets by a blank line.",
+                      "type": "boolean"
+                    },
+                    "scss.format.newlineBetweenSelectors": {
+                      "default": true,
+                      "markdownDescription": "Separate selectors with a new line.",
+                      "type": "boolean"
+                    },
+                    "scss.format.preserveNewLines": {
+                      "default": true,
+                      "markdownDescription": "Whether existing line breaks before elements should be preserved.",
+                      "type": "boolean"
+                    },
+                    "scss.format.spaceAroundSelectorSeparator": {
+                      "default": false,
+                      "markdownDescription": "Ensure a space character around selector separators '>', '+', '~' (e.g. `a > b`).",
+                      "type": "boolean"
+                    },
+                    "scss.hover.documentation": {
+                      "default": true,
+                      "description": "Show tag and attribute documentation in SCSS hovers.",
+                      "type": "boolean"
+                    },
+                    "scss.hover.references": {
+                      "default": true,
+                      "description": "Show references to MDN in SCSS hovers.",
+                      "type": "boolean"
+                    },
+                    "html.autoClosingTags": {
+                      "default": true,
+                      "description": "Enable/disable autoclosing of HTML tags.",
+                      "type": "boolean"
+                    },
+                    "html.autoCreateQuotes": {
+                      "default": true,
+                      "description": "Enable/disable auto creation of quotes for HTML attribute assignment. The type of quotes can be configured by `#html.completion.attributeDefaultValue#`.",
+                      "type": "boolean"
+                    },
+                    "html.completion.attributeDefaultValue": {
+                      "default": "doublequotes",
+                      "description": "Controls the default value for attributes when completion is accepted.",
+                      "enum": [
+                        "doublequotes",
+                        "singlequotes",
+                        "empty"
                       ],
                       "enumDescriptions": [
-                        "Auto Detect from Content (Preferred :kebab-case=\"...\")",
-                        "Auto Detect from Content (Preferred :camelCase=\"...\")",
-                        ":kebab-case=\"...\"",
-                        ":camelCase=\"...\""
+                        "Attribute value is set to \"\".",
+                        "Attribute value is set to ''.",
+                        "Attribute value is not set."
                       ],
                       "type": "string"
                     },
-                    "volar.completion.preferredTagNameCase": {
-                      "default": "auto-pascal",
-                      "description": "Preferred tag name case.",
+                    "html.customData": {
+                      "type": "array",
+                      "markdownDescription": "A list of relative file paths pointing to JSON files following the [custom data format](https://github.com/microsoft/vscode-html-languageservice/blob/master/docs/customData.md).\n\nLoads custom data to enhance its HTML support for the custom HTML tags, attributes and attribute values you specify in the JSON files.\n\nThe file paths are relative to workspace and only workspace folder settings are considered.",
+                      "default": [],
+                      "items": {
+                        "type": "string"
+                      },
+                    },
+                    "html.format.contentUnformatted": {
+                      "default": "pre,code,textarea",
+                      "markdownDescription": "List of tags, comma separated, where the content shouldn't be reformatted. `null` defaults to the `pre` tag.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "html.format.enable": {
+                      "default": true,
+                      "description": "Enable/disable default HTML formatter.",
+                      "type": "boolean"
+                    },
+                    "html.format.extraLiners": {
+                      "default": "head, body, /html",
+                      "markdownDescription": "List of tags, comma separated, that should have an extra newline before them. `null` defaults to `\"head, body, /html\"`.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "html.format.indentHandlebars": {
+                      "default": false,
+                      "markdownDescription": "Format and indent `{{#foo}}` and `{{/foo}}`.",
+                      "type": "boolean"
+                    },
+                    "html.format.indentInnerHtml": {
+                      "default": false,
+                      "markdownDescription": "Indent `<head>` and `<body>` sections.",
+                      "type": "boolean"
+                    },
+                    "html.format.maxPreserveNewLines": {
+                      "default": null,
+                      "markdownDescription": "Maximum number of line breaks to be preserved in one chunk. Use `null` for unlimited.",
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "html.format.preserveNewLines": {
+                      "default": true,
+                      "description": "Controls whether existing line breaks before elements should be preserved. Only works before elements, not inside tags or for text.",
+                      "type": "boolean"
+                    },
+                    "html.format.templating": {
+                      "default": false,
+                      "description": "Honor django, erb, handlebars and php templating language tags.",
+                      "type": "boolean"
+                    },
+                    "html.format.unformatted": {
+                      "default": "wbr",
+                      "markdownDescription": "List of tags, comma separated, that shouldn't be reformatted. `null` defaults to all tags listed at https://www.w3.org/TR/html5/dom.html#phrasing-content.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "html.format.unformattedContentDelimiter": {
+                      "default": "",
+                      "markdownDescription": "Keep text content together between this string.",
+                      "type": "string"
+                    },
+                    "html.format.wrapAttributes": {
+                      "default": "auto",
+                      "description": "Wrap attributes.",
                       "enum": [
-                        "auto-kebab",
-                        "auto-pascal",
+                        "auto",
+                        "force",
+                        "force-aligned",
+                        "force-expand-multiline",
+                        "aligned-multiple",
+                        "preserve",
+                        "preserve-aligned"
+                      ],
+                      "enumDescriptions": [
+                        "Wrap attributes only when line length is exceeded.",
+                        "Wrap each attribute except first.",
+                        "Wrap each attribute except first and keep aligned.",
+                        "Wrap each attribute.",
+                        "Wrap when line length is exceeded, align attributes vertically.",
+                        "Preserve wrapping of attributes.",
+                        "Preserve wrapping of attributes but align."
+                      ],
+                      "type": "string"
+                    },
+                    "html.format.wrapAttributesIndentSize": {
+                      "default": null,
+                      "markdownDescription": "Indent wrapped attributes to after N characters. Use `null` to use the default indent size. Ignored if `#html.format.wrapAttributes#` is set to 'aligned'.",
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "html.format.wrapLineLength": {
+                      "default": 120,
+                      "description": "Maximum amount of characters per line (0 = disable).",
+                      "type": "integer"
+                    },
+                    "html.hover.documentation": {
+                      "default": true,
+                      "description": "Show tag and attribute documentation in hover.",
+                      "type": "boolean"
+                    },
+                    "html.hover.references": {
+                      "default": true,
+                      "description": "Show references to MDN in hover.",
+                      "type": "boolean"
+                    },
+                    "vue.complete.casing.tags": {
+                      "type": "string",
+                      "enum": [
+                        "autoKebab",
+                        "autoPascal",
                         "kebab",
                         "pascal"
                       ],
                       "enumDescriptions": [
-                        "Auto Detect from Content (Preferred <kebab-case>)",
-                        "Auto Detect from Content (Preferred <PascalCase>)",
+                        "Auto Detect from Content (Fallback to <kebab-case> if detect failed)",
+                        "Auto Detect from Content  (Fallback to <PascalCase> if detect failed)",
                         "<kebab-case>",
                         "<PascalCase>"
                       ],
-                      "type": "string"
+                      "default": "autoPascal",
+                      "description": "Preferred tag name case."
+                    },
+                    "vue.complete.casing.props": {
+                      "type": "string",
+                      "enum": [
+                        "autoKebab",
+                        "autoCamel",
+                        "kebab",
+                        "camel"
+                      ],
+                      "enumDescriptions": [
+                        "Auto Detect from Content (Fallback to :kebab-case=\"...\" if detect failed)",
+                        "Auto Detect from Content (Fallback to :camelCase=\"...\" if detect failed)",
+                        ":kebab-case=\"...\"",
+                        ":camelCase=\"...\""
+                      ],
+                      "default": "autoKebab",
+                      "description": "Preferred attr name case."
+                    },
+                    "vue.features.complete.normalizeComponentImportName": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "Normalize import name for auto import. (\"myCompVue\" -> \"MyComp\")"
+                    },
+                    // "vue.features.autoInsert.parentheses": {
+                    //   "type": "boolean",
+                    //   "default": true,
+                    //   "description": "Auto-wrap `()` to As Expression in interpolations for fix issue #520."
+                    // },
+                    // "vue.features.autoInsert.dotValue": {
+                    //   "type": "boolean",
+                    //   "default": false,
+                    //   "description": "Auto-complete Ref value with `.value`."
+                    // },
+                    // "vue.features.autoInsert.bracketSpacing": {
+                    //   "type": "boolean",
+                    //   "default": true,
+                    //   "description": "Auto add space between double curly brackets: {{|}} -> {{ | }}"
+                    // },
+                    "vue.inlayHints.missingProps": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Show inlay hints for missing required props."
+                    },
+                    "vue.inlayHints.inlineHandlerLeading": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Show inlay hints for event argument in inline handlers."
+                    },
+                    "vue.inlayHints.optionsWrapper": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "Show inlay hints for component options wrapper for type support."
                     },
                     "volar.diagnostics.delay": {
                       "default": 200,
@@ -353,57 +684,65 @@
                       "type": "number"
                     },
                     "volar.format.initialIndent": {
+                      "type": "object",
+                      "description": "Whether to have initial indent.",
                       "default": {
                         "html": true
                       },
-                      "description": "Whether to have initial indent.",
                       "properties": {
-                        "css": {
-                          "default": false,
-                          "type": "boolean"
-                        },
                         "html": {
-                          "default": true,
-                          "type": "boolean"
+                          "type": "boolean",
+                          "default": true
+                        },
+                        "typescript": {
+                          "type": "boolean",
+                          "default": false
                         },
                         "javascript": {
-                          "default": false,
-                          "type": "boolean"
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "typescriptreact": {
+                          "type": "boolean",
+                          "default": false
                         },
                         "javascriptreact": {
-                          "default": false,
-                          "type": "boolean"
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "css": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "scss": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "less": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "sass": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "jade": {
+                          "type": "boolean",
+                          "default": false
                         },
                         "json": {
-                          "default": false,
-                          "type": "boolean"
-                        },
-                        "json5": {
                           "type": "boolean",
                           "default": false
                         },
                         "jsonc": {
-                          "default": false,
-                          "type": "boolean"
+                          "type": "boolean",
+                          "default": false
                         },
-                        "less": {
-                          "default": false,
-                          "type": "boolean"
-                        },
-                        "scss": {
-                          "default": false,
-                          "type": "boolean"
-                        },
-                        "typescript": {
-                          "default": false,
-                          "type": "boolean"
-                        },
-                        "typescriptreact": {
-                          "default": false,
-                          "type": "boolean"
+                        "json5": {
+                          "type": "boolean",
+                          "default": false
                         }
-                      },
-                      "type": "object"
+                      }
                     },
                     "typescript.preferences.autoImportFileExcludePatterns": {
                       "items": {
@@ -843,10 +1182,14 @@
                   ],
                   "markdownDescription": "Valid file extensions that should be considered as regular Vue SFC. Please note that you should not use this option separately for additional file extensions IDE support, see https://github.com/johnsoncodehk/volar/tree/master/extensions/vscode-vue-language-features/README.md#custom-file-extensions."
                 },
-                "jsxTemplates": {
+                "lib": {
+                  "default": "",
+                  "markdownDescription": "Specify module name for import regular types. (If empty, will use `@vue/runtime-dom` for target < 2.7, `vue` for target >= 2.7)"
+                },
+                "jsxSlots": {
                   "type": "boolean",
                   "default": false,
-                  "markdownDescription": "Whether to compile template to JSX. (Generics component type checking only working with JSX)"
+                  "markdownDescription": "Generate slots type for `JSX.ElementChildrenAttribute`."
                 },
                 "strictTemplates": {
                   "type": "boolean",
@@ -855,16 +1198,11 @@
                 },
                 "skipTemplateCodegen": {
                   "type": "boolean",
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/577"
+                  "markdownDescription": "https://github.com/vuejs/language-tools/issues/577"
                 },
                 "nativeTags": {
-                  "type": "array",
-                  "default": [
-                    "div",
-                    "img",
-                    "..."
-                  ],
-                  "markdownDescription": "List of valid intrinsic elements."
+                  "deprecated": true,
+                  "description": "Deprecated since v1.5.1."
                 },
                 "dataAttributes": {
                   "type": "array",
@@ -885,7 +1223,7 @@
                 },
                 "hooks": {
                   "type": "array",
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/pull/2217"
+                  "markdownDescription": "https://github.com/vuejs/language-tools/pull/2217"
                 },
                 "optionsWrapper": {
                   "type": "array",
@@ -914,7 +1252,7 @@
                     "always",
                     "never"
                   ],
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1038, https://github.com/johnsoncodehk/volar/issues/1121"
+                  "markdownDescription": "https://github.com/vuejs/language-tools/issues/1038, https://github.com/vuejs/language-tools/issues/1121"
                 },
                 "experimentalRfc436": {
                   "type": "boolean",
@@ -924,7 +1262,7 @@
                 "experimentalUseElementAccessInTemplate": {
                   "type": "boolean",
                   "default": false,
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/997"
+                  "markdownDescription": "https://github.com/vuejs/language-tools/issues/997"
                 },
                 "experimentalModelPropName": {
                   "type": "object",
@@ -945,11 +1283,11 @@
                       "select": true
                     }
                   },
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/issues/1969"
+                  "markdownDescription": "https://github.com/vuejs/language-tools/issues/1969"
                 },
                 "experimentalAdditionalLanguageModules": {
                   "type": "array",
-                  "markdownDescription": "https://github.com/johnsoncodehk/volar/pull/2267"
+                  "markdownDescription": "https://github.com/vuejs/language-tools/pull/2267"
                 },
               }
             }

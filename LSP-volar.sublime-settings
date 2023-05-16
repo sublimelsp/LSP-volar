@@ -2,65 +2,65 @@
 	"initializationOptions": {
 		// List any additional file extensions that should be processed as Vue files.
 		"additionalExtensions": [],
-		// Disable file watcher in language server for better performance.
-		"disableFileWatcher": false,
 		// Path to volar.config.js.
 		"configFilePath": "./volar.config.js",
+		// Diagnostic update model. (1 - Push, 2 - Pull)
+		"diagnosticModel": 2,
+		// Enable this option if you want to get complete CompletionList in language client.
+		// (Disable for better performance)
+		"fullCompletionList": false,
 		// Maximum file size for Vue Server to load. (default: 20MB)
 		"maxFileSize": 20971520,
 		// Defines which auto-complete popup trigger characters that Volar defines are allowed.
 		// By default all Volar trigger characters are disabled as ST does a better job.
 		"ignoreTriggerCharacters": [],
 		"json.customBlockSchemaUrls": {},
+		// Reverse priority for tsconfig pickup.
+		"reverseConfigFilePriority": false,
 		// Specify the `typescript.tsdk` to tsserverlibrary.js.
 		// If not specified LSP-volar will use the typescript from the workspace if it exist,
 		// else the typescript bundled with LSP-volar will be used.
-		// "typescript.tsdk": "/path/to/tsserverlibrary.js"
-		// Set --max-old-space-size option on server process. If you have problem on frequently
-		// "Request textDocument/** failed." error, try setting higher memory(MB) on it.
-		"maxOldSpaceSize": null,
-		// Ignore project references settings of tsconfig in language server for resolve issue
-		// https://github.com/johnsoncodehk/volar/issues/1344.
-		"noProjectReferences": false,
-		"respectClientCapabilities": true,
-		// Reverse priority for tsconfig pickup.
-		"reverseConfigFilePriority": false,
+		// "typescript.tsdk": "/path/to/tsserverlibrary.js",
 	},
 	"settings": {
-		// Auto-complete Ref value with `.value`.
-		"volar.autoCompleteRefs": false,
-		// Auto-wrap `()` to As Expression in interpolations for fix issue #520.
-		"volar.autoWrapParentheses": true,
-		// [pug ☐] code lens.
-		"volar.codeLens.pugTools": false,
-		// [references] code lens.
-		"volar.codeLens.references": true,
-		// [ref sugar ☐] code lens.
-		"volar.codeLens.scriptSetupTools": false,
-		// Normalize import name for auto import. ("myCompVue" -> "MyComp")
-		"volar.completion.normalizeComponentImportName": true,
-		// Preferred attr name case.
-		// possible values: "auto-kebab", "auto-camel", "kebab", "camel"
-		"volar.completion.preferredAttrNameCase": "auto-kebab",
 		// Preferred tag name case.
-		// possible values: "auto-kebab", "auto-pascal", "kebab", "pascal"
-		"volar.completion.preferredTagNameCase": "auto-pascal",
-		// Delay time for diagnostics.
-		"volar.diagnostics.delay": 200,
+		// possible values:
+		// - "autoKebab": Auto Detect from Content (Fallback to <kebab-case> if detect failed)
+		// - "autoPascal": Auto Detect from Content  (Fallback to <PascalCase> if detect failed)
+		// - "kebab" - <kebab-case>
+		// - "pascal" - <PascalCase>
+		"vue.complete.casing.tags": "autoPascal",
+		// Preferred attr name case.
+		// possible values:
+		//  - "autoKebab": Auto Detect from Content (Fallback to :kebab-case="..." if detect failed)
+		//  - "autoPascal": Auto Detect from Content (Fallback to :camelCase="..." if detect failed)
+		//  - "kebab": :kebab-case="..."
+		//  - "pascal": :camelCase="..."
+		"vue.complete.casing.props": "autoKebab",
+		// Normalize import name for auto import. ("myCompVue" -> "MyComp")
+		"vue.features.complete.normalizeComponentImportName": true,
+		// Show inlay hints for missing required props.
+		"vue.inlayHints.missingProps": false,
+		// Show inlay hints for event argument in inline handlers.
+		"vue.inlayHints.inlineHandlerLeading": false,
+		// Show inlay hints for component options wrapper for type support.
+		"vue.inlayHints.optionsWrapper": true,
 		// Whether to have initial indent.
 		"volar.format.initialIndent": {
 			"css": false,
 			"html": true,
+			"jade": false,
 			"javascript": false,
 			"javascriptreact": false,
 			"json": false,
 			"json5": false,
 			"jsonc": false,
+			"less": false,
+			"sass": false,
 			"scss": false,
 			"typescript": false,
 			"typescriptreact": false,
 		},
-
 		// javascript inlay hint
 		"javascript.inlayHints.enumMemberValues.enabled": false,
 		"javascript.inlayHints.functionLikeReturnTypes.enabled": false,
@@ -70,7 +70,6 @@
 		"javascript.inlayHints.propertyDeclarationTypes.enabled": false,
 		"javascript.inlayHints.variableTypes.enabled": false,
 		"javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName.enabled": true,
-
 		// typescript inlay hint
 		"typescript.inlayHints.enumMemberValues.enabled": false,
 		"typescript.inlayHints.functionLikeReturnTypes.enabled": false,
@@ -80,9 +79,8 @@
 		"typescript.inlayHints.propertyDeclarationTypes.enabled": false,
 		"typescript.inlayHints.variableTypes.enabled": false,
 		"typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName.enabled": true,
-
 		// javascript completions
-		"javascript.suggest.autoImports": false,  // Disabled by default due to UI freezes that large completion responses cause.
+		"javascript.suggest.autoImports": false, // Disabled by default due to UI freezes that large completion responses cause.
 		"javascript.suggest.classMemberSnippets.enabled": true,
 		"javascript.suggest.completeFunctionCalls": false,
 		"javascript.suggest.includeAutomaticOptionalChainCompletions": true,
@@ -90,9 +88,8 @@
 		"javascript.suggest.includeCompletionsWithSnippetText": true,
 		"javascript.suggest.jsdoc.generateReturns": true,
 		"javascript.suggest.objectLiteralMethodSnippets.enabled": true,
-
 		// typescript completions
-		"typescript.suggest.autoImports": false,  // Disabled by default due to UI freezes that large completion responses cause.
+		"typescript.suggest.autoImports": false, // Disabled by default due to UI freezes that large completion responses cause.
 		"typescript.suggest.classMemberSnippets.enabled": true,
 		"typescript.suggest.completeFunctionCalls": false,
 		"typescript.suggest.includeAutomaticOptionalChainCompletions": true,
@@ -100,26 +97,23 @@
 		"typescript.suggest.includeCompletionsWithSnippetText": true,
 		"typescript.suggest.jsdoc.generateReturns": true,
 		"typescript.suggest.objectLiteralMethodSnippets.enabled": true,
-
 		// Other javascript options
 		"javascript.preferences.quoteStyle": "auto",
 		"javascript.preferences.importModuleSpecifier": "shortest",
 		"javascript.preferences.importModuleSpecifierEnding": "auto",
 		"javascript.preferences.jsxAttributeCompletionStyle": "auto",
 		"javascript.preferences.autoImportFileExcludePatterns": [],
-
 		// Other typescript options
 		"typescript.preferences.quoteStyle": "auto",
 		"typescript.preferences.importModuleSpecifier": "shortest",
 		"typescript.preferences.importModuleSpecifierEnding": "auto",
 		"typescript.preferences.jsxAttributeCompletionStyle": "auto",
 		"typescript.preferences.autoImportFileExcludePatterns": [],
-
-
-		// Emmet plugin settings (autocompletion within template blocks).
-
+		// --- Emmet plugin settings (autocompletion within template blocks). ---
 		// An array of languages where Emmet abbreviations should not be expanded.
-		"emmet.excludeLanguages": ["markdown"],
+		"emmet.excludeLanguages": [
+			"markdown"
+		],
 		// Preferences used to modify behavior of some actions and resolvers of Emmet.
 		"emmet.preferences": {},
 		// Shows possible Emmet abbreviations as suggestions. Not applicable in stylesheets or when
@@ -138,16 +132,161 @@
 		"emmet.syntaxProfiles": {},
 		// Variables to be used in Emmet snippets.
 		"emmet.variables": {},
+		// --- CSS plugin settings ---
+		// Insert semicolon at end of line when completing CSS properties.
+		"css.completion.completePropertyWithSemicolon": true,
+		// By default, VS Code triggers property value completion after selecting a CSS property.
+		// Use this setting to disable this behavior.
+		"css.completion.triggerPropertyValueCompletion": true,
+		// A list of relative file paths pointing to JSON files following the custom data format
+		// (https://github.com/microsoft/vscode-css-languageservice/blob/master/docs/customData.md).
+		// Loads custom data to enhance its CSS support for the custom CSS properties, at directives, pseudo classes
+		// and pseudo elements you specify in the JSON files.
+		// The file paths are relative to workspace and only workspace folder settings are considered.
+		"css.customData": [],
+		// Put braces on the same line as rules (`collapse`) or put braces on own line (`expand`).
+		// possible values: "collapse", "expand"
+		"css.format.braceStyle": "collapse",
+		// Enable/disable default CSS formatter.
+		"css.format.enable": true,
+		// Maximum number of line breaks to be preserved in one chunk, when
+		// `#css.format.preserveNewLines#` is enabled.
+		"css.format.maxPreserveNewLines": null,
+		// Separate rulesets by a blank line.
+		"css.format.newlineBetweenRules": true,
+		// Separate selectors with a new line.
+		"css.format.newlineBetweenSelectors": true,
+		// Whether existing line breaks before elements should be preserved.
+		"css.format.preserveNewLines": true,
+		// Ensure a space character around selector separators '>', '+', '~' (e.g. `a > b`).
+		"css.format.spaceAroundSelectorSeparator": false,
+		// Show tag and attribute documentation in CSS hovers.
+		"css.hover.documentation": true,
+		// Show references to MDN in CSS hovers.
+		"css.hover.references": true,
+		// Insert semicolon at end of line when completing CSS properties.
+		"less.completion.completePropertyWithSemicolon": true,
+		// By default, VS Code triggers property value completion after selecting a CSS property.
+		// Use this setting to disable this behavior.
+		"less.completion.triggerPropertyValueCompletion": true,
+		// Put braces on the same line as rules (`collapse`) or put braces on own line (`expand`).
+		// possible values: "collapse", "expand"
+		"less.format.braceStyle": "collapse",
+		// Enable/disable default LESS formatter.
+		"less.format.enable": true,
+		// Maximum number of line breaks to be preserved in one chunk, when
+		// `#less.format.preserveNewLines#` is enabled.
+		"less.format.maxPreserveNewLines": null,
+		// Separate rulesets by a blank line.
+		"less.format.newlineBetweenRules": true,
+		// Separate selectors with a new line.
+		"less.format.newlineBetweenSelectors": true,
+		// Whether existing line breaks before elements should be preserved.
+		"less.format.preserveNewLines": true,
+		// Ensure a space character around selector separators '>', '+', '~' (e.g. `a > b`).
+		"less.format.spaceAroundSelectorSeparator": false,
+		// Show tag and attribute documentation in LESS hovers.
+		"less.hover.documentation": true,
+		// Show references to MDN in LESS hovers.
+		"less.hover.references": true,
+		// Insert semicolon at end of line when completing CSS properties.
+		"scss.completion.completePropertyWithSemicolon": true,
+		// By default, VS Code triggers property value completion after selecting a CSS property.
+		// Use this setting to disable this behavior.
+		"scss.completion.triggerPropertyValueCompletion": true,
+		// Put braces on the same line as rules (`collapse`) or put braces on own line (`expand`).
+		// possible values: "collapse", "expand"
+		"scss.format.braceStyle": "collapse",
+		// Enable/disable default SCSS formatter.
+		"scss.format.enable": true,
+		// Maximum number of line breaks to be preserved in one chunk, when
+		// `#scss.format.preserveNewLines#` is enabled.
+		"scss.format.maxPreserveNewLines": null,
+		// Separate rulesets by a blank line.
+		"scss.format.newlineBetweenRules": true,
+		// Separate selectors with a new line.
+		"scss.format.newlineBetweenSelectors": true,
+		// Whether existing line breaks before elements should be preserved.
+		"scss.format.preserveNewLines": true,
+		// Ensure a space character around selector separators '>', '+', '~' (e.g. `a > b`).
+		"scss.format.spaceAroundSelectorSeparator": false,
+		// Show tag and attribute documentation in SCSS hovers.
+		"scss.hover.documentation": true,
+		// Show references to MDN in SCSS hovers.
+		"scss.hover.references": true,
+		// --- HTML plugin settings ---
+		// Enable/disable autoclosing of HTML tags.
+		"html.autoClosingTags": true,
+		// Enable/disable auto creation of quotes for HTML attribute assignment. The type of quotes
+		// can be configured by `#html.completion.attributeDefaultValue#`.
+		"html.autoCreateQuotes": true,
+		// Controls the default value for attributes when completion is accepted.
+		// possible values: "doublequotes", "singlequotes", "empty"
+		"html.completion.attributeDefaultValue": "doublequotes",
+		// A list of relative file paths pointing to JSON files following the custom data format
+		// (https://github.com/microsoft/vscode-html-languageservice/blob/master/docs/customData.md).
+		// Loads custom data enhance HTML support for the custom HTML tags, attributes and attribute values you specify
+		// in the JSON files.
+		// The file paths are relative to workspace and only workspace folder settings are considered.
+		"html.customData": [],
+		// List of tags, comma separated, where the content shouldn't be reformatted. `null`
+		// defaults to the `pre` tag.
+		"html.format.contentUnformatted": "pre,code,textarea",
+		// Enable/disable default HTML formatter.
+		"html.format.enable": true,
+		// List of tags, comma separated, that should have an extra newline before them. `null`
+		// defaults to `"head, body, /html"`.
+		"html.format.extraLiners": "head, body, /html",
+		// Format and indent `{{#foo}}` and `{{/foo}}`.
+		"html.format.indentHandlebars": false,
+		// Indent `<head>` and `<body>` sections.
+		"html.format.indentInnerHtml": false,
+		// Maximum number of line breaks to be preserved in one chunk. Use `null` for unlimited.
+		"html.format.maxPreserveNewLines": null,
+		// Controls whether existing line breaks before elements should be preserved. Only works
+		// before elements, not inside tags or for text.
+		"html.format.preserveNewLines": true,
+		// Honor django, erb, handlebars and php templating language tags.
+		"html.format.templating": false,
+		// List of tags, comma separated, that shouldn't be reformatted. `null` defaults to all tags
+		// listed at https://www.w3.org/TR/html5/dom.html#phrasing-content.
+		"html.format.unformatted": "wbr",
+		// Keep text content together between this string.
+		"html.format.unformattedContentDelimiter": "",
+		// Wrap attributes.
+		// possible values: "auto", "force", "force-aligned", "force-expand-multiline", "aligned-multiple", "preserve", "preserve-aligned"
+		"html.format.wrapAttributes": "auto",
+		// Indent wrapped attributes to after N characters. Use `null` to use the default indent
+		// size. Ignored if `#html.format.wrapAttributes#` is set to 'aligned'.
+		"html.format.wrapAttributesIndentSize": null,
+		// Maximum amount of characters per line (0 = disable).
+		"html.format.wrapLineLength": 120,
+		// Show tag and attribute documentation in hover.
+		"html.hover.documentation": true,
+		// Show references to MDN in hover.
+		"html.hover.references": true,
+		// Enable/disable mirroring cursor on matching HTML tag.
 	},
-	"command": ["${node_bin}", "${server_path}", "--stdio"],
+	"command": [
+		"${node_bin}",
+		// If you have problem on frequently "Request textDocument/** failed." error, try setting higher memory (MB)
+		// on it. For example 4096 equals 4GB.
+		// "--max-old-space-size=4096",
+		"${server_path}",
+		"--stdio"
+	],
 	// ST4
 	"selector": "text.html.vue",
 	// ST3
 	"languages": [
 		{
 			"languageId": "vue",
-			"scopes": ["text.html.vue"],
-			"syntaxes": ["Packages/Vue Syntax Highlight/Vue Component.sublime-syntax"],
+			"scopes": [
+				"text.html.vue"
+			],
+			"syntaxes": [
+				"Packages/Vue Syntax Highlight/Vue Component.sublime-syntax"
+			],
 		}
 	]
 }
