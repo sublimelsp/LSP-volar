@@ -19,7 +19,7 @@ def plugin_unloaded():
 class LspVolarPlugin(NpmClientHandler):
     package_name = __package__
     server_directory = 'server'
-    server_binary_path = os.path.join(server_directory, 'node_modules', '@volar', 'vue-language-server', 'bin', 'vue-language-server.js')
+    server_binary_path = os.path.join(server_directory, 'node_modules', '@vue', 'language-server', 'bin', 'vue-language-server.js')
 
     @classmethod
     def is_allowed_to_start(
