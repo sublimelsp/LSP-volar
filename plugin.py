@@ -22,6 +22,10 @@ class LspVolarPlugin(NpmClientHandler):
     server_binary_path = os.path.join(server_directory, 'node_modules', '@vue', 'language-server', 'bin', 'vue-language-server.js')
 
     @classmethod
+    def required_node_version(cls) -> str:
+        return '>=16'
+
+    @classmethod
     def is_allowed_to_start(
         cls,
         window: sublime.Window,
