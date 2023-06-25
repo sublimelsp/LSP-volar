@@ -1,7 +1,7 @@
 from .plugin_types import VueFindReferencesParams
 from LSP.plugin import ClientConfig
 from LSP.plugin import WorkspaceFolder
-from LSP.plugin.core.typing import List, Optional, Tuple
+from LSP.plugin.core.typing import List, Optional
 from LSP.plugin.locationpicker import LocationPicker
 from lsp_utils import NpmClientHandler, notification_handler
 import os
@@ -22,8 +22,8 @@ class LspVolarPlugin(NpmClientHandler):
     server_binary_path = os.path.join(server_directory, 'node_modules', '@vue', 'language-server', 'bin', 'vue-language-server.js')
 
     @classmethod
-    def required_node_version(cls) -> Tuple[int, int, int]:
-        return ">=16"
+    def required_node_version(cls) -> str:
+        return '>=16'
 
     @classmethod
     def is_allowed_to_start(
