@@ -57,7 +57,7 @@ class LspVolarPlugin(NpmClientHandler):
         return os.path.join(server_directory_path, 'node_modules', 'typescript', 'lib')
 
     def on_pre_server_command(self, command: Mapping[str, Any], done_callback: Callable[[], None]) -> bool:
-        command_name = command["command"]
+        command_name = command['command']
         if command_name == 'editor.action.showReferences':
             _, __, references = command['arguments']
             self._handle_show_references(references)
