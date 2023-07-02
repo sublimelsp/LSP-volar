@@ -1,9 +1,7 @@
-from .plugin_types import VueFindReferencesParams
 from LSP.plugin import ClientConfig
 from LSP.plugin import WorkspaceFolder
 from LSP.plugin.core.typing import List, Optional
-from LSP.plugin.locationpicker import LocationPicker
-from lsp_utils import NpmClientHandler, notification_handler
+from lsp_utils import NpmClientHandler
 import os
 import sublime
 
@@ -55,25 +53,3 @@ class LspVolarPlugin(NpmClientHandler):
                 return os.path.dirname(candidate)
         server_directory_path = cls._server_directory_path()
         return os.path.join(server_directory_path, 'node_modules', 'typescript', 'lib')
-
-    @notification_handler('volar/server/showReferences')
-    def onShowReferences(self, params: VueFindReferencesParams) -> None:
-        session = self.weaksession()
-        if not session:
-            return
-        view = sublime.active_window().active_view()
-        if not view:
-            return
-        references = params['references']
-        if len(references) == 1:
-            args = {
-                'location': references[0],
-                'session_name': session.config.name,
-            }
-            window = view.window()
-            if window:
-                window.run_command('lsp_open_location', args)
-        elif references:
-            LocationPicker(view, session, params['references'], side_by_side=False)
-        else:
-            sublime.status_message('No references found')
