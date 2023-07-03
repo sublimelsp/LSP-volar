@@ -1,9 +1,9 @@
-from .plugin_types import VueFindReferencesParams
 from LSP.plugin import ClientConfig
 from LSP.plugin import WorkspaceFolder
-from LSP.plugin.core.typing import List, Optional
+from LSP.plugin.core.typing import Any, Callable, List, Optional, Mapping
+from LSP.plugin.core.protocol import Location, Position
 from LSP.plugin.locationpicker import LocationPicker
-from lsp_utils import NpmClientHandler, notification_handler
+from lsp_utils import NpmClientHandler
 import os
 import sublime
 
@@ -56,15 +56,22 @@ class LspVolarPlugin(NpmClientHandler):
         server_directory_path = cls._server_directory_path()
         return os.path.join(server_directory_path, 'node_modules', 'typescript', 'lib')
 
-    @notification_handler('volar/server/showReferences')
-    def onShowReferences(self, params: VueFindReferencesParams) -> None:
+    def on_pre_server_command(self, command: Mapping[str, Any], done_callback: Callable[[], None]) -> bool:
+        command_name = command['command']
+        if command_name == 'editor.action.showReferences':
+            _, __, references = command['arguments']
+            self._handle_show_references(references)
+            done_callback()
+            return True
+        return False
+
+    def _handle_show_references(self, references: List[Location]) -> None:
         session = self.weaksession()
         if not session:
             return
         view = sublime.active_window().active_view()
         if not view:
             return
-        references = params['references']
         if len(references) == 1:
             args = {
                 'location': references[0],
@@ -74,6 +81,6 @@ class LspVolarPlugin(NpmClientHandler):
             if window:
                 window.run_command('lsp_open_location', args)
         elif references:
-            LocationPicker(view, session, params['references'], side_by_side=False)
+            LocationPicker(view, session, references, side_by_side=False)
         else:
             sublime.status_message('No references found')
