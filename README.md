@@ -73,8 +73,8 @@ Shows a tree view of all the internal virtual files associated with the currentl
 
 Writes all internal virtual files to disk. The files will be created alongside the original `vue` files that Volar has loaded internally. This can also include `vue` files within `node_modules`.
 
-> note:
-> If there are many `vue` files in the project then a lot of files can be created by this command that could be a bit tiresome to clean up later. In a git-tracked project you might want to use `git clean -fx` to remove all untraced files. Just make sure you don't have any useful untracked files.
+> **Note**
+> If there are many `vue` files in the project then a lot of files can be created by this command and those could be a bit tiresome to clean up later. In a git-tracked project you might want to use `git clean -fx` to remove all untraced files. Just make sure you don't have any useful untracked files.
 
 ### Inlay hints
 
