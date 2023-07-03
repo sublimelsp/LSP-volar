@@ -22,6 +22,10 @@ Open the configuration file using Command Palette with `Preferences: LSP-volar S
 
 Allow LSP-volar to start in `*.ts | *.tsx | *.js | *.jsx` files.
 
+> **Warning**
+> Don't use this unless you really have a specific reason. It provides worse experience than `LSP-typescript` in `.js/.ts` files due to not receiving diagnostic updates on modifying related files. Also it's missing some features of `LSP-typescript`.
+> See related issue: https://github.com/vuejs/language-tools/issues/3229
+
 #### Per project:
 
 Create a sublime project file with the following contents:
