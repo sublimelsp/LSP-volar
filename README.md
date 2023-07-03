@@ -71,7 +71,7 @@ Package provides a few commands in the Command Palette that can be useful for de
 
 #### `LSP-volar (Debug): Show Virtual Files`
 
-Shows a tree view of all the internal virtual files associated with the currently opened `vue` file and allows for seeing their contents.
+Shows a tree view of all internal virtual files associated with the currently opened `vue` file and allows for seeing their contents.
 
 #### `LSP-volar (Debug): Write Virtual Files`
 
