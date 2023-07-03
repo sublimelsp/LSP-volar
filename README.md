@@ -96,7 +96,7 @@ Writes all internal virtual files to disk. The files will be created alongside t
 >```
 
 > **Note**
-> If there are many `vue` files in the project then a lot of files can be created by this command and those could be a bit tiresome to clean up later. In a git-tracked project you might want to use `git clean -fx` to remove all untraced files. Just make sure you don't have any useful untracked files.
+> If there are many `vue` files in the project then a lot of files can be created by this command and those could be a bit tiresome to clean up later. In a git-tracked project you might want to use `git clean -fx` to remove all untracked files. Just make sure you don't have any useful untracked files.
 
 ### Inlay hints
 
