@@ -74,7 +74,7 @@ Shows a tree view of all the internal virtual files associated with the currentl
 Writes all internal virtual files to disk. The files will be created alongside the original `vue` files that Volar has loaded internally. This can also include `vue` files within `node_modules`. Those files can be useful in figuring out why there are type issues in `vue` files that maybe are due to a Volar bug.
 
 > **Note**
-> Type-checking those genearated `.ts` files using `LSP-typescript` is not equivalent to what `LSP-volar` does as Volar does some internal Vue type augmentations that `LSP-typescript` does not do. To get a more relevant type checking when inspecting those files it's recommended to disable `LSP-typescript` and enable `LSP-volar` for TS files instead. This can be done in project settings for example:
+> Type-checking those genearated `.ts` files using `LSP-typescript` is not equivalent to what `LSP-volar` does as Volar does some internal Vue type augmentations that `LSP-typescript` does not do. To get a more relevant type checking when inspecting those files it's recommended to disable `LSP-typescript` and enable `LSP-volar` for TS files instead. This can be done in the project settings for example (or globally):
 > ```jsonc
 > {
 >    // ...
