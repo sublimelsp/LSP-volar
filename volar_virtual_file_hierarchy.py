@@ -223,7 +223,8 @@ class LspVolarOpenVirtualFileCommand(LspWindowCommand):
 
     def _on_files_contents_async(self, uri: URI, file_name: str, result: GetVirtualFileRequest.ResponseType) -> None:
         flags = sublime.ADD_TO_SELECTION | sublime.SEMI_TRANSIENT | sublime.CLEAR_TO_RIGHT
-        # Force TS syntax for .js files
+        # Force TS syntax for virtual .js files.
+        # Those are actually TS files and using .js extension triggers errors from LSP.
         if file_name.endswith('.js'):
             file_name += '.ts'
         syntax = sublime.find_syntax_for_file(file_name)

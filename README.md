@@ -61,6 +61,21 @@ From the Command Palette select `Preferences: LSP-volar Settings` and paste the 
 
 > NOTE: When enabling LSP-volar for non-Vue files, it is advisable to disable the `LSP-typescript` package to avoid showing duplicate results.
 
+### Commands
+
+Package provides a few commands in the Command Palette that can be useful for debugging Volar issues.
+
+#### `LSP-volar (Debug): Show Virtual Files`
+
+Shows a tree view of all the internal virtual files associated with the currently opened `vue` file and allows for seeing their contents.
+
+#### `LSP-volar (Debug): Write Virtual Files`
+
+Writes all internal virtual files to disk. The files will be created alongside the original `vue` files that Volar has loaded internally. This can also include `vue` files within `node_modules`.
+
+> note:
+> If there are many `vue` files in the project then a lot of files can be created by this command that could be a bit tiresome to clean up later. In a git-tracked project you might want to use `git clean -fx` to remove all untraced files. Just make sure you don't have any useful untracked files.
+
 ### Inlay hints
 
 Inlay hints are short textual annotations that show parameter names, type hints.
