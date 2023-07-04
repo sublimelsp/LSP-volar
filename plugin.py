@@ -1,7 +1,7 @@
 from LSP.plugin import ClientConfig
 from LSP.plugin import WorkspaceFolder
 from LSP.plugin.core.typing import Any, Callable, List, Optional, Mapping
-from LSP.plugin.core.protocol import Location, Position
+from LSP.plugin.core.protocol import Location
 from LSP.plugin.locationpicker import LocationPicker
 from lsp_utils import NpmClientHandler
 import os
