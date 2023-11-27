@@ -4,8 +4,8 @@ from LSP.plugin.core.protocol import TextDocumentIdentifier
 from LSP.plugin.core.protocol import URI
 from LSP.plugin.core.registry import LspTextCommand
 from LSP.plugin.core.registry import LspWindowCommand
-from LSP.plugin.core.registry import new_tree_view_sheet
 from LSP.plugin.core.sessions import Session
+from LSP.plugin.core.tree_view import new_tree_view_sheet
 from LSP.plugin.core.tree_view import TreeDataProvider
 from LSP.plugin.core.tree_view import TreeItem
 from LSP.plugin.core.typing import Any, Callable, Dict, List, NotRequired, IntEnum, Optional, TypedDict, Tuple, Union
