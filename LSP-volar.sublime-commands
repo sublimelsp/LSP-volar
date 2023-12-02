@@ -7,12 +7,4 @@
             "default": "// Settings in here override those in \"LSP-volar/LSP-volar.sublime-settings\"\n\n{\n\t$0\n}\n"
         }
     },
-    {
-        "caption": "LSP-volar (Debug): Show Virtual Files",
-        "command": "lsp_volar_show_virtual_files",
-    },
-    {
-        "caption": "LSP-volar (Debug): Write Virtual Files",
-        "command": "lsp_volar_write_virtual_files",
-    },
 ]
