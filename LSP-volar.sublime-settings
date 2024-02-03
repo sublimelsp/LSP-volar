@@ -275,6 +275,9 @@
 		"${server_path}",
 		"--stdio"
 	],
+	"env": {
+		"NODE_ENV": "production",
+	},
 	// ST4
 	"selector": "text.html.vue",
 	// ST3
