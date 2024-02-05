@@ -275,18 +275,8 @@
 		"${server_path}",
 		"--stdio"
 	],
-	// ST4
+	"env": {
+		"NODE_ENV": "production",
+	},
 	"selector": "text.html.vue",
-	// ST3
-	"languages": [
-		{
-			"languageId": "vue",
-			"scopes": [
-				"text.html.vue"
-			],
-			"syntaxes": [
-				"Packages/Vue Syntax Highlight/Vue Component.sublime-syntax"
-			],
-		}
-	]
 }
