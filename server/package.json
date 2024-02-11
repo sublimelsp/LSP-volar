@@ -1,8 +1,15 @@
 {
   "name": "sublime-volar",
   "private": true,
+  "main": "./dist/server.js",
+  "scripts": {
+    "build": "node ./scripts/bundle.mjs"
+  },
   "dependencies": {
-    "@vue/language-server": "^1.8.27",
     "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@vue/language-server": "^1.8.27",
+    "esbuild": "^0.20.0"
   }
 }
