@@ -1,6 +1,10 @@
 # LSP-volar
 
-This is a helper package that automatically installs and updates the [Volar Language Server](https://github.com/johnsoncodehk/volar) for you.
+This is a helper package that automatically installs and updates the [Volar Language Server](https://github.com/vuejs/language-tools/tree/v1.8.27) for you.
+
+> **Warning**
+> This package integrates with the legacy 1.x version of the Vue Language Features (formerly Volar).
+> To use the latest version of Vue Language Features migrate to `LSP-vue`.
 
 ## Table of Contents
   - [Installation](#installation)
@@ -123,8 +127,3 @@ To enable inlay hints:
 ```
 
 > NOTE: Inlay hints require TypeScript 4.4+.
-
-### Vue 2 support
-
-Please see [Volar's Installation](https://github.com/johnsoncodehk/volar/blob/master/docs/installation.md) for setup instructions.
-

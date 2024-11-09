@@ -1,0 +1,7 @@
+# Breaking change
+
+This server, which is based on Vue Language Server 1.x is now deprecated.
+
+Migrate to LSP-vue which is based on the latest version of the Vue Language Server (2.x+).
+
+Currently used settings can be preserved by copying them from the LSP-volar to LSP-vue settings but note that some of the settings have changed or got removed.
