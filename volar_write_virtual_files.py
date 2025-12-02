@@ -1,7 +1,8 @@
+from __future__ import annotations
 from LSP.plugin import LspTextCommand
 from LSP.plugin import Notification
-from LSP.plugin.core.protocol import TextDocumentIdentifier
-from LSP.plugin.core.views import uri_from_view
+from LSP.plugin import uri_from_view
+from LSP.protocol import TextDocumentIdentifier
 import sublime
 
 

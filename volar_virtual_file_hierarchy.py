@@ -1,17 +1,20 @@
+from __future__ import annotations
+from collections.abc import Callable
+from enum import IntEnum
+from LSP.plugin import LspTextCommand
+from LSP.plugin import LspWindowCommand
+from LSP.plugin import Request
+from LSP.plugin import Session
+from LSP.plugin import uri_from_view
 from LSP.plugin.core.promise import Promise
-from LSP.plugin.core.protocol import Request
-from LSP.plugin.core.protocol import TextDocumentIdentifier
-from LSP.plugin.core.protocol import URI
-from LSP.plugin.core.registry import LspTextCommand
-from LSP.plugin.core.registry import LspWindowCommand
-from LSP.plugin.core.sessions import Session
 from LSP.plugin.core.tree_view import new_tree_view_sheet
 from LSP.plugin.core.tree_view import TreeDataProvider
 from LSP.plugin.core.tree_view import TreeItem
-from LSP.plugin.core.typing import Any, Callable, Dict, List, NotRequired, IntEnum, Optional, TypedDict, Tuple, Union
 from LSP.plugin.core.views import text_document_identifier
-from LSP.plugin.core.views import uri_from_view
+from LSP.protocol import TextDocumentIdentifier
+from LSP.protocol import URI
 from os.path import basename
+from typing import Any, NotRequired, Optional, TypedDict, Union
 import sublime
 import weakref
 
@@ -21,99 +24,75 @@ class FileKind(IntEnum):
     TypeScriptHostFile = 1
 
 
-RenameDict = TypedDict('RenameDict', {
-    'normalize': NotRequired[Callable[[str], str]],
-    'apply': NotRequired[Callable[[str], str]],
-})
+class RenameDict(TypedDict):
+    normalize: NotRequired[Callable[[str], str]]
+    apply: NotRequired[Callable[[str], str]]
 
-CompletionDict = TypedDict('CompletionDict', {
-    'additional': NotRequired[bool],
-    'autoImportOnly': NotRequired[bool],
-})
+class CompletionDict(TypedDict):
+    additional: NotRequired[bool]
+    autoImportOnly: NotRequired[bool]
 
-FileRangeCapabilities = TypedDict('FileRangeCapabilities', {
-    'hover': NotRequired[bool],
-    'references': NotRequired[bool],
-    'definition': NotRequired[bool],
-    'rename': NotRequired[Union[bool, RenameDict]],
-    'completion': NotRequired[Union[bool, CompletionDict]],
-    'diagnostic': NotRequired[bool],
-    'semanticTokens': NotRequired[bool],
-    'referencesCodeLens': NotRequired[bool],
-    'displayWithLink': NotRequired[bool],
-})
+class FileCapabilities(TypedDict):
+    diagnostic: NotRequired[bool]
+    foldingRange: NotRequired[bool]
+    documentFormatting: NotRequired[bool]
+    documentSymbol: NotRequired[bool]
+    codeAction: NotRequired[bool]
+    inlayHint: NotRequired[bool]
 
-FileCapabilities = TypedDict('FileCapabilities', {
-    'diagnostic': NotRequired[bool],
-    'foldingRange': NotRequired[bool],
-    'documentFormatting': NotRequired[bool],
-    'documentSymbol': NotRequired[bool],
-    'codeAction': NotRequired[bool],
-    'inlayHint': NotRequired[bool],
-})
+class RenameCapabilities(TypedDict):
+    normalize: Callable[[str], str]
+    apply: NotRequired[Callable[[str], str]]
 
-RenameCapabilities = TypedDict('RenameCapabilities', {
-    'normalize': Callable[[str], str],
-    'apply': NotRequired[Callable[[str], str]],
-})
+class CompletionCapabilities(TypedDict):
+    additional: NotRequired[bool]
+    autoImportOnly: NotRequired[bool]
 
-CompletionCapabilities = TypedDict('CompletionCapabilities', {
-    'additional': NotRequired[bool],
-    'autoImportOnly': NotRequired[bool],
-})
+class DiagnosticCapabilities(TypedDict):
+    shouldReport: Callable[[], bool]
 
-DiagnosticCapabilities = TypedDict('DiagnosticCapabilities', {
-    'shouldReport': Callable[[], bool],
-})
+class FileRangeCapabilities(TypedDict):
+    hover: NotRequired[bool]
+    references: NotRequired[bool]
+    definition: NotRequired[bool]
+    rename: NotRequired[bool | RenameCapabilities]
+    completion: NotRequired[bool | CompletionCapabilities]
+    diagnostic: NotRequired[bool | DiagnosticCapabilities]
+    semanticTokens: NotRequired[bool]
+    referencesCodeLens: NotRequired[bool]
+    displayWithLink: NotRequired[bool]
 
-FileRangeCapabilities = TypedDict('FileRangeCapabilities', {
-    'hover': NotRequired[bool],
-    'references': NotRequired[bool],
-    'definition': NotRequired[bool],
-    'rename': NotRequired[Union[bool, RenameCapabilities]],
-    'completion': NotRequired[Union[bool, CompletionCapabilities]],
-    'diagnostic': NotRequired[Union[bool, DiagnosticCapabilities]],
-    'semanticTokens': NotRequired[bool],
-    'referencesCodeLens': NotRequired[bool],
-    'displayWithLink': NotRequired[bool],
-})
+class Stack(TypedDict):
+    source: str
+    range: tuple[int, int]
 
-Stack = TypedDict('Stack', {
-    'source': str,
-    'range': Tuple[int, int],
-})
+class MirrorBehaviorCapabilities(TypedDict):
+    references: NotRequired[bool]
+    definition: NotRequired[bool]
+    rename: NotRequired[bool]
 
-MirrorBehaviorCapabilities = TypedDict('MirrorBehaviorCapabilities', {
-    'references': NotRequired[bool],
-    'definition': NotRequired[bool],
-    'rename': NotRequired[bool],
-})
+class MappingFileRangeCapabilities(TypedDict):
+    source: NotRequired[str]
+    sourceRange: tuple[int, int]
+    generatedRange: tuple[int, int]
+    data: FileRangeCapabilities
 
-MappingFileRangeCapabilities = TypedDict('MappingFileRangeCapabilities', {
-    'source': NotRequired[str],
-    'sourceRange': Tuple[int, int],
-    'generatedRange': Tuple[int, int],
-    'data': FileRangeCapabilities,
-})
+class MappingMirrorBehaviorCapabilities(TypedDict):
+    source: NotRequired[str]
+    sourceRange: tuple[int, int]
+    generatedRange: tuple[int, int]
+    data: tuple[MirrorBehaviorCapabilities, MirrorBehaviorCapabilities]
 
-MappingMirrorBehaviorCapabilities = TypedDict('MappingMirrorBehaviorCapabilities', {
-    'source': NotRequired[str],
-    'sourceRange': Tuple[int, int],
-    'generatedRange': Tuple[int, int],
-    'data': Tuple[MirrorBehaviorCapabilities, MirrorBehaviorCapabilities],
-})
-
-VirtualFile = TypedDict('VirtualFile', {
-    'fileName': str,
-    'snapshot': Any,
-    'kind': FileKind,
-    'capabilities': FileCapabilities,
-    'mappings': List[MappingFileRangeCapabilities],
-    'codegenStacks': List[Stack],
-    'mirrorBehaviorMappings': NotRequired[List[MappingMirrorBehaviorCapabilities]],
-    'embeddedFiles': List['VirtualFile'],
-    'version': str,
-})
+class VirtualFile(TypedDict):
+    fileName: str
+    snapshot: Any
+    kind: FileKind
+    capabilities: FileCapabilities
+    mappings: list[MappingFileRangeCapabilities]
+    codegenStacks: list[Stack]
+    mirrorBehaviorMappings: NotRequired[list[MappingMirrorBehaviorCapabilities]]
+    embeddedFiles: list['VirtualFile']
+    version: str
 
 
 class GetVirtualFilesRequest:
@@ -121,24 +100,25 @@ class GetVirtualFilesRequest:
     ParamsType = TextDocumentIdentifier
     ResponseType = Optional[VirtualFile]
 
+class GetVirtualFileRequestParamsType(TypedDict):
+    sourceFileUri: str
+    virtualFileName: str
+
+class GetVirtualFileRequestResponseType(TypedDict):
+    content: str
+    mappings: dict[str, list[MappingFileRangeCapabilities]]
+    codegenStacks: list[Stack]
 
 class GetVirtualFileRequest:
     Type = 'volar/client/virtualFile'
-    ParamsType = TypedDict('ParamsType', {
-        'sourceFileUri': str,
-        'virtualFileName': str,
-    })
-    ResponseType = TypedDict('ResponseType', {
-        'content': str,
-        'mappings': Dict[str, List[MappingFileRangeCapabilities]],
-        'codegenStacks': List[Stack],
-    })
+    ParamsType = GetVirtualFileRequestParamsType
+    ResponseType = GetVirtualFileRequestResponseType
 
 
 class VirtualFilesDataProvider(TreeDataProvider):
 
     def __init__(
-        self, weaksession: 'weakref.ref[Session]', source_file_uri: str, root_elements: List[VirtualFile]
+        self, weaksession: weakref.ref[Session], source_file_uri: str, root_elements: list[VirtualFile]
     ) -> None:
         self.weaksession = weaksession
         self.source_file_uri = source_file_uri
@@ -146,7 +126,7 @@ class VirtualFilesDataProvider(TreeDataProvider):
         session = self.weaksession()
         self.session_name = session.config.name if session else None
 
-    def get_children(self, element: Optional[VirtualFile]) -> Promise[List[VirtualFile]]:
+    def get_children(self, element: VirtualFile | None) -> Promise[list[VirtualFile]]:
         if element is None:
             return Promise.resolve(self.root_elements)
         session = self.weaksession()
@@ -183,7 +163,7 @@ class LspVolarShowVirtualFilesCommand(LspTextCommand):
             .then(lambda virtual_file: self._on_get_virtual_files_async(weakref.ref(session), virtual_file))
 
     def _on_get_virtual_files_async(
-        self, weaksession: 'weakref.ref[Session]', virtual_file: GetVirtualFilesRequest.ResponseType
+        self, weaksession: weakref.ref[Session], virtual_file: GetVirtualFilesRequest.ResponseType
     ) -> None:
         if not virtual_file:
             sublime.status_message('No virtual file found')
@@ -208,7 +188,7 @@ class LspVolarShowVirtualFilesCommand(LspTextCommand):
 class LspVolarOpenVirtualFileCommand(LspWindowCommand):
     session_name = 'LSP-volar'
 
-    def run(self, uri: str, file_name: str, event: Optional[dict] = None) -> None:
+    def run(self, uri: str, file_name: str, event: dict | None = None) -> None:
         sublime.set_timeout_async(lambda: self.run_async(uri, file_name))
 
     def run_async(self, uri: str, file_name: str) -> None:
@@ -232,5 +212,5 @@ class LspVolarOpenVirtualFileCommand(LspWindowCommand):
         new_view = self.window.new_file(flags=flags, syntax=syntax_path)
         if new_view:
             new_view.set_scratch(True)
-            new_view.set_name('(virtual) {}'.format(uri))
+            new_view.set_name(f'(virtual) {uri}')
             new_view.run_command('append', {'characters': result['content']})
