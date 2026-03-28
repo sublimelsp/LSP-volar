@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from collections.abc import Callable
 from enum import IntEnum
 from LSP.plugin import LspTextCommand
@@ -14,7 +15,10 @@ from LSP.plugin.core.views import text_document_identifier
 from LSP.protocol import TextDocumentIdentifier
 from LSP.protocol import URI
 from os.path import basename
-from typing import Any, NotRequired, Optional, TypedDict, Union
+from typing import Any
+from typing import Optional
+from typing import TypedDict
+from typing_extensions import NotRequired
 import sublime
 import weakref
 
@@ -91,7 +95,7 @@ class VirtualFile(TypedDict):
     mappings: list[MappingFileRangeCapabilities]
     codegenStacks: list[Stack]
     mirrorBehaviorMappings: NotRequired[list[MappingMirrorBehaviorCapabilities]]
-    embeddedFiles: list['VirtualFile']
+    embeddedFiles: list[VirtualFile]
     version: str
 
 

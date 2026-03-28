@@ -1,9 +1,13 @@
+from __future__ import annotations
+
 from LSP.plugin import ClientConfig
 from LSP.plugin import WorkspaceFolder
-from LSP.plugin.core.typing import Any, Callable, List, Optional, Mapping
 from LSP.plugin.core.protocol import Location
 from LSP.plugin.locationpicker import LocationPicker
 from lsp_utils import NpmClientHandler
+from typing import Any
+from typing import Callable
+from typing import Mapping
 import os
 import sublime
 
@@ -17,7 +21,7 @@ def plugin_unloaded():
 
 
 class LspVolarPlugin(NpmClientHandler):
-    package_name = __package__
+    package_name = str(__package__)
     server_directory = 'server'
     server_binary_path = os.path.join(server_directory, 'node_modules', '@vue', 'language-server', 'bin', 'vue-language-server.js')
 
@@ -29,10 +33,10 @@ class LspVolarPlugin(NpmClientHandler):
     def is_allowed_to_start(
         cls,
         window: sublime.Window,
-        initiating_view: Optional[sublime.View] = None,
-        workspace_folders: Optional[List[WorkspaceFolder]] = None,
-        configuration: Optional[ClientConfig] = None
-    ) -> Optional[str]:
+        initiating_view: sublime.View | None = None,
+        workspace_folders: list[WorkspaceFolder] | None = None,
+        configuration: ClientConfig | None = None
+    ) -> str | None:
         if not workspace_folders or not configuration:
             return 'Can not run without a workspace folder'
         if configuration.init_options.get('typescript.tsdk'):
@@ -43,7 +47,7 @@ class LspVolarPlugin(NpmClientHandler):
         configuration.init_options.set('typescript.tsdk', typescript_lib_path)
 
     @classmethod
-    def find_typescript_lib_path(cls, workspace_folder: str) -> Optional[str]:
+    def find_typescript_lib_path(cls, workspace_folder: str) -> str | None:
         module_paths = [
             'node_modules/typescript/lib/tsserverlibrary.js',
             '.vscode/pnpify/typescript/lib/tsserverlibrary.js',
@@ -65,7 +69,7 @@ class LspVolarPlugin(NpmClientHandler):
             return True
         return False
 
-    def _handle_show_references(self, references: List[Location]) -> None:
+    def _handle_show_references(self, references: list[Location]) -> None:
         session = self.weaksession()
         if not session:
             return

@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from LSP.plugin import LspTextCommand
 from LSP.plugin import Notification
 from LSP.plugin import uri_from_view
