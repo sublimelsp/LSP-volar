@@ -39,12 +39,12 @@ class LspVolarPlugin(NpmClientHandler):
     ) -> str | None:
         if not workspace_folders or not configuration:
             return 'Can not run without a workspace folder'
-        if configuration.init_options.get('typescript.tsdk'):
+        if configuration.initialization_options.get('typescript.tsdk'):
             return  # don't find the `typescript.tsdk` if it was set explicitly in LSP-volar.sublime-settings
         typescript_lib_path = cls.find_typescript_lib_path(workspace_folders[0].path)
         if not typescript_lib_path:
             return 'Could not resolve location of TypeScript package'
-        configuration.init_options.set('typescript.tsdk', typescript_lib_path)
+        configuration.initialization_options.set('typescript.tsdk', typescript_lib_path)
 
     @classmethod
     def find_typescript_lib_path(cls, workspace_folder: str) -> str | None:
