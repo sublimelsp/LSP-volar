@@ -1,5 +1,5 @@
 {
-	"initializationOptions": {
+	"initialization_options": {
 		// List any additional file extensions that should be processed as Vue files.
 		"additionalExtensions": [],
 		// Path to volar.config.js.
