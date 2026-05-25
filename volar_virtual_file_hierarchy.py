@@ -4,10 +4,10 @@ from collections.abc import Callable
 from enum import IntEnum
 from LSP.plugin import LspTextCommand
 from LSP.plugin import LspWindowCommand
+from LSP.plugin import Promise
 from LSP.plugin import Request
 from LSP.plugin import Session
 from LSP.plugin import uri_from_view
-from LSP.plugin.core.promise import Promise
 from LSP.plugin.core.tree_view import new_tree_view_sheet
 from LSP.plugin.core.tree_view import TreeDataProvider
 from LSP.plugin.core.tree_view import TreeItem
@@ -153,7 +153,6 @@ class VirtualFilesDataProvider(TreeDataProvider):
 
 
 class LspVolarShowVirtualFilesCommand(LspTextCommand):
-    session_name = 'LSP-volar'
 
     def run(self, edit: sublime.Edit) -> None:
         sublime.set_timeout_async(self.run_async)
@@ -190,7 +189,6 @@ class LspVolarShowVirtualFilesCommand(LspTextCommand):
 
 
 class LspVolarOpenVirtualFileCommand(LspWindowCommand):
-    session_name = 'LSP-volar'
 
     def run(self, uri: str, file_name: str, event: dict | None = None) -> None:
         sublime.set_timeout_async(lambda: self.run_async(uri, file_name))
