@@ -13,7 +13,6 @@ class WriteVirtualFilesNotification:
 
 
 class LspVolarWriteVirtualFilesCommand(LspTextCommand):
-    session_name = 'LSP-volar'
 
     def run(self, edit: sublime.Edit) -> None:
         sublime.set_timeout_async(self.run_async)

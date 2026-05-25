@@ -267,6 +267,11 @@
 		"html.hover.references": true,
 		// Enable/disable mirroring cursor on matching HTML tag.
 	},
+	// The path to the server binary used to start the language server.
+	// Use `auto` for the package to manage (install/update) the server automatically.
+	// NOTE: Change this instead of directly updating `command` - the `${server_path}` variable is dynamically resolved based on this setting.
+	// WARNING: Override at your own risk - using a custom binary can cause compatibility issues with server settings.
+	"server_path": "auto",
 	"command": [
 		"${node_bin}",
 		// If you have problem on frequently "Request textDocument/** failed." error, try setting higher memory (MB)

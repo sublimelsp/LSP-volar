@@ -1,15 +1,6 @@
 [tool.pyright]
 pythonVersion = "3.8"
-reportAny = "none"
-reportExplicitAny = "none"
-reportImplicitOverride = "none"
-reportIncompatibleMethodOverride = "none"
-reportMissingModuleSource = "none"
-reportUnannotatedClassAttribute = "none"
-reportUnknownArgumentType = "none"
-reportUnknownMemberType = "none"
-reportUnknownVariableType = "none"
-reportUnusedCallResult = "none"
+typeCheckingMode = "standard"
 
 [tool.ruff]
 line-length = 120
@@ -22,6 +13,9 @@ indent-style = "space"
 skip-magic-trailing-comma = false
 # Automatically detect the appropriate line ending.
 line-ending = "auto"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "FURB", "SIM"]
 
 [tool.ruff.lint.isort]
 case-sensitive = false
