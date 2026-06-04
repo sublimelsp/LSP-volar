@@ -30,7 +30,7 @@ class LspVolarPlugin(LspPlugin):
             cls.plugin_storage_path,
             ResourcePath('Packages', package_name, 'language-server'),
             Path('node_modules', '@vue', 'language-server', 'bin', 'vue-language-server.js'),
-            '>=16',
+            node_version_requirement='>=16',
         )
         if not context.configuration.initialization_options.get('typescript.tsdk'):
             if not server_directory_path:
