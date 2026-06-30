@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from enum import IntEnum
+from LSP.plugin import Error
 from LSP.plugin import LspTextCommand
 from LSP.plugin import LspWindowCommand
 from LSP.plugin import Promise
@@ -139,16 +140,15 @@ class VirtualFilesDataProvider(TreeDataProvider):
         return Promise.resolve(element['embeddedFiles'])
 
     def get_tree_item(self, element: VirtualFile) -> TreeItem:
-        command_url = sublime.command_url('lsp_volar_open_virtual_file', {
-            'uri': self.source_file_uri,
-            'file_name': element['fileName'],
-        })
         path = basename(element['fileName'])
         description = '(kind: {}, version: {})'.format(element['kind'], element['version'])
         return TreeItem(
             path,
             description=description,
-            command_url=command_url
+            action_command=('lsp_volar_open_virtual_file', {
+                'uri': self.source_file_uri,
+                'file_name': element['fileName'],
+            })
         )
 
 
@@ -166,10 +166,13 @@ class LspVolarShowVirtualFilesCommand(LspTextCommand):
             .then(lambda virtual_file: self._on_get_virtual_files_async(weakref.ref(session), virtual_file))
 
     def _on_get_virtual_files_async(
-        self, weaksession: weakref.ref[Session], virtual_file: GetVirtualFilesRequest.ResponseType
+        self, weaksession: weakref.ref[Session], virtual_file: GetVirtualFilesRequest.ResponseType | Error
     ) -> None:
         if not virtual_file:
             sublime.status_message('No virtual file found')
+            return
+        if isinstance(virtual_file, Error):
+            sublime.status_message('Error getting virtual files')
             return
         window = self.view.window()
         if not window:
@@ -203,7 +206,12 @@ class LspVolarOpenVirtualFileCommand(LspWindowCommand):
         })
         session.send_request_task(request).then(lambda result: self._on_files_contents_async(uri, file_name, result))
 
-    def _on_files_contents_async(self, uri: URI, file_name: str, result: GetVirtualFileRequest.ResponseType) -> None:
+    def _on_files_contents_async(
+        self, uri: URI, file_name: str, result: GetVirtualFileRequest.ResponseType | Error
+    ) -> None:
+        if isinstance(result, Error):
+            sublime.status_message('Error getting file contents')
+            return
         flags = sublime.ADD_TO_SELECTION | sublime.SEMI_TRANSIENT | sublime.CLEAR_TO_RIGHT
         # Force TS syntax for virtual .js files.
         # Those are actually TS files and using .js extension triggers errors from LSP.
