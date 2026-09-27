@@ -8,11 +8,11 @@ from LSP.plugin import LspWindowCommand
 from LSP.plugin import Promise
 from LSP.plugin import Request
 from LSP.plugin import Session
+from LSP.plugin import text_document_identifier
 from LSP.plugin import uri_from_view
 from LSP.plugin.core.tree_view import new_tree_view_sheet
 from LSP.plugin.core.tree_view import TreeDataProvider
 from LSP.plugin.core.tree_view import TreeItem
-from LSP.plugin.core.views import text_document_identifier
 from LSP.protocol import TextDocumentIdentifier
 from LSP.protocol import URI
 from os.path import basename
