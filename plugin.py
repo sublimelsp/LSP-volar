@@ -28,7 +28,7 @@ class LspVolarPlugin(LspPlugin):
         server_directory_path = NodeManager.on_pre_start_async(
             context,
             cls.plugin_storage_path,
-            ResourcePath('Packages', package_name, 'language-server'),
+            ResourcePath('Packages', package_name, 'server'),
             Path('node_modules', '@vue', 'language-server', 'bin', 'vue-language-server.js'),
             node_version_requirement='>=16',
         )
@@ -39,7 +39,7 @@ class LspVolarPlugin(LspPlugin):
                 context.workspace_folders[0].path, server_directory_path)
             if not typescript_lib_path:
                 raise PluginStartError('Could not resolve location of TypeScript package')
-            context.configuration.initialization_options.set('typescript.tsdk', typescript_lib_path)
+            context.configuration.initialization_options.set('typescript.tsdk', str(typescript_lib_path))
 
     @classmethod
     def find_typescript_lib_path(cls, workspace_folder: str, server_directory_path: Path) -> Path | None:
